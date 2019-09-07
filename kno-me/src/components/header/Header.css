@@ -1,0 +1,60 @@
+
+/************* To Do's: **************
+take away border (only for aligning)
+Show only text
+create fx in center logo
+create logo
+shadow around whole text to make text standout
+keep all text concise
+change font
+
+later: media queries
+*/
+.container {
+    top: 20px;
+    position: fixed;
+    display: flex;
+    margin: 25%;
+    height: 20vh;
+    width: 50%;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-around;
+    align-content: center;
+}
+.logo {
+    padding: 0;
+    margin: 0;
+    font-size: 4.2rem;
+    flex: 1;
+    text-align: center;
+}
+.one-line-header {  
+    font-size: 2.2rem;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;    
+}
+.mission-statement {
+    font-size: 1.5rem;
+    font-weight: 200;
+    flex: 1;
+    text-align: center;    
+} 
+
+/* Just for references */
+.buttons {
+    text-align: center;
+}
+
+/**************** Media Queries **************/
+/* @media(max-width: 319px) {
+    .container {
+        position: fixed;
+        display: flex;
+        margin-top: 10%;
+        flex-direction: column;
+        align-self: center;
+        justify-content: space-between;
+    }
+} */

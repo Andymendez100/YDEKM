@@ -58,7 +58,7 @@ export class Sidebar extends Component {
         }
 
         return (
-            <div style={{ height: '100%' }}>
+            <div>
                 {/* trigger button which handles sideDrawer */}
                 {/* pass a prop to Toolbar drawerClickHandler and point to drawerToggleClickHandler */}
                 <Toolbar drawerClickHandler={ this.drawerToggleClickHandler }/>
