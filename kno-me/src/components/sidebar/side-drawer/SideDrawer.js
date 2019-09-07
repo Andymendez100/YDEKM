@@ -11,16 +11,13 @@ const SideDrawer = props => {
     if(props.show) {
         drawerClasses = ['side-drawer', 'open']
     } 
-    if(props.exit) {
-
-    }
-
+    
     return (
         //now join the elements with a space between them
         <nav className={ drawerClasses.join(' ') }>
 
         {/* add props exit and pass it in onClick listener */}
-        <button className="btn btn-close" onClick={ props.exit }>X</button>
+        {/* <button className="btn btn-close" onClick={ props.exit }>X</button> */}
             <ul>
                 <li>
                     {/* NEED to change anchor tags to Links */}
