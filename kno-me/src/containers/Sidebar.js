@@ -29,16 +29,32 @@ export class Sidebar extends Component {
     backDropClickHandler = () => {
         this.setState({ sideDrawerOpen: false })
     }
+
+    //Handles exit button
+    exitClickHandler = (e) => {
+        console.log(e.target);
+        this.setState({ sideDrawerOpen: false })
+    }
+
     render() {
     
         //variable backdrop to store new state
         let backdrop;
+        let exit;
 
         //if sideDrawer true set components to variable 
         if(this.state.sideDrawerOpen) {
             //passed click props and point to backDropClickHandler function
             backdrop = <Backdrop click={ this.backDropClickHandler }/>
             //now add onClick listener to Backdrop
+        }
+
+        // if sidebar is true, allow handlers to change its state
+        if(this.state.sideDrawerOpen) {
+            exit = <SideDrawer 
+                        exit={ this.exitClickHandler }
+                        show={ this.state.sideDrawerOpen }
+                    />
         }
 
         return (
@@ -48,9 +64,10 @@ export class Sidebar extends Component {
                 <Toolbar drawerClickHandler={ this.drawerToggleClickHandler }/>
                 
                 {/* pass in info to see if we want this to be open or not to use in SideDrawer.js*/}
-                <SideDrawer show={ this.state.sideDrawerOpen }/>
+                {/* <SideDrawer show={ this.state.sideDrawerOpen } /> */}
 
                 {/* referenced variable  */}
+                { exit }
                 { backdrop }
             </div>
         )

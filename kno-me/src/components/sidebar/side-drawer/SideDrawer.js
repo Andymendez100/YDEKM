@@ -10,13 +10,20 @@ const SideDrawer = props => {
     //if true, add another class and pushing to array manually
     if(props.show) {
         drawerClasses = ['side-drawer', 'open']
+    } 
+    if(props.exit) {
+
     }
+
     return (
         //now join the elements with a space between them
         <nav className={ drawerClasses.join(' ') }>
+
+        {/* add props exit and pass it in onClick listener */}
+        <button className="btn btn-close" onClick={ props.exit }>X</button>
             <ul>
                 <li>
-                    {/* need to change anchor tags to Links */}
+                    {/* NEED to change anchor tags to Links */}
                     <a href="/">Game</a>
                 </li>
                 <li>
@@ -31,3 +38,4 @@ const SideDrawer = props => {
 }
 
 export default SideDrawer
+
