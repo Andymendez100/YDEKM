@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Crimson+Pro);
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    color: black;
+    font-size: 1.2rem;
+    font-family: 'Crimson', serif;
+    text-align: center;
+}

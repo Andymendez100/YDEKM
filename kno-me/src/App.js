@@ -9,6 +9,7 @@ import Header from './components/header/Header';
 import Wrapper from './components/wrapper/Wrapper';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
+import Footer from './components/footer/Footer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Wrapper>
           <Sidebar />
           <Header />
+          <Footer/>
         </Wrapper>
       )} />
 

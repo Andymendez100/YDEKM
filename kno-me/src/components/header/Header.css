@@ -13,11 +13,11 @@ change font
 later: media queries
 */
 .container {
-    top: 20px;
+    top: 0;
     position: fixed;
     display: flex;
     margin: 30%;
-    height: 50vh;
+    height: 40vh;
     width: 40%;
     flex-direction: column;
     align-self: center;
@@ -40,7 +40,7 @@ later: media queries
     font-weight: bolder;
     flex: 1;
     text-align: center; 
-    margin-bottom: 0;
+    margin-bottom: 20px;
     padding-top: 50px;
 }
 .mission-statement {
