@@ -1,15 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Crimson+Pro);
+
 .side-drawer {
     height: 100%;
-    background: rgb(211, 240, 210);
+    background: rgb(117, 93, 66);
     box-shadow: 1px 0 7px rgba(0,0,0,0.5);
     position: fixed;
     top: 0;
     left: 0;
     width: 60%;
-    max-width: 300px;
+    max-width: 400px;
     z-index: 200;
     transform: translateX(-100%);
     transition: transform 0.2s ease-out;
+}
+.side-drawer .logo2 {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../../header/KnowMe.png');
+    padding: 20px;
+    margin: 40px 0 0 60px;
+    min-width: 200px;
 }
 .side-drawer.open {
     transform: translateX(0);
@@ -23,16 +38,24 @@
     justify-content: left;
 }
 .side-drawer li {
-    margin: 0.5rem 0;
+    position: relative;
+    top: 160px;
+    margin: 2rem 0;
+    padding: 10px;
+    font-family: 'Crimson', serif;
+    font-weight: bolder;
+    display: flex;
+    flex-direction: column;
 }
 .side-drawer a {
     color: rgb(73, 55, 95);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 2rem;
 }
 .side-drawer a:hover,
 .side-drawer a:active {
-    color: rgb(204, 169, 129);
+    color: white;
+
 }
 .btn {
     margin: 5px;
@@ -41,4 +64,8 @@
     font-weight: bold;
     color: rgb(73, 55, 95);   
 }
-
+@media (min-width: 1023px) {
+    .side-drawer a {
+        font-size: 1.3rem;
+    }
+}

@@ -50,7 +50,7 @@ later: media queries
     font-weight: 200;
     flex: 1;
     text-align: center;   
-    margin-bottom: 200px; 
+    margin-bottom: 100px; 
 } 
 
 /* Just for references */
@@ -67,13 +67,50 @@ later: media queries
 }
 
 /**************** Media Queries **************/
-/* @media(max-width: 319px) {
-    .container {
-        position: fixed;
-        display: flex;
-        margin-top: 10%;
-        flex-direction: column;
-        align-self: center;
-        justify-content: space-between;
+@media only screen and (max-width: 1440px) {
+    .logo {
+        min-height: 120px;
     }
-} */
+    .container {
+        height: 10vh;
+    }
+    .one-line-header {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        padding-top: 40px;
+    }
+    .mission-statement {
+        font-size: 1.2rem;
+        margin-bottom: 50px; 
+    }
+    .buttons {
+        position: relative;
+        margin: 6px 160px;
+        font-size: 1.2rem;
+        padding: 6px 2px;
+    } 
+}
+@media (max-width: 1024px) {
+    .logo {
+        min-height: 100px;
+        padding: 1rem;
+    }
+    .container {
+        height: 30vh;
+    }
+    .one-line-header {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        padding-top: 40px;
+    } 
+    .mission-statement {
+        font-size: 1.1rem;
+        margin-bottom: 60px; 
+    }
+    .buttons {
+        position: relative;
+        margin: 6px 80px;
+        font-size: 1rem;
+        padding: 6px 2px;
+    }
+}

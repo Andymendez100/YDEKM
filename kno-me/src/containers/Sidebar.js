@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import SideDrawer from '../components/sidebar/side-drawer/SideDrawer';
 import Toolbar from '../components/sidebar/toolbar/Toolbar';
 import Backdrop from '../components/sidebar/backdrop/Backdrop';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
 
 export class Sidebar extends Component {
     state = {
@@ -56,7 +58,8 @@ export class Sidebar extends Component {
 
                 {/* pass in info to see if we want this to be open or not to use in SideDrawer.js*/}
                 <SideDrawer show={this.state.sideDrawerOpen} />
-
+                <Header/>
+                <Footer/>
                 {/* referenced variable  */}
                 {backdrop}
             </div>

@@ -18,9 +18,10 @@ const SideDrawer = props => {
 
             {/* add props exit and pass it in onClick listener */}
             {/* <button className="btn btn-close" onClick={ props.exit }>X</button> */}
-            <ul>
+            <div className="logo2"></div>
+            <ul>                
+                {/* NEED to change anchor tags to Links */}
                 <li>
-                    {/* NEED to change anchor tags to Links */}
                     <a href="/"> > Game</a>
                 </li>
                 <li>
