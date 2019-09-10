@@ -3,7 +3,8 @@
     top: 0;
     left: 0;
     position: fixed;
-    background: rgb(204, 169, 129);
+    background: rgb(117, 93, 66);
+    /* box-shadow: 0 2px rgba(128, 120, 120, 0.644); */
     height: 64px;
 
 }
