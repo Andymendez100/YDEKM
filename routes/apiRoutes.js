@@ -3,8 +3,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 
 module.exports = app => {
-  app.get('/', (req, res) => res.send('Hello World!'));
-
   // Register User
   app.post('/register', function(req, res) {
     const { password } = req.body;
@@ -12,7 +10,7 @@ module.exports = app => {
 
     // eslint-disable-next-line eqeqeq
     if (password == password2) {
-      const newUser = new User({
+      const newUser = new User.User({
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
