@@ -25,18 +25,6 @@ export class Sidebar extends Component {
     );
   };
 
-  // Handles for closing the sideDrawer by clicking on backdrop
-  // false will always close
-  backDropClickHandler = () => {
-    this.setState({ sideDrawerOpen: false });
-  };
-
-  // Handles exit button
-  exitClickHandler = e => {
-    console.log(e.target);
-    this.setState({ sideDrawerOpen: false });
-  };
-
   render() {
     // variable backdrop to store new state
     let backdrop;

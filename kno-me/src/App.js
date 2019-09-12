@@ -8,6 +8,7 @@ import Sidebar from './containers/Sidebar';
 import Wrapper from './components/wrapper/Wrapper';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
+import LoginSign from './containers/loginSign/LoginSign';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       {/* Routes */}
       <Route path="/createlobby" component={CreateLobbyPage} />
       <Route path="/join" component={JoinPage} />
+      <Route path="/login" component={LoginSign} />
     </Router>
   );
 }

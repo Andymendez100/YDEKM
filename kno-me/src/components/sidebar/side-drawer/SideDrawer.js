@@ -1,6 +1,10 @@
 import React from 'react';
 
 import './SideDrawer.css';
+// import LoginSign from '../../../containers/loginSign/LoginSign';
+// import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+
+import { Link } from 'react-router-dom';
 
 const SideDrawer = props => {
 
@@ -28,7 +32,7 @@ const SideDrawer = props => {
                     <a href="/"> > Lobby</a>
                 </li>
                 <li>
-                    <a href="/"> > Login/Sign Up</a>
+                    <Link to="/login"> > Login</Link>
                 </li>
             </ul>
         </nav>
