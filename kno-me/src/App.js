@@ -10,7 +10,6 @@ import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
 import LoginSign from './containers/loginSign/LoginSign';
 
-
 function App() {
   return (
     <Router>

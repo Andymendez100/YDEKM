@@ -114,3 +114,28 @@ later: media queries
         padding: 6px 2px;
     }
 }
+@media (max-width: 2560px) {
+    .logo {
+        min-height: 140px;
+        padding: 20px;
+    }
+    .container {
+        height: 10vh;
+        margin-top: 28%;
+    }
+    .one-line-header {
+        font-size: 2rem;
+        margin-bottom: 40px;
+        padding-top: 30px;
+    }
+    .mission-statement {
+        font-size: 1.4rem;
+        margin-bottom: 80px; 
+    }
+    .buttons {
+        position: relative;
+        margin: 10px 200px;
+        font-size: 1.4rem;
+        padding: 10px 2px;
+    } 
+}
