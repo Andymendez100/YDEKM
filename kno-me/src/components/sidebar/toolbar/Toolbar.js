@@ -10,7 +10,6 @@ const Toolbar = props => (
         <nav className="toolbar-nav">
             { /*hamburger*/ } 
             <div className="toolbar-hamburger">
-
                 {/* pass props drawerClickHandler from Sidebar and set it to click */}
                 <DrawerToggleButton click={ props.drawerClickHandler }/>
                 {/* now, pass the click props to DrawerToggleButton */}
