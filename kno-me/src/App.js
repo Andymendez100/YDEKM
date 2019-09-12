@@ -10,16 +10,19 @@ import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
 import LoginSign from './containers/loginSign/LoginSign';
 
-
 function App() {
   return (
     <Router>
       {/* Home route */}
-      <Route exact path="/" render={props => (
-        <Wrapper>
-          <Sidebar />
-        </Wrapper>
-      )} />
+      <Route
+        exact
+        path="/"
+        render={props => (
+          <Wrapper>
+            <Sidebar />
+          </Wrapper>
+        )}
+      />
 
       {/* Routes */}
       <Route path="/createlobby" component={CreateLobbyPage} />
