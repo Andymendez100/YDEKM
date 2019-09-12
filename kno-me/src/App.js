@@ -9,16 +9,19 @@ import Wrapper from './components/wrapper/Wrapper';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
 
-
 function App() {
   return (
     <Router>
       {/* Home route */}
-      <Route exact path="/" render={props => (
-        <Wrapper>
-          <Sidebar />
-        </Wrapper>
-      )} />
+      <Route
+        exact
+        path="/"
+        render={props => (
+          <Wrapper>
+            <Sidebar />
+          </Wrapper>
+        )}
+      />
 
       {/* Routes */}
       <Route path="/createlobby" component={CreateLobbyPage} />
