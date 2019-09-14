@@ -6,11 +6,10 @@ import './Header.css';
 import CreateLobbyButton from '../buttons/createLobby/CreateLobbyButton';
 import JoinButton from '../buttons/join/JoinButton';
 import QuestionPage from '../question/QuestionPage';
-import QuestionLogo from '../../Images/question.png';
 
 export default function Homepage() {
     return (
-        <div className="container" img src={QuestionLogo}>
+        <div className="container">
             <div className="logo">
             </div>
             <div className="one-line-header">
