@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import components
 import './App.css';
-import Sidebar from './containers/Sidebar';
-import Wrapper from './components/wrapper/Wrapper';
+// import Sidebar from './containers/Sidebar';
+// import Wrapper from './components/wrapper/Wrapper';
+import Homepage from './components/homepage/Homepage';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
 import LoginSign from './containers/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
-import PersistentDrawerLeft from './components/sidebar/newhamburger/hamburger';
+import PersistentDrawerLeft from './components/drawer/Drawer';
 
 function App() {
   return (
@@ -21,9 +22,7 @@ function App() {
         exact
         path="/"
         render={props => (
-          <Wrapper>
-            <Sidebar />
-          </Wrapper>
+          <Homepage/>
         )}
       />
 
