@@ -1,6 +1,9 @@
 const passport = require('passport');
+const jwt = require('jwt-simple');
+
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+const keys = require('../config/keys');
 
 module.exports = app => {
   // Register User
@@ -18,7 +21,9 @@ module.exports = app => {
       });
 
       User.createUser(newUser, function(err, user) {
-        if (err) throw err;
+        if (err) {
+          res.send(409);
+        }
         res.send(user).end();
       });
     } else {
@@ -59,14 +64,15 @@ module.exports = app => {
     });
   });
 
+  const checkJWT = (req, res, next) => {};
+
   // Endpoint to login
   app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.send(req.user);
-  });
+    const payload = { id: req.user.id, username: req.user.username };
+    const secret = Buffer.from(keys.secret, keys.encode);
+    const token = jwt.encode(payload, secret);
 
-  // Endpoint to get current user
-  app.get('/user', function(req, res) {
-    res.send(req.user);
+    res.send(token);
   });
 
   // Endpoint to logout
