@@ -2,6 +2,8 @@ import React from 'react';
 
 import './SideDrawer.css';
 
+import {Link} from 'react-router-dom';
+
 const SideDrawer = props => {
 
     //construct classes to attach to attach in side-drawer
@@ -28,7 +30,7 @@ const SideDrawer = props => {
                     <a href="/"> > Lobby</a>
                 </li>
                 <li>
-                    <a href="/"> > Login/Sign Up</a>
+                  <Link to="/login"> > Login/Sign Up</Link>
                 </li>
             </ul>
         </nav>

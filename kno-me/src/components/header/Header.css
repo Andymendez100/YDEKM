@@ -12,7 +12,7 @@ change font
 
 later: media queries
 */
-.container {
+/* .container {
     top: 0;
     position: fixed;
     display: flex;
@@ -67,7 +67,7 @@ later: media queries
 }
 
 /**************** Media Queries **************/
-@media only screen and (max-width: 1440px) {
+/* @media only screen and (max-width: 1440px) {
     .logo {
         min-height: 120px;
     }
@@ -113,4 +113,4 @@ later: media queries
         font-size: 1rem;
         padding: 6px 2px;
     }
-}
+}  */
