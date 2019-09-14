@@ -37,6 +37,7 @@ export default class Login extends Component {
            <div className="card-body" id="body">
               <div className="row">
                 <div className="col-lg-6" id="signIn">
+                  <h5>Sign In</h5>
                   <form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
@@ -59,6 +60,7 @@ export default class Login extends Component {
            
 
               <div className="col-6-lg ml-3" id="signUp">
+                <h5>Sign Up</h5>
                 <form onSubmit={this.handleSubmit}>
 
                   <Form.Row>
