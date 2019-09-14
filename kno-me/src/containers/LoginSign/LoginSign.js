@@ -67,6 +67,18 @@ export default class Login extends Component {
                 <form onSubmit={this.handleSubmit}>
 
                   <Form.Row>
+                    <Form.Group as={Col} controlId="formPlaintext">
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control type="text" placeholder="enter first name"/>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formPlaintext">
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control type="text" placeholder="enter last name" />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Email</Form.Label>
                       <Form.Control type="email" placeholder="enter your email" />
