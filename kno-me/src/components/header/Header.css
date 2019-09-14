@@ -14,10 +14,10 @@ later: media queries
 */
 .container {
     top: 0;
-    position: fixed;
+    position: relative;
     display: flex;
     margin: 30%;
-    height: 40vh;
+    height: 0;
     width: 40%;
     flex-direction: column;
     align-self: center;
@@ -25,7 +25,7 @@ later: media queries
     align-content: center;
 }
 .logo {
-    min-height: 120px;
+    min-height: 10px;
     background-position: center;
     background-size: cover;
     background-image: url('KnowMe.png');

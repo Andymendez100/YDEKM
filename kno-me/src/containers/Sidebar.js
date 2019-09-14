@@ -45,7 +45,7 @@ export class Sidebar extends Component {
         {/* pass in info to see if we want this to be open or not to use in SideDrawer.js */}
         <SideDrawer show={this.state.sideDrawerOpen} />
         <Header />
-        <Footer />
+        {/* <Footer /> */}
         {/* referenced variable  */}
         {backdrop}
       </div>
