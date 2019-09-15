@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 
+// //=============== Socket.io =====================
+// const app = require('http').createServer()
+// const io = module.exports.io = require('socket.io')(app);
+
+// io.on('connection', SocketManager);
+
+// //=============== Socket.io end =================
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -43,6 +51,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
 // const db = mongoose.connect;
 
 // Start the API server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

@@ -24,7 +24,7 @@
     background-image: url('../../header/KnowMe.png');
     padding: 20px;
     margin: 40px 0 0 60px;
-    min-width: 200px;
+    min-width: 190px;
 }
 .side-drawer.open {
     transform: translateX(0);
@@ -58,8 +58,10 @@
 
 }
 .btn {
-    margin: 5px;
-    padding: 2px;
+    position: fixed;
+    left: 90%;
+    margin: 10px;
+    padding: 5px;
     font-size: 1rem;
     font-weight: bold;
     color: rgb(73, 55, 95);   

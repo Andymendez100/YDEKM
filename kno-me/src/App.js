@@ -4,24 +4,21 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import components
 import './App.css';
-import Sidebar from './containers/Sidebar';
+import Sidebar from './components/Sidebar';
 import Wrapper from './components/wrapper/Wrapper';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
-import LoginSign from './containers/loginSign/LoginSign';
+import LoginSign from './components/loginSign/LoginSign';
 
 function App() {
   return (
     <Router>
       {/* Home route */}
-      <Route
-        exact
-        path="/"
-        render={props => (
-          <Wrapper>
-            <Sidebar />
-          </Wrapper>
-        )}
+      <Route exact path="/" render={props => (
+        <Wrapper>
+          <Sidebar />
+        </Wrapper>
+      )}
       />
 
       {/* Routes */}

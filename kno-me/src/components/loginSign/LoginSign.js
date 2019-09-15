@@ -51,7 +51,7 @@ export default class LoginSign extends Component {
           <Button
             block
             bsSize="large"
-            disabled={!this.validateForm()}
+            disabled={this.validateForm()}
             type="submit"
           >
             Login

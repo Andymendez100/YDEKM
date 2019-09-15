@@ -19,6 +19,7 @@ export class Sidebar extends Component {
 
   // Handles the state of sideDrawer
   drawerToggleClickHandler = () => {
+    console.log("clicked");
     this.setState(prevState =>
       // if sideDrawer is true will not be saved as false and visa versa
       ({ sideDrawerOpen: !prevState.sideDrawerOpen })
@@ -31,8 +32,7 @@ export class Sidebar extends Component {
 
     // if sideDrawer true set components to variable
     if (this.state.sideDrawerOpen) {
-      // passed click props and point to backDropClickHandler function
-      backdrop = <Backdrop click={this.backDropClickHandler} />;
+      backdrop = <Backdrop click={this.drawerToggleClickHandler} />;
       // now add onClick listener to Backdrop
     }
 
@@ -43,7 +43,7 @@ export class Sidebar extends Component {
         <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
 
         {/* pass in info to see if we want this to be open or not to use in SideDrawer.js */}
-        <SideDrawer show={this.state.sideDrawerOpen} />
+        <SideDrawer click={this.drawerToggleClickHandler} show={this.state.sideDrawerOpen} />
         <Header />
         <Footer />
         {/* referenced variable  */}
