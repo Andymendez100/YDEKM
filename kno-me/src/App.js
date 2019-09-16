@@ -8,7 +8,7 @@ import Sidebar from './containers/Sidebar';
 import Wrapper from './components/wrapper/Wrapper';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
-import LoginSign from './containers/loginSign/LoginSign';
+import LoginSign from './components/loginSign/LoginSign';
 
 function App() {
   return (

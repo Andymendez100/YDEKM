@@ -65,8 +65,6 @@ module.exports = app => {
     });
   });
 
-  // const checkJWT = (req, res, next) => {};
-
   // Endpoint to login
   app.post('/login', passport.authenticate('local'), function(req, res) {
     const payload = { id: req.user.id, username: req.user.username };
