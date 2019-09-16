@@ -1,5 +1,5 @@
 /* import font */
-@import url(https://fonts.googleapis.com/css?family=Crimson+Pro);
+/* @import url(https://fonts.googleapis.com/css?family=Crimson+Pro); */
 
 /************* To Do's: **************
 take away border (only for aligning)
@@ -22,7 +22,7 @@ later: media queries
     flex-direction: column;
     align-self: center;
     justify-content: space-around;
-    align-content: center;
+    align-content: center;    
 }
 .logo {
     min-height: 10px;
@@ -42,7 +42,7 @@ later: media queries
     text-align: center; 
     margin-bottom: 20px;
     padding-top: 50px;
-}
+} 
 .mission-statement {
     font-family: 'Crimson Pro', serif; 
     color: black;   
@@ -67,7 +67,7 @@ later: media queries
 }
 
 /**************** Media Queries **************/
-@media only screen and (max-width: 1440px) {
+/* @media only screen and (max-width: 1440px) {
     .logo {
         min-height: 120px;
     }
@@ -88,8 +88,8 @@ later: media queries
         margin: 6px 160px;
         font-size: 1.2rem;
         padding: 6px 2px;
-    } 
-}
+    }  */
+/* }
 @media (max-width: 1024px) {
     .logo {
         min-height: 100px;
@@ -113,29 +113,5 @@ later: media queries
         font-size: 1rem;
         padding: 6px 2px;
     }
-}
-@media (max-width: 2560px) {
-    .logo {
-        min-height: 140px;
-        padding: 20px;
-    }
-    .container {
-        height: 10vh;
-        margin-top: 28%;
-    }
-    .one-line-header {
-        font-size: 2rem;
-        margin-bottom: 40px;
-        padding-top: 30px;
-    }
-    .mission-statement {
-        font-size: 1.4rem;
-        margin-bottom: 80px; 
-    }
-    .buttons {
-        position: relative;
-        margin: 10px 200px;
-        font-size: 1.4rem;
-        padding: 10px 2px;
-    } 
-}
+
+} */
