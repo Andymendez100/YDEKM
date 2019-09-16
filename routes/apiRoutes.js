@@ -3,6 +3,7 @@ const jwt = require('jwt-simple');
 
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+const Quiz = require('../models/quiz');
 const keys = require('../config/keys');
 
 module.exports = app => {
@@ -64,7 +65,7 @@ module.exports = app => {
     });
   });
 
-  const checkJWT = (req, res, next) => {};
+  // const checkJWT = (req, res, next) => {};
 
   // Endpoint to login
   app.post('/login', passport.authenticate('local'), function(req, res) {
@@ -79,5 +80,18 @@ module.exports = app => {
   app.get('/logout', function(req, res) {
     req.logout();
     res.send(null);
+  });
+
+  app.get('/quiz/:quiz', (req, res) => {
+    const quizType = req.params.quiz;
+    Quiz.Quiz.findOne(
+      {
+        quiz: quizType,
+      },
+      function(err, data) {
+        if (err) throw err;
+        res.send(data);
+      }
+    );
   });
 };

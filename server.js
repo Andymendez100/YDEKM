@@ -18,8 +18,9 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Helmelt
+// Helmet
 app.use(helmet());
+
 // Express Session
 app.use(
   session({
