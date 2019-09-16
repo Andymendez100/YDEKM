@@ -1,0 +1,40 @@
+#cardUI {
+  border: 2px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px black;
+  width:85%;
+
+}
+#header {
+  background-color: #fbdbab;
+}
+#body {
+  background-color: #faead2df;
+}
+input::placeholder {
+  text-align: center;
+}
+#signIn {
+  border-right: 2px solid lightgrey 
+}
+#logo {
+  width:30%;
+}
+#button {
+  padding: 5px;
+  font-weight: lighter;
+  font-style: italic;
+  color:white;
+  float:right;
+}
+@media all and (min-width: 480px) {
+  /* .test {
+      margin: 0 auto;
+      max-width: 320px;
+      padding: 60px 0;
+  } */
+  /* .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  } */
+}
