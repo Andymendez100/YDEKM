@@ -13,8 +13,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 //Images
-import logo1 from '../../Images/KnowMe.png';
-import logo2 from '../../Images/QuestionMark.png';
+import logo1 from '../../Images/KnowMeResize.png';
+// import logo2 from '../../Images/QuestionMark.png';
 
 const drawerWidth = 240;
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   content: {
     flexGrow: 1,
@@ -109,7 +109,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <img src={logo2} alt="logo2" />
+          {/* <img src={logo2} alt="logo2" /> */}
           {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}

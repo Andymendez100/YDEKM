@@ -3,24 +3,23 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import components
-import './App.css';
-import Sidebar from './containers/Sidebar';
-import Wrapper from './components/wrapper/Wrapper';
+import Homepage from './components/homepage/Homepage';
 import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
-import LoginSign from './containers/loginSign/LoginSign';
+import LoginSign from './components/loginSign/LoginSign';
+import Footer from './components/footer/Footer';
+import PersistentDrawerLeft from './components/drawer/Drawer';
 
 function App() {
   return (
     <Router>
       {/* Home route */}
+      <PersistentDrawerLeft />
       <Route
         exact
         path="/"
         render={props => (
-          <Wrapper>
-            <Sidebar />
-          </Wrapper>
+          <Homepage />
         )}
       />
 
@@ -28,6 +27,7 @@ function App() {
       <Route path="/createlobby" component={CreateLobbyPage} />
       <Route path="/join" component={JoinPage} />
       <Route path="/login" component={LoginSign} />
+      <Footer />
     </Router>
   );
 }

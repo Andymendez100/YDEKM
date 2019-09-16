@@ -9,14 +9,14 @@ export default class Login extends Component {
 
     // this needs to be corrected for backend submission
     this.state = {
-      email: "",
+      username: "",
       password: ""
 
     };
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -42,9 +42,9 @@ export default class Login extends Component {
               <div className="col-lg-6" id="signIn">
                 <h5>Sign In</h5>
                 <form onSubmit={this.handleSubmit}>
-                  <Form.Group controlId="formBasicEmail">
+                  <Form.Group controlId="formBasicusername">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="email" placeholder="enter your username" />
+                    <Form.Control type="username" placeholder="enter your username" />
                     <Form.Text className="text-muted">
 
                     </Form.Text>
@@ -79,9 +79,9 @@ export default class Login extends Component {
                   </Form.Row>
 
                   <Form.Row>
-                    <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control type="email" placeholder="enter your email" />
+                    <Form.Group as={Col} controlId="formGridusername">
+                      <Form.Label>username</Form.Label>
+                      <Form.Control type="username" placeholder="enter your username" />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
