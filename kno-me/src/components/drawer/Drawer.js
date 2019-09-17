@@ -168,7 +168,14 @@ export default function PersistentDrawerLeft() {
           </Button>
           </MenuItem>
         </MenuList>
-
+        {/* Just for Testing Game js  */}
+        <MenuList>
+          <MenuItem>
+            <Button component={Link} to="/game" onClick={handleDrawerClose}>
+              Game
+          </Button>
+          </MenuItem>
+        </MenuList>
       </Drawer>
       <main
         className={clsx(classes.content, {
