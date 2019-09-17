@@ -1,0 +1,25 @@
+.toolbar {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgb(117, 93, 66);
+    /* box-shadow: 0 2px rgba(128, 120, 120, 0.644); */
+    height: 64px;
+
+}
+.toolbar-nav {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 1rem;
+}
+.toolbar-logo {
+    text-align: center;
+    margin-left: 1rem;
+    color: rgb(132, 141, 190);
+    font-size: 1.5rem;
+}
+h1 {
+    color: rgb(73, 55, 95);    
+} 

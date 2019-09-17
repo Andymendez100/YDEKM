@@ -1,10 +1,14 @@
 const passport = require('passport');
 const jwt = require('jwt-simple');
 
+const payload = { foo: 'bar' };
+const secret = Buffer.from('fe1a1915a379f3be5394b64d14794932', 'hex');
+
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-const Quiz = require('../models/quiz');
-const keys = require('../config/keys');
+
+const token = jwt.encode(payload, secret);
+console.log(token);
 
 module.exports = app => {
   // Register User
@@ -12,7 +16,6 @@ module.exports = app => {
     const { password } = req.body;
     const { password2 } = req.body;
 
-    // Comparing password to make sure they match
     // eslint-disable-next-line eqeqeq
     if (password == password2) {
       const newUser = new User.User({
@@ -23,9 +26,7 @@ module.exports = app => {
       });
 
       User.createUser(newUser, function(err, user) {
-        if (err) {
-          res.send(409);
-        }
+        if (err) throw err;
         res.send(user).end();
       });
     } else {
@@ -68,32 +69,17 @@ module.exports = app => {
 
   // Endpoint to login
   app.post('/login', passport.authenticate('local'), function(req, res) {
-    const payload = { id: req.user.id, username: req.user.username };
-    const secret = Buffer.from(keys.secret, keys.encode);
-    const token = jwt.encode(payload, secret);
-    console.log('got data');
+    res.send(token);
+  });
 
-    console.log(req.user);
-
-    res.json({ token });
+  // Endpoint to get current user
+  app.get('/user', function(req, res) {
+    res.send(req.user);
   });
 
   // Endpoint to logout
   app.get('/logout', function(req, res) {
     req.logout();
     res.send(null);
-  });
-
-  app.get('/quiz/:quiz', (req, res) => {
-    const quizType = req.params.quiz;
-    Quiz.Quiz.findOne(
-      {
-        quiz: quizType,
-      },
-      function(err, data) {
-        if (err) throw err;
-        res.send(data);
-      }
-    );
   });
 };

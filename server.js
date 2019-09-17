@@ -3,9 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
-const helmet = require('helmet');
-
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,9 +14,6 @@ app.use(express.json());
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Helmet
-app.use(helmet());
 
 // Express Session
 app.use(
@@ -37,6 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Requiring our routes
 
+// require('./routes/htmlRoutes.js')(app);
 require('./routes/apiRoutes.js')(app);
 
 // Connect to the Mongo DB
@@ -44,6 +39,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
   useNewUrlParser: true,
   useCreateIndex: true,
 });
+
+// const db = mongoose.connect;
 
 // Start the API server
 app.listen(PORT, function() {

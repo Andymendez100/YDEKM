@@ -1,5 +1,5 @@
 /* import font */
-/* @import url(https://fonts.googleapis.com/css?family=Crimson+Pro); */
+@import url(https://fonts.googleapis.com/css?family=Crimson+Pro);
 
 /************* To Do's: **************
 take away border (only for aligning)
@@ -14,21 +14,21 @@ later: media queries
 */
 .container {
     top: 0;
-    position: relative;
+    position: fixed;
     display: flex;
     margin: 30%;
-    height: 100px;
+    height: 40vh;
     width: 40%;
     flex-direction: column;
     align-self: center;
     justify-content: space-around;
-    align-content: center;    
+    align-content: center;
 }
 .logo {
     min-height: 120px;
     background-position: center;
     background-size: cover;
-    background-image: url('../../Images/KnowMe.png');
+    background-image: url('KnowMe.png');
     padding: 1rem;
     margin: 0;
     flex: 1;
@@ -36,39 +36,38 @@ later: media queries
 .one-line-header {
     font-family: 'Crimson Pro', serif;
     color: black;  
-    font-size: 1.5rem;
+    font-size: 1.9rem;
     font-weight: bolder;
     flex: 1;
     text-align: center; 
-    /* margin-bottom: 20px; */
-    /* padding-top: 50px; */
-} 
+    margin-bottom: 20px;
+    padding-top: 50px;
+}
 .mission-statement {
     font-family: 'Crimson Pro', serif; 
     color: black;   
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 200;
     flex: 1;
     text-align: center;   
-    /* margin-bottom: 100px;  */
+    margin-bottom: 100px; 
 } 
 
 /* Just for references */
 .buttons {
     position: relative;
     margin: 10px 100px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.5rem;
     text-align: center;
     text-decoration: none;
     box-shadow: 0 4px 8px 0 #222222;
     padding: 10px 5px;
-    background:radial-gradient(ellipse at center, rgba(235,0,235,1) 0%, rgba(145,0,145,1) 38%, rgba(0,0,0,1) 100%);
+    background:radial-gradient(ellipse at center, rgba(143,0,143,1) 0%, rgba(85,0,85,1) 56%, rgba(41,0,41,1) 100%); 
     color: #fff;
 }
 
 /**************** Media Queries **************/
-/* @media only screen and (max-width: 1440px) {
+@media only screen and (max-width: 1440px) {
     .logo {
         min-height: 120px;
     }
@@ -89,8 +88,8 @@ later: media queries
         margin: 6px 160px;
         font-size: 1.2rem;
         padding: 6px 2px;
-    }  */
-/* }
+    } 
+}
 @media (max-width: 1024px) {
     .logo {
         min-height: 100px;
@@ -114,5 +113,4 @@ later: media queries
         font-size: 1rem;
         padding: 6px 2px;
     }
-
-} */
+}
