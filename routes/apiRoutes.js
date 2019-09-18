@@ -7,6 +7,8 @@ const Quiz = require('../models/quiz');
 const keys = require('../config/keys');
 
 module.exports = app => {
+  console.log('server reached api route');
+
   // Register User
   app.post('/register', function(req, res) {
     const { password } = req.body;
@@ -23,9 +25,7 @@ module.exports = app => {
       });
 
       User.createUser(newUser, function(err, user) {
-        if (err) {
-          res.send(409);
-        }
+        if (err) throw err;
         res.send(user).end();
       });
     } else {
@@ -76,6 +76,11 @@ module.exports = app => {
     console.log(req.user);
 
     res.json({ token });
+  });
+
+  // Endpoint to get current user
+  app.get('/user', function(req, res) {
+    res.send(req.user);
   });
 
   // Endpoint to logout

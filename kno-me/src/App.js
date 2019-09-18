@@ -9,6 +9,7 @@ import JoinPage from './components/join/JoinPage';
 import LoginSign from './components/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
 import PersistentDrawerLeft from './components/drawer/Drawer';
+import Game from './components/question/Game';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/createlobby" component={CreateLobbyPage} />
       <Route path="/join" component={JoinPage} />
       <Route path="/login" component={LoginSign} />
+      <Route path="/game" component={Game} />
       <Footer />
     </Router>
   );
