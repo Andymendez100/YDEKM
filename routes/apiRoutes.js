@@ -84,16 +84,18 @@ module.exports = app => {
     res.send(null);
   });
 
-  app.get('/quiz/:quiz', (req, res) => {
-    const quizType = req.params.quiz;
-    Quiz.Quiz.findOne(
-      {
-        quiz: quizType,
-      },
-      function(err, data) {
-        if (err) throw err;
-        res.send(data);
-      }
-    );
-  });
+  // Decided to change this into a json file
+
+  // app.get('/quiz/:quiz', (req, res) => {
+  //   const quizType = req.params.quiz;
+  //   Quiz.Quiz.findOne(
+  //     {
+  //       quiz: quizType,
+  //     },
+  //     function(err, data) {
+  //       if (err) throw err;
+  //       res.send(data);
+  //     }
+  //   );
+  // });
 };
