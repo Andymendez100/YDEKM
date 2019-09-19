@@ -1,18 +1,28 @@
 import React from 'react';
 import clsx from 'clsx';
 
-//Router Link
+// Router Link
 import { Link } from 'react-router-dom';
 
-//MUIstyles
+// MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-//MUIcore
-import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList, Button } from '@material-ui/core';
-//MUIicons
+// MUIcore
+import {
+  Drawer,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Divider,
+  IconButton,
+  MenuItem,
+  MenuList,
+  Button,
+} from '@material-ui/core';
+// MUIicons
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-//Images
+// Images
 import logo1 from '../../Images/KnowMeResize.png';
 // import logo2 from '../../Images/QuestionMark.png';
 
@@ -54,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
@@ -74,10 +84,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-//FUNCTION ALL COMPONENT
+// FUNCTION ALL COMPONENT
 export default function PersistentDrawerLeft() {
-
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -127,45 +135,39 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         {/* Side Item List */}
         <MenuList>
           <Divider variant="middle" />
 
-          <MenuItem>
-            <Button component={Link} to="/" onClick={handleDrawerClose}>
-              Home
-          </Button>
+          <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
+            <Button>Home</Button>
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/login" onClick={handleDrawerClose}>
-              Login
-          </Button>
+          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
+            <Button>Login</Button>
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/login" onClick={handleDrawerClose}>
-              Sign Up
-          </Button>
+          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
+            <Button>Sign Up</Button>
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/Lobby" onClick={handleDrawerClose}>
-              Lobby
-          </Button>
+          <MenuItem component={Link} to="/Lobby" onClick={handleDrawerClose}>
+            <Button>Lobby</Button>
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/Rules" onClick={handleDrawerClose}>
-              Rules
-          </Button>
+          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
+            <Button>Rules</Button>
           </MenuItem>
         </MenuList>
         {/* Just for Testing Game js  */}
@@ -173,7 +175,7 @@ export default function PersistentDrawerLeft() {
           <MenuItem>
             <Button component={Link} to="/game" onClick={handleDrawerClose}>
               Game
-          </Button>
+            </Button>
           </MenuItem>
         </MenuList>
       </Drawer>
@@ -181,8 +183,7 @@ export default function PersistentDrawerLeft() {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      >
-      </main>
-    </div >
+      />
+    </div>
   );
 }

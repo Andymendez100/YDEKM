@@ -11,13 +11,11 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
   },
 }));
-
 export default function QuestionPage() {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-
       <Input
         placeholder="answer"
         className={classes.input}
