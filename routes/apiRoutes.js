@@ -3,7 +3,6 @@ const jwt = require('jwt-simple');
 
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-const Quiz = require('../models/quiz');
 const keys = require('../config/keys');
 
 module.exports = app => {
