@@ -1,17 +1,6 @@
 /* import font */
 /* @import url(https://fonts.googleapis.com/css?family=Crimson+Pro); */
 
-/************* To Do's: **************
-take away border (only for aligning)
-Show only text
-create fx in center logo
-create logo
-shadow around whole text to make text standout
-keep all text concise
-change font
-
-later: media queries
-*/
 .container {
     top: 0;
     position: relative;

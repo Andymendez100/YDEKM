@@ -7,19 +7,6 @@ import { CTX } from './Store';
 //Material UI Main
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, List, ListItem, ListItemText, Chip, Button, TextField } from '@material-ui/core';
-// import Typography from '@material-ui/core/Typography';
-
-//SIMPLE LIST
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-//USER MESSAGE
-// import Chip from '@material-ui/core/Chip';
-//BUTTON
-// import Button from '@material-ui/core/Button';
-//TEXTFIELD
-// import TextField from '@material-ui/core/TextField';
-
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 //MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 //MUIcore
-import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList, Button } from '@material-ui/core';
+import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList } from '@material-ui/core';
 //MUIicons
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -134,46 +134,34 @@ export default function PersistentDrawerLeft() {
         <MenuList>
           <Divider variant="middle" />
 
-          <MenuItem>
-            <Button component={Link} to="/" onClick={handleDrawerClose}>
-              Home
-          </Button>
+          <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
+            Home
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/login" onClick={handleDrawerClose}>
-              Login
-          </Button>
+          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
+            Login
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/login" onClick={handleDrawerClose}>
-              Sign Up
-          </Button>
+          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
+            Sign Up
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/Lobby" onClick={handleDrawerClose}>
-              Lobby
-          </Button>
+          <MenuItem component={Link} to="/Lobby" onClick={handleDrawerClose}>
+            Lobby
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/Rules" onClick={handleDrawerClose}>
-              Rules
-          </Button>
+          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
+            Rules
           </MenuItem>
         </MenuList>
         {/* Just for Testing Game js  */}
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/game" onClick={handleDrawerClose}>
-              Game
-          </Button>
+          <MenuItem component={Link} to="/game" onClick={handleDrawerClose}>
+            Game
           </MenuItem>
         </MenuList>
       </Drawer>

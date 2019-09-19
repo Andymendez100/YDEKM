@@ -12,20 +12,10 @@ const PORT = 3001;
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-var numUsers = 0;
-
-// io.on('connection', (socket) => {
-
-//   // when the client emits 'new message', this listens and executes
-//   socket.on('new message', (data) => {
-//     // we tell the client to execute 'new message'
-
-//   });
-//Actual game
-//- First person
-//Connection
 io.on('connection', function (socket) {
-  console.log('a user connected');
+  console.log(`socket.id:  ${socket.id}`);
+  console.log(socket.handshake);
+
 
   // socket.emit('news', { hello: 'world' });
   socket.on('chat message', function (msg) {
@@ -77,4 +67,3 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
 http.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
-

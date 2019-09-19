@@ -49,6 +49,7 @@ function sendChatAction(value) {
 }
 //user
 const user = 'Player' + Math.random(100).toFixed(2);
+//this.props
 
 //Init Socket outside func component so it does not render everytime Store reloads
 let socket;
