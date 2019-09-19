@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 
-//Router Link
+// Router Link
 import { Link } from 'react-router-dom';
 
-//MUIstyles
+// MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 //MUIcore
 import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList } from '@material-ui/core';
@@ -12,7 +12,7 @@ import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, Me
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-//Images
+// Images
 import logo1 from '../../Images/KnowMeResize.png';
 // import logo2 from '../../Images/QuestionMark.png';
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
@@ -74,10 +74,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-//FUNCTION ALL COMPONENT
+// FUNCTION ALL COMPONENT
 export default function PersistentDrawerLeft() {
-
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -127,7 +125,11 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+                <ChevronRightIcon />
+              )}
           </IconButton>
         </div>
         {/* Side Item List */}
@@ -141,11 +143,6 @@ export default function PersistentDrawerLeft() {
         <MenuList>
           <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
             Login
-          </MenuItem>
-        </MenuList>
-        <MenuList>
-          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
-            Sign Up
           </MenuItem>
         </MenuList>
         <MenuList>
@@ -169,8 +166,7 @@ export default function PersistentDrawerLeft() {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      >
-      </main>
-    </div >
+      />
+    </div>
   );
 }
