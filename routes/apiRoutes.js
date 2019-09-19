@@ -73,8 +73,6 @@ module.exports = app => {
     const token = jwt.encode(payload, secret);
     console.log('got data');
 
-    console.log(req.user);
-
     res.json({ token });
   });
 
