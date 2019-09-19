@@ -5,10 +5,40 @@ const passport = require('passport');
 const session = require('express-session');
 const helmet = require('helmet');
 
-require('dotenv').config();
-
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
+
+//= === Socket.io =========
+// const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+const numUsers = 0;
+
+// io.on('connection', (socket) => {
+
+//   // when the client emits 'new message', this listens and executes
+//   socket.on('new message', (data) => {
+//     // we tell the client to execute 'new message'
+
+//   });
+// Actual game
+// - First person
+// Connection
+io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  // socket.emit('news', { hello: 'world' });
+  socket.on('chat message', function(msg) {
+    console.log(`message: ${JSON.stringify(msg)}`);
+    // broadcasting, we use emit to not get duplication
+    // we emit on 'chat message' channel and send message
+    io.emit('chat message', msg);
+  });
+});
+//= === Socket.io end =====
+
+require('dotenv').config();
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +76,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
 });
 
 // Start the API server
-app.listen(PORT, function() {
+http.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

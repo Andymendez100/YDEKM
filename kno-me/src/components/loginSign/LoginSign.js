@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import image from '../../Images/KnowMe.png';
 import './LoginSign.css';
 
-export default function Login() {
+export default function Login(props) {
   const signUp = e => {
     e.preventDefault();
 
@@ -57,6 +58,7 @@ export default function Login() {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        props.changeJwt(data.token);
       });
   };
 
@@ -153,3 +155,7 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  changeJwt: PropTypes.func,
+};

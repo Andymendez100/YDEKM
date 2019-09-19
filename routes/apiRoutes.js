@@ -3,10 +3,11 @@ const jwt = require('jwt-simple');
 
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-const Quiz = require('../models/quiz');
 const keys = require('../config/keys');
 
 module.exports = app => {
+  console.log('server reached api route');
+
   // Register User
   app.post('/register', function(req, res) {
     const { password } = req.body;
@@ -23,9 +24,7 @@ module.exports = app => {
       });
 
       User.createUser(newUser, function(err, user) {
-        if (err) {
-          res.send(409);
-        }
+        if (err) throw err;
         res.send(user).end();
       });
     } else {
@@ -76,22 +75,29 @@ module.exports = app => {
     res.json({ token });
   });
 
+  // Endpoint to get current user
+  app.get('/user', function(req, res) {
+    res.send(req.user);
+  });
+
   // Endpoint to logout
   app.get('/logout', function(req, res) {
     req.logout();
     res.send(null);
   });
 
-  app.get('/quiz/:quiz', (req, res) => {
-    const quizType = req.params.quiz;
-    Quiz.Quiz.findOne(
-      {
-        quiz: quizType,
-      },
-      function(err, data) {
-        if (err) throw err;
-        res.send(data);
-      }
-    );
-  });
+  // Decided to change this into a json file
+
+  // app.get('/quiz/:quiz', (req, res) => {
+  //   const quizType = req.params.quiz;
+  //   Quiz.Quiz.findOne(
+  //     {
+  //       quiz: quizType,
+  //     },
+  //     function(err, data) {
+  //       if (err) throw err;
+  //       res.send(data);
+  //     }
+  //   );
+  // });
 };
