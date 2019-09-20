@@ -135,7 +135,6 @@ export default function PersistentDrawerLeft() {
         {/* Side Item List */}
         <MenuList>
           <Divider variant="middle" />
-
           <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
             Home
           </MenuItem>
@@ -161,6 +160,18 @@ export default function PersistentDrawerLeft() {
             Game
           </MenuItem>
         </MenuList>
+        {/* FOR TESTING PURPOSES ONLY */}
+        <MenuList>
+          <MenuItem component={Link} to="/question" onClick={handleDrawerClose}>
+            Questions
+          </MenuItem>
+        </MenuList>
+        <MenuList>
+          <MenuItem component={Link} to="/quiz" onClick={handleDrawerClose}>
+            Choose
+          </MenuItem>
+        </MenuList>
+        {/* FOR TESTING PURPOSES ONLY END*/}
       </Drawer>
       <main
         className={clsx(classes.content, {

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-expressions
-export const data = [
+export default data = [
   {
     quiz: 'home life',
     questions: [
@@ -42,5 +42,5 @@ export const data = [
       "What is Something They do Constantly That They Aren't Aware Of?",
       'What Would Be Your Spouse’s Ideal Date?',
     ],
-  },
+  }
 ];

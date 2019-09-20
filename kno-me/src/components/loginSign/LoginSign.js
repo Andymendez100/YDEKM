@@ -58,7 +58,10 @@ export default function Login(props) {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        props.changeJwt(data.token);
+        let userToken = data.token;
+        console.log(userToken);
+
+        props.changeJwt(userToken);
       });
   };
 

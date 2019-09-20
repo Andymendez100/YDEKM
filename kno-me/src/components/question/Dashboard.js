@@ -14,24 +14,24 @@ const useStyles = makeStyles(theme => ({
         margin: '50px',
         textAlign: 'center',
         position: 'fixed',
-        top: '50%',
+        top: '20%',
         width: '90%'
     },
-    videoBox: {
-        padding: theme.spacing(3, 2),
-        margin: '50px',
-        width: '40%',
-        top: '50%',
-        position: 'relative',
-        left: '20%'
-    },
+    // videoBox: {
+    //     padding: theme.spacing(3, 2),
+    //     margin: '50px',
+    //     width: '40%',
+    //     top: '50%',
+    //     position: 'relative',
+    //     left: '20%'
+    // },
     flex: {
         display: 'flex',
         alignItems: 'center'
     },
     topicsWindow: {
         width: '40%',
-        height: '200px',
+        height: '400px',
         borderRight: '1px solid grey',
         position: 'relative'
     },

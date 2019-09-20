@@ -10,6 +10,8 @@ import LoginSign from './components/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
 import PersistentDrawerLeft from './components/drawer/Drawer';
 import Game from './components/question/Game';
+import QuestionPage from './components/question/QuestionPage';
+import ChooseQuiz from './components/question/ChooseQuiz';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,6 +39,8 @@ class App extends React.Component {
           render={() => <LoginSign changeJwt={this.changeJwt} />}
         />
         <Route path="/game" component={Game} />
+        <Route path="/question" component={QuestionPage} />
+        <Route path="/quiz" component={ChooseQuiz} />
         <Footer />
       </Router>
     );
