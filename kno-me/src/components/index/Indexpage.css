@@ -1,0 +1,24 @@
+.logo {
+    background-image: url('KnowMe.png');
+    background-size: 570px;
+    padding-top: 150px;
+    background-repeat: no-repeat;
+}
+
+.container {
+    padding-top: 50px;
+}
+
+.Slogan {
+    padding-top: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 37px;
+}
+
+.Statement {
+    text-align: center;
+    padding-top: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}

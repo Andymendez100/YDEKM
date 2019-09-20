@@ -110,7 +110,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <img src={logo2} />
+          <img src={logo2} alt="logo"/>
           {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}
@@ -126,7 +126,7 @@ export default function PersistentDrawerLeft() {
         }}
       >
         <div className={classes.drawerHeader}>
-          <img src={logo1} />
+          <img src={logo1} alt="logo"/>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
