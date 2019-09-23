@@ -64,29 +64,36 @@ export default function Store(props) {
   //   }
   // });
   socket.on('answer', res => {
+    console.log(res);
+
     console.log(res.host.answer);
     console.log(res.guest.answer);
   });
   function handleChange(event) {
     sendToServer(event.target.value);
     // console.log(event.target.value);
-    setUserInput(event.target.value);
+    // setUserInput(event.target.value);
   }
 
   function submitAnswer(event) {
     event.preventDefault();
+    const answer = event.target.answer.value;
+    console.log(event.target.answer.value);
+
     socket.emit('questionDone', {
       currentPlayer,
-      userInput,
+      answer,
     });
     console.log('question submitted');
   }
   return (
     <div>
-      <input id="text" onChange={handleChange} type="text" />
-      <button type="submit" onClick={submitAnswer}>
-        Hello world
-      </button>
+      <form onSubmit={submitAnswer}>
+        <input id="text" onChange={handleChange} name="answer" type="text" />
+        <button type="submit" id="sendAnswer">
+          Hello world
+        </button>
+      </form>
     </div>
   );
 }

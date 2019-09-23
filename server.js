@@ -10,6 +10,8 @@ const PORT = 3001;
 //= === Socket.io =========
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
+
+let hostAnswer = '';
 // const allowedOrigins = 'http://localhost:3001';
 // io(server, { origins: allowedOrigins });
 io.of('/chat').on('connection', function(socket) {
@@ -52,19 +54,28 @@ io.of('/chat').on('connection', function(socket) {
   socket.on('test2', res => {
     console.log(res);
   });
-  let hostAnswer;
+
   socket.on('questionDone', res => {
-    if (res.currentplayer === 'host') {
-      hostAnswer = res.userInput;
+    if (res.currentPlayer === 'Host') {
+      hostAnswer = res.answer;
+      console.log(`test${hostAnswer}`);
     }
 
-    if (res.currentplayer === 'guest') {
-      socket.emit('answers', {
+    if (res.currentPlayer === 'Guest') {
+      socket.emit('answer', {
         host: {
           answer: hostAnswer,
         },
         guest: {
-          answer: res.userInput,
+          answer: res.answer,
+        },
+      });
+      socket.broadcast.emit('answer', {
+        host: {
+          answer: hostAnswer,
+        },
+        guest: {
+          answer: res.answer,
         },
       });
     }
