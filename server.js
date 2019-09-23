@@ -31,24 +31,45 @@ io.of('/chat').on('connection', function(socket) {
     player.sign = 'G';
     console.log(player);
   }
+
+  socket.emit('test', {
+    player,
+  });
   // }
   // room.push(socket.id);
   console.log('A user connected!'); // We'll replace this with our own events
   socket.on('chatbox', function(res) {
     console.log('res', res);
     socket.broadcast.emit('chatbox', {
-      test: res,
+      input: res,
     });
   });
-  socket.on('correct', res => {
-    socket.broadcast.emit('done', {
-      done: res.gainPoint,
-    });
+  // socket.on('correct', res => {
+  //   socket.broadcast.emit('done', {
+  //     done: res.gainPoint,
+  //   });
+  // });
+  socket.on('test2', res => {
+    console.log(res);
   });
-  socket.on('wrong', res => {
-    socket.broadcast.emit('wrong', {
-      done: res.gainPoint,
-    });
+  let hostAnswer;
+  socket.on('questionDone', res => {
+    if (res.currentplayer === 'host') {
+      hostAnswer = res.userInput;
+    }
+
+    if (res.currentplayer === 'guest') {
+      socket.emit('answers', {
+        host: {
+          answer: hostAnswer,
+        },
+        guest: {
+          answer: res.userInput,
+        },
+      });
+    }
+
+    console.log(res);
   });
 });
 //= === Socket.io end =====

@@ -37,7 +37,7 @@ class App extends React.Component {
           path="/login"
           render={() => <LoginSign changeJwt={this.changeJwt} />}
         />
-        <Route path="/game" component={Store} />
+        <Route path="/game" render={() => <Store Jwt={this.state.jwt} />} />
         <Footer />
       </Router>
     );

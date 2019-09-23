@@ -1,33 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import io from 'socket.io-client';
 
-export default function Store() {
+export default function Store(props) {
+  const [userInput, setUserInput] = useState('');
+  // console.log(props.Jwt);
+
   const socket = io(':3001/chat');
-  const test = document.getElementById('text');
-  let playerOneInput = '';
-  let playerTwoInput = '';
+  // console.log(socket.io);
+  let currentPlayer;
+
+  // const test = document.getElementById('text');
   function sendToServer(input) {
     socket.emit('chatbox', {
       test: input,
     });
-    playerOneInput = input;
+    // playerOneInput = input;
     // socket.send(input);
     // console.log(playerOneInput);
   }
-  socket.on('test2', event => {
-    console.log(event);
+
+  socket.on('test', res => {
+    console.log(res);
+    currentPlayer = res.player.name;
+    console.log(currentPlayer);
+    // socket.emit('test2', {
+    //   player: currentPlayer,
+    //   msg: "This is me. This is real. This is exactly who i'm suppose to be ",
+    // });
   });
+
+  // socket.emit('test2', {
+  //   player: currentPlayer,
+  //   msg: "This is me. This is real. This is exactly who i'm suppose to be ",
+  // });
   socket.on('chatbox', event => {
-    console.log(event.test);
-    playerTwoInput = event.test;
+    console.log(event.input);
+    // playerTwoInput = event.test;
   });
-  socket.on('done', res => {
-    // display modal
-    console.log(`right${res}`);
-  });
-  socket.on('wrong', data => {
-    console.log(`wrong${data}`);
-  });
+  // socket.on('done', res => {
+  //   // display modal
+  //   console.log(`right${res}`);
+  // });
+  // socket.on('wrong', data => {
+  //   console.log(`wrong${data}`);
+  // });
   // socket.on('chatbox', {
   //   test: input
   // });
@@ -47,13 +63,30 @@ export default function Store() {
   //     });
   //   }
   // });
+  socket.on('answer', res => {
+    console.log(res.host.answer);
+    console.log(res.guest.answer);
+  });
   function handleChange(event) {
     sendToServer(event.target.value);
     // console.log(event.target.value);
+    setUserInput(event.target.value);
+  }
+
+  function submitAnswer(event) {
+    event.preventDefault();
+    socket.emit('questionDone', {
+      currentPlayer,
+      userInput,
+    });
+    console.log('question submitted');
   }
   return (
     <div>
       <input id="text" onChange={handleChange} type="text" />
+      <button type="submit" onClick={submitAnswer}>
+        Hello world
+      </button>
     </div>
   );
 }
