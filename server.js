@@ -6,7 +6,7 @@ const session = require('express-session');
 const helmet = require('helmet');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 //= === Socket.io =========
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
