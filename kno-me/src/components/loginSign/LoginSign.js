@@ -33,6 +33,7 @@ export default function Login(props) {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        props.changeJwt(data.token);
       });
   };
 
