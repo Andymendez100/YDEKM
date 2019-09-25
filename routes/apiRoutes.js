@@ -25,7 +25,10 @@ module.exports = app => {
 
       User.createUser(newUser, function (err, user) {
         if (err) throw err;
-        res.send(user).end();
+        const payload = { id: user.id, username: user.username };
+        const secret = Buffer.from(keys.secret, keys.encode);
+        const token = jwt.encode(payload, secret);
+        res.send(token).end();
       });
     } else {
       res
@@ -71,8 +74,6 @@ module.exports = app => {
     const secret = Buffer.from(keys.secret, keys.encode);
     const token = jwt.encode(payload, secret);
     console.log('got data');
-
-    console.log(req.user);
 
     res.json({ token });
   });
