@@ -1,6 +1,0 @@
-{
-  "extends": ["wesbos"],
-  "rules": {
-    "import/no-unresolved": 0
-  }
-}

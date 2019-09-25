@@ -1,80 +1,99 @@
-import React from 'react';
-
-//Socket.io in Store more related to data not how data is rendered
-//import Socket.io-client
+import React, { useState } from 'react';
 import io from 'socket.io-client';
 
-//Context Provider
-export const CTX = React.createContext();
-
-//Initate state
-const initState = {
-    general: [
-    ],
-    Andysdick: [
-
-    ]
-}
-
-//Reducer
-function reducer(state, action) {
-    //destructor reducer state and set each to action.payload
-    const { from, msg, topic } = action.payload;
-
-    switch (action.type) {
-        case 'RECEIVE_MESSAGE':
-            return {
-                //takes old messages
-                ...state,
-                [topic]: [
-                    //pushes new messsages to array in topics
-                    ...state[topic],
-                    {
-                        //RECEIVE_MESSAGE will get back from and msg
-                        from: from,
-                        msg: msg
-                    }
-                ]
-            }
-        default:
-            return state
-    }
-
-
-}
-//send action passing in message value (user input)
-function sendChatAction(value) {
-    //emit key: chat message value: value
-    socket.emit('chat message', value)
-}
-//user
-const user = 'Player' + Math.random(100).toFixed(2);
-//this.props
-
-//Init Socket outside func component so it does not render everytime Store reloads
-let socket;
-
 export default function Store(props) {
+    const [userInput, setUserInput] = useState('');
+    // console.log(props.Jwt);
 
-    //SOCKET
-    //reducer takes in reducer and initState 
-    const [allChats, dispatch] = React.useReducer(reducer, initState)
+    const socket = io(':3001/chat');
+    // console.log(socket.io);
+    let currentPlayer;
 
-    //check for socket, if there is none then set manually to port number defined in server
-    if (!socket) {
-        //client connection 
-        socket = io(':3001')
-        //listener on client broadcasting
-        socket.on('chat message', function (msg) {
-            dispatch({ type: 'RECEIVE_MESSAGE', payload: msg });
-
-        })
+    // const test = document.getElementById('text');
+    function sendToServer(input) {
+        socket.emit('chatbox', {
+            test: input,
+        });
+        // playerOneInput = input;
+        // socket.send(input);
+        // console.log(playerOneInput);
     }
 
+    socket.on('test', res => {
+        console.log(res);
+        currentPlayer = res.player.name;
+        console.log(currentPlayer);
+        // socket.emit('test2', {
+        //   player: currentPlayer,
+        //   msg: "This is me. This is real. This is exactly who i'm suppose to be ",
+        // });
+    });
+
+    // socket.emit('test2', {
+    //   player: currentPlayer,
+    //   msg: "This is me. This is real. This is exactly who i'm suppose to be ",
+    // });
+    socket.on('chatbox', event => {
+        console.log(event.input);
+        // playerTwoInput = event.test;
+    });
+    // socket.on('done', res => {
+    //   // display modal
+    //   console.log(`right${res}`);
+    // });
+    // socket.on('wrong', data => {
+    //   console.log(`wrong${data}`);
+    // });
+    // socket.on('chatbox', {
+    //   test: input
+    // });
+    // const testBtn = document.getElementById('testBtn');
+    // testBtn.addEventListener('click', () => {
+    //   console.log('Player1 answer:', playerOneInput);
+    //   console.log('Player2 answer:', playerTwoInput);
+    //   if (playerOneInput == playerTwoInput.test) {
+    //     console.log(true);
+    //     socket.emit('correct', {
+    //       gainPoint: true,
+    //     });
+    //   } else {
+    //     console.log(false);
+    //     socket.emit('false', {
+    //       getPoint: false,
+    //     });
+    //   }
+    // });
+    socket.on('answer', res => {
+        console.log(res);
+
+        console.log(res.host.answer);
+        console.log(res.guest.answer);
+    });
+    function handleChange(event) {
+        sendToServer(event.target.value);
+        // console.log(event.target.value);
+        // setUserInput(event.target.value);
+    }
+
+    function submitAnswer(event) {
+        event.preventDefault();
+        const answer = event.target.answer.value;
+        console.log(event.target.answer.value);
+
+        socket.emit('questionDone', {
+            currentPlayer,
+            answer,
+        });
+        console.log('question submitted');
+    }
     return (
-        //now we pass in reducerHook in value of CTX.Provider
-        <CTX.Provider value={{ allChats, sendChatAction, user }}>
-            {props.children}
-        </CTX.Provider>
-    )
+        <div>
+            <form onSubmit={submitAnswer}>
+                <input id="text" onChange={handleChange} name="answer" type="text" />
+                <button type="submit" id="sendAnswer">
+                    Hello world
+        </button>
+            </form>
+        </div>
+    );
 }

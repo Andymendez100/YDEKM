@@ -1,63 +1,159 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+//MUI
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
+import SwipeableViews from 'react-swipeable-views';
+import { TextField, Grid, Button, Typography, Paper, MobileStepper } from '@material-ui/core';
+// import { Link } from 'react-router-dom';
 
-import { Grid, Button } from '@material-ui/core';
-
-import QuestionList from './seeds.json';
-// import { data } from './seeds';
-
-console.log(QuestionList)
-//TODO
-//onclick function to pass in the question[index] 
-//to increment everytime an answer is given
-//put each in a card
-//need to pass down questionlist title to go to createlobby page
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    margin: '20%',
+    // margin: '15% 15%', smallest size
+    margin: '10% 20%',
+    position: '100% 100%'
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: '#3f51b5',
+  },
+  img: {
+    postion: 'fixed',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    height: 200,
+    display: 'block',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    width: '100%',
+    padding: '2rem 1rem',
+    backgroundColor: 'white'
+  },
+  container: {
+    display: 'grid',
+    padding: theme.spacing(1)
+  },
+  button: {
+    width: '70%',
+    padding: '.9rem',
+    marginTop: theme.spacing(1),
+  },
+  textArea: {
+    margin: theme.spacing(1),
   },
   paper: {
-    margin: '20px',
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: 'center',
-    background: '#3f51b5',
-    fontSize: '1rem',
-    width: '100%'
+    color: theme.palette.text.primary,
+    whiteSpace: 'nowrap',
+    marginBottom: theme.spacing(2),
   }
 }));
 
-export default function QuestionPage() {
-  // const [set, setOpen] = React.useState(true);
 
+//START FUNCTIONAL COMPONENT
+const QuestionPage = (props) => {
+
+  // //MUI CSS
   const classes = useStyles();
+  const theme = useTheme();
 
-  const handleChange = event => {
+  //Active States for active index of props.location.state.data array
+  //NEED TO DO: Set timer for next step 
+  const [activeStep, setActiveStep] = React.useState(0);
 
-    console.log(event.target);
-  }
+  //NEED TO DO : Get values of input to store in answer array
+  const [values, setValues] = React.useState({
+    answer: [],
+    index: []
+  });
 
+  //Limit the length of question array elements
+  const maxSteps = props.location.state.data.length;
+
+  //Handles the next button by setting new active step
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+
+  };
+
+  //Handles the active step
+  const handleStepChange = step => {
+    setActiveStep(step);
+
+  };
+
+  //NEED TO DO: handles the change in textarea value
+  const handleChange = answer => event => {
+    setValues({ ...values, [answer]: event.target.value });
+    console.log(values);
+  };
+
+  console.log("THIS IS DATA", props.location.state.data);
   return (
-    <div className={classes.root}>
 
-      <Grid container spacing={3}>
-        <Grid item xs>
-          {QuestionList.map((question, index) => (
-            <Grid key={index} item>
+    <Paper className={classes.root}>
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+      >
+        {props.location.state.data.map((step, index) => (
+          <div key={step}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              //Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
+              // <img className={classes.img} src={step.imgPath} alt={step.label} />
+
+              //Displays props.location.state.data individually. If it reaches the maxstep then null
+              <Typography className={classes.img}>{props.location.state.data[activeStep]}</Typography>
+            ) : null}
+          </div>
+        ))}
+      </SwipeableViews>
+      {/* <Paper className={classes.paper}> */}
+      <Grid container spacing={1}>
+        <Grid item xs={8} className={classes.container}>
+          {/* Contains the input to store in answer variable*/}
+          <TextField
+            id="outlined-name"
+            label="Enter Your Answer"
+            className={classes.textArea}
+            value={values.answer}
+            onChange={handleChange('answer')}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={4}>
+          {/* Handles the next step */}
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            variant="text"
+            activeStep={activeStep}
+            // Button to toggle to next step. No need for back button
+            nextButton={
               <Button
-                className={classes.paper}
-                variant="contained"
+                className={classes.button}
                 color="primary"
-                onClick={handleChange}
+                variant="contained"
+                onClick={handleNext} disabled={activeStep === maxSteps - 1}
               >
-                {question.title}
+                Next
+                    {/* Right to Left direction of props.location.state.data being displayed */}
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
               </Button>
-            </Grid>
-          ))}
+            }
+          />
         </Grid>
       </Grid>
-    </div>
-  )
-
+      {/* </Paper> */}
+    </Paper>
+  );
 }
-//create onclick function to show the index of seeds object
+
+export default QuestionPage

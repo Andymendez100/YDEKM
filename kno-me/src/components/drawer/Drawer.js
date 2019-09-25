@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 //MUIcore
-import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList } from '@material-ui/core';
+import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList, ClickAwayListener } from '@material-ui/core';
 //MUIicons
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -80,12 +80,13 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
-    setOpen(true);
+  const handleDrawerOpen = () => {
+    setOpen(prev => !prev)
   }
 
-  function handleDrawerClose() {
-    setOpen(false);
+  const handleDrawerClose = () => {
+    setOpen(false)
+
   }
 
   return (
@@ -97,21 +98,23 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* <img src={logo2} alt="logo2" /> */}
-          {/* <Typography variant="h6" noWrap>
+        <ClickAwayListener onClickAway={handleDrawerClose}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* <img src={logo2} alt="logo2" /> */}
+            {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}
-        </Toolbar>
+          </Toolbar>
+        </ClickAwayListener>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -121,6 +124,7 @@ export default function PersistentDrawerLeft() {
         classes={{
           paper: classes.drawerPaper,
         }}
+
       >
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
