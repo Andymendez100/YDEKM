@@ -9,7 +9,7 @@ module.exports = app => {
   console.log('server reached api route');
 
   // Register User
-  app.post('/register', function(req, res) {
+  app.post('/register', function (req, res) {
     const { password } = req.body;
     const { password2 } = req.body;
 
@@ -23,7 +23,7 @@ module.exports = app => {
         password: req.body.password,
       });
 
-      User.createUser(newUser, function(err, user) {
+      User.createUser(newUser, function (err, user) {
         if (err) throw err;
         res.send(user).end();
       });
@@ -37,14 +37,14 @@ module.exports = app => {
 
   // Using LocalStrategy with passport
   passport.use(
-    new LocalStrategy(function(username, password, done) {
-      User.getUserByUsername(username, function(err, user) {
+    new LocalStrategy(function (username, password, done) {
+      User.getUserByUsername(username, function (err, user) {
         if (err) throw err;
         if (!user) {
           return done(null, false, { message: 'Unknown User' });
         }
 
-        User.comparePassword(password, user.password, function(err, isMatch) {
+        User.comparePassword(password, user.password, function (err, isMatch) {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
@@ -55,18 +55,18 @@ module.exports = app => {
     })
   );
 
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function(id, done) {
-    User.getUserById(id, function(err, user) {
+  passport.deserializeUser(function (id, done) {
+    User.getUserById(id, function (err, user) {
       done(err, user);
     });
   });
 
   // Endpoint to login
-  app.post('/login', passport.authenticate('local'), function(req, res) {
+  app.post('/login', passport.authenticate('local'), function (req, res) {
     const payload = { id: req.user.id, username: req.user.username };
     const secret = Buffer.from(keys.secret, keys.encode);
     const token = jwt.encode(payload, secret);
@@ -78,12 +78,12 @@ module.exports = app => {
   });
 
   // Endpoint to get current user
-  app.get('/user', function(req, res) {
+  app.get('/user', function (req, res) {
     res.send(req.user);
   });
 
   // Endpoint to logout
-  app.get('/logout', function(req, res) {
+  app.get('/logout', function (req, res) {
     req.logout();
     res.send(null);
   });

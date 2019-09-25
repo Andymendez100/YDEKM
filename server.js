@@ -13,19 +13,42 @@ const PORT = 3001;
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-io.on('connection', function (socket) {
+io.of('/game').on('connection', function (socket) {
   console.log(`socket.id:  ${socket.id}`);
   console.log(socket.handshake);
-
+  console.log(socket.server.engine.clientsCount);
+  // room.push(socket.id);
+  // console.log('A user connected!'); // We'll replace this with our own events
+  // socket.on('chatbox', function (res) {
+  //   console.log('res', res);
+  //   socket.broadcast.emit('chatbox', {
+  //     test: res,
+  //   });
+  // });
+  socket.on('correct', res => {
+    socket.broadcast.emit('done', {
+      done: res.gainPoint,
+    });
+  });
+  socket.on('wrong', res => {
+    socket.broadcast.emit('wrong', {
+      done: res.gainPoint,
+    });
+  });
 
   // socket.emit('news', { hello: 'world' });
   socket.on('chat message', function (msg) {
     console.log(`message: ${JSON.stringify(msg)}`);
+    console.log('res', res);
+    socket.broadcast.emit('chat message', {
+      test: res,
+    });
     // broadcasting, we use emit to not get duplication
     // we emit on 'chat message' channel and send message
-    io.emit('chat message', msg);
+    // io.emit('chat message', msg);
   });
 });
+
 //= === Socket.io end =====
 
 require('dotenv').config();
