@@ -11,7 +11,8 @@
     flex-direction: column;
     align-self: center;
     justify-content: space-around;
-    align-content: center;    
+    align-content: center;
+    padding-bottom: 5rem;
 }
 .logo {
     min-height: 7.5rem;
@@ -94,3 +95,4 @@
     }
 
 } */
+

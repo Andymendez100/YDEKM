@@ -2,7 +2,7 @@
 
 /******************** REFERENCE POINT IS LAPTOP 1440px x 1315 **********************/
 * {
-  margin: 0;
+  /* margin: 0; */
   padding: 0;
   box-sizing: border-box;
 }
