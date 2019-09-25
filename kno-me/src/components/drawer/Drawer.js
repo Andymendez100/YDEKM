@@ -154,8 +154,8 @@ export default function PersistentDrawerLeft() {
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
-            Rules
+          <MenuItem component={Link} to="/Guidelines" onClick={handleDrawerClose}>
+            Guide Lines
           </MenuItem>
         </MenuList>
         {/* Just for Testing Game js  */}
