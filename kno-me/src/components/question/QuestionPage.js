@@ -74,9 +74,18 @@ const QuestionPage = (props) => {
   const maxSteps = props.location.state.data.length;
 
   //Handles the next button by setting new active step
-  const handleNext = () => {
+  const handleNext = (e) => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+    const test = document.getElementById('outlined-name');
+    console.log(test.value);
 
+    test.value = '';
+    test.innerHTML = '';
+    console.log("test", test.value);
+
+    // e.preventDefault();
+    // setValues({ values: '' });
+    console.log('working');
   };
 
   //Handles the active step
@@ -90,8 +99,15 @@ const QuestionPage = (props) => {
     setValues({ ...values, [answer]: event.target.value });
     console.log(values);
   };
+  //OnSubmit
+  const handleSubmit = e => {
+    // e.preventDefault();
+    console.log(e)
+    // const test = document.getElementById('outlined-name')
+    console.log('working: ', e.answer)
+  }
 
-  console.log("THIS IS DATA", props.location.state.data);
+  // console.log("THIS IS DATA", props.location.state.data);
   return (
 
     <Paper className={classes.root}>
@@ -117,11 +133,12 @@ const QuestionPage = (props) => {
       <Grid container spacing={1}>
         <Grid item xs={8} className={classes.container}>
           {/* Contains the input to store in answer variable*/}
+          <form ></form>
           <TextField
             id="outlined-name"
             label="Enter Your Answer"
             className={classes.textArea}
-            value={values.answer}
+            // value={values.answer}
             onChange={handleChange('answer')}
             fullWidth
             margin="normal"
