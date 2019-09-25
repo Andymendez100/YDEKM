@@ -1,9 +1,16 @@
 import React from 'react';
-//MUI
+// MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import SwipeableViews from 'react-swipeable-views';
-import { TextField, Grid, Button, Typography, Paper, MobileStepper } from '@material-ui/core';
+import {
+  TextField,
+  Grid,
+  Button,
+  Typography,
+  Paper,
+  MobileStepper,
+} from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -11,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     // margin: '15% 15%', smallest size
     margin: '10% 20%',
-    position: '100% 100%'
+    position: '100% 100%',
   },
   header: {
     display: 'flex',
@@ -29,11 +36,11 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     width: '100%',
     padding: '2rem 1rem',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   container: {
     display: 'grid',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   button: {
     width: '70%',
@@ -49,67 +56,63 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
     marginBottom: theme.spacing(2),
-  }
+  },
 }));
 
-
-//START FUNCTIONAL COMPONENT
-const QuestionPage = (props) => {
-
+// START FUNCTIONAL COMPONENT
+const QuestionPage = props => {
   // //MUI CSS
   const classes = useStyles();
   const theme = useTheme();
 
-  //Active States for active index of props.location.state.data array
-  //NEED TO DO: Set timer for next step 
+  // Active States for active index of props.location.state.data array
+  // NEED TO DO: Set timer for next step
   const [activeStep, setActiveStep] = React.useState(0);
 
-  //NEED TO DO : Get values of input to store in answer array
+  // NEED TO DO : Get values of input to store in answer array
   const [values, setValues] = React.useState({
     answer: [],
-    index: []
-  });
+    index: [],
+  });  
 
-  //Limit the length of question array elements
+  // Limit the length of question array elements
   const maxSteps = props.location.state.data.length;
 
-  //Handles the next button by setting new active step
-  const handleNext = (e) => {
+  // Handles the next button by setting new active step
+  const handleNext = e => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     const test = document.getElementById('outlined-name');
     console.log(test.value);
 
     test.value = '';
     test.innerHTML = '';
-    console.log("test", test.value);
+    // console.log('test', test.value);
 
-    // e.preventDefault();
-    // setValues({ values: '' });
-    console.log('working');
+    // // e.preventDefault();
+    // // setValues({ values: '' });
+    // console.log('working');
   };
 
-  //Handles the active step
+  // Handles the active step
   const handleStepChange = step => {
     setActiveStep(step);
-
   };
 
-  //NEED TO DO: handles the change in textarea value
+  // NEED TO DO: handles the change in textarea value
   const handleChange = answer => event => {
     setValues({ ...values, [answer]: event.target.value });
     console.log(values);
   };
-  //OnSubmit
-  const handleSubmit = e => {
-    // e.preventDefault();
-    console.log(e)
-    // const test = document.getElementById('outlined-name')
-    console.log('working: ', e.answer)
-  }
+  // OnSubmit
+  // const handleSubmit = e => {
+  //   // e.preventDefault();
+  //   console.log(e)
+  //   // const test = document.getElementById('outlined-name')
+  //   console.log('working: ', e.answer)
+  // }
 
   // console.log("THIS IS DATA", props.location.state.data);
   return (
-
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -120,11 +123,13 @@ const QuestionPage = (props) => {
         {props.location.state.data.map((step, index) => (
           <div key={step}>
             {Math.abs(activeStep - index) <= 2 ? (
-              //Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
+              // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
               // <img className={classes.img} src={step.imgPath} alt={step.label} />
 
-              //Displays props.location.state.data individually. If it reaches the maxstep then null
-              <Typography className={classes.img}>{props.location.state.data[activeStep]}</Typography>
+              // Displays props.location.state.data individually. If it reaches the maxstep then null
+              <Typography className={classes.img}>
+                {props.location.state.data[activeStep]}
+              </Typography>
             ) : null}
           </div>
         ))}
@@ -132,8 +137,8 @@ const QuestionPage = (props) => {
       {/* <Paper className={classes.paper}> */}
       <Grid container spacing={1}>
         <Grid item xs={8} className={classes.container}>
-          {/* Contains the input to store in answer variable*/}
-          <form ></form>
+          {/* Contains the input to store in answer variable */}
+          <form />
           <TextField
             id="outlined-name"
             label="Enter Your Answer"
@@ -158,11 +163,16 @@ const QuestionPage = (props) => {
                 className={classes.button}
                 color="primary"
                 variant="contained"
-                onClick={handleNext} disabled={activeStep === maxSteps - 1}
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
               >
                 Next
-                    {/* Right to Left direction of props.location.state.data being displayed */}
-                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                {/* Right to Left direction of props.location.state.data being displayed */}
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
               </Button>
             }
           />
@@ -171,6 +181,6 @@ const QuestionPage = (props) => {
       {/* </Paper> */}
     </Paper>
   );
-}
+};
 
-export default QuestionPage
+export default QuestionPage;

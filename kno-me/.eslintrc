@@ -1,0 +1,7 @@
+{
+  "extends": ["wesbos"],
+  "rules": {
+    "import/no-unresolved": 0,
+    "react/destructuring-assignment": 0
+  }
+}
