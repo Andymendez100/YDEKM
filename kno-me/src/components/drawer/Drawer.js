@@ -124,7 +124,6 @@ export default function PersistentDrawerLeft() {
         classes={{
           paper: classes.drawerPaper,
         }}
-
       >
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
@@ -139,6 +138,8 @@ export default function PersistentDrawerLeft() {
         {/* Side Item List */}
         <MenuList>
           <Divider variant="middle" />
+
+          {/* Links to pages */}
           <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
             Home
           </MenuItem>
@@ -149,33 +150,39 @@ export default function PersistentDrawerLeft() {
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Lobby" onClick={handleDrawerClose}>
+          <MenuItem component={Link} to="/lobby" onClick={handleDrawerClose}>
             Lobby
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
-            Rules
+          <MenuItem component={Link} to="/guidelines" onClick={handleDrawerClose}>
+            Guidelines
           </MenuItem>
         </MenuList>
+
+        {/************** FOR TESTING PURPOSES ONLY ************/}
         {/* Just for Testing Game js  */}
         <MenuList>
           <MenuItem component={Link} to="/game" onClick={handleDrawerClose}>
             Game
           </MenuItem>
         </MenuList>
-        {/* FOR TESTING PURPOSES ONLY */}
+        {/* Just for Testing QuesitonPage js  */}
         <MenuList>
           <MenuItem component={Link} to="/question" onClick={handleDrawerClose}>
             Questions
           </MenuItem>
         </MenuList>
+        {/* Just for Testing ChooseQuiz js  */}
+
         <MenuList>
           <MenuItem component={Link} to="/quiz" onClick={handleDrawerClose}>
             Choose
           </MenuItem>
         </MenuList>
-        {/* FOR TESTING PURPOSES ONLY END*/}
+        {/************** FOR TESTING PURPOSES ONLY END ********/}
+
+
       </Drawer>
       <main
         className={clsx(classes.content, {

@@ -10,8 +10,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     // margin: '15% 15%', smallest size
-    margin: '10% 20%',
-    position: '100% 100%'
+    margin: '20% 10%',
+    position: '100% 100%',
+    boxShadow: '0 5px 10px 0 '
+
   },
   header: {
     display: 'flex',
@@ -48,17 +50,18 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   }
 }));
 
-
+let ar = [];
 //START FUNCTIONAL COMPONENT
 const QuestionPage = (props) => {
 
   // //MUI CSS
   const classes = useStyles();
   const theme = useTheme();
+
 
   //Active States for active index of props.location.state.data array
   //NEED TO DO: Set timer for next step 
@@ -67,21 +70,25 @@ const QuestionPage = (props) => {
   //NEED TO DO : Get values of input to store in answer array
   const [values, setValues] = React.useState({
     answer: [],
-    index: []
+    // newAnswer: []
+    // index: []
   });
 
   //Limit the length of question array elements
   const maxSteps = props.location.state.data.length;
 
   //Handles the next button by setting new active step
-  const handleNext = (e) => {
+  const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     const test = document.getElementById('outlined-name');
-    console.log(test.value);
+    console.log(test.value)
+    ar += test.value
 
+    console.log(ar)
     test.value = '';
     test.innerHTML = '';
     console.log("test", test.value);
+
 
     // e.preventDefault();
     // setValues({ values: '' });
@@ -96,20 +103,22 @@ const QuestionPage = (props) => {
 
   //NEED TO DO: handles the change in textarea value
   const handleChange = answer => event => {
-    setValues({ ...values, [answer]: event.target.value });
-    console.log(values);
+    setValues({ values, [answer]: event.target.value });
+    // console.log(event.target.value);
   };
   //OnSubmit
-  const handleSubmit = e => {
-    // e.preventDefault();
-    console.log(e)
-    // const test = document.getElementById('outlined-name')
-    console.log('working: ', e.answer)
-  }
+  // const handleSubmit = e => {
+  //   // e.preventDefault();
+  //   console.log(e)
+  //   // const test = document.getElementById('outlined-name')
+  //   console.log('working: ', e.answer)
+  // }
 
   // console.log("THIS IS DATA", props.location.state.data);
-  return (
+  // console.log(values.answer)
+  // console.log(values.answer)
 
+  return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -158,7 +167,8 @@ const QuestionPage = (props) => {
                 className={classes.button}
                 color="primary"
                 variant="contained"
-                onClick={handleNext} disabled={activeStep === maxSteps - 1}
+                //=========== Final Step go to score ======
+                onClick={handleNext} disabled={activeStep === maxSteps}
               >
                 Next
                     {/* Right to Left direction of props.location.state.data being displayed */}

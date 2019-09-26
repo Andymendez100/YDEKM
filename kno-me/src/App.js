@@ -13,6 +13,7 @@ import Store from './components/question/Store';
 import QuestionPage from './components/question/QuestionPage';
 import ChooseQuiz from './components/question/ChooseQuiz';
 // import Game from './components/question/Game';
+import Guidelines from './components/guideLines/Guidelines'
 
 class App extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class App extends React.Component {
         <Route path="/game" render={() => <Store Jwt={this.state.jwt} />} />
         <Route path="/question" component={QuestionPage} />
         <Route path="/quiz" component={ChooseQuiz} />
+        <Route path="/guidelines" component={Guidelines} />
         <Footer />
       </Router>
     );
