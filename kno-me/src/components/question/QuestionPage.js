@@ -83,7 +83,6 @@ const QuestionPage = (props) => {
     const test = document.getElementById('outlined-name');
     console.log(test.value)
     ar += test.value
-
     console.log(ar)
     test.value = '';
     test.innerHTML = '';
@@ -98,9 +97,14 @@ const QuestionPage = (props) => {
   //Handles the active step
   const handleStepChange = step => {
     setActiveStep(step);
-
   };
 
+  //Handles if enter is pressed instead of Next. Call next func
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleNext();
+    }
+  }
   //NEED TO DO: handles the change in textarea value
   const handleChange = answer => event => {
     setValues({ values, [answer]: event.target.value });
@@ -124,7 +128,6 @@ const QuestionPage = (props) => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-        enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={step}>
@@ -144,6 +147,7 @@ const QuestionPage = (props) => {
           {/* Contains the input to store in answer variable*/}
           <form ></form>
           <TextField
+            onKeyPress={handleKeyPress}
             id="outlined-name"
             label="Enter Your Answer"
             className={classes.textArea}

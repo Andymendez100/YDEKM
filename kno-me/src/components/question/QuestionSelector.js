@@ -14,7 +14,7 @@ const QuestionSelector = (props) => {
         margin: '2% 0'
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         console.log('clcik ', props.data.questions);
         console.log('Click ', props.data)
     }
