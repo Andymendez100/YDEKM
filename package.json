@@ -38,6 +38,7 @@
     "start": "nodemon server.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "server": "nodemon server.js",
-    "client": "cd kno-me && yarn run start"
+    "client": "cd kno-me && yarn run start",
+    "build": "export NODE_ENV=production && cd kno-me && yarn run build"
   }
 }
