@@ -145,7 +145,7 @@ const QuestionPage = props => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-        // enableMouseEvents
+      // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={step}>
