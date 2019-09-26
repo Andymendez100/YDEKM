@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const QuestionSelector = (props) => {
 
     const button = {
+        position: '100% 100%',
         padding: '1rem',
         width: '100%',
         margin: '2% 0'
@@ -15,6 +16,7 @@ const QuestionSelector = (props) => {
 
     const handleClick = () => {
         console.log('clcik ', props.data.questions);
+        console.log('Click ', props.data)
     }
     return (
         <Link style={{ textDecoration: 'none' }}

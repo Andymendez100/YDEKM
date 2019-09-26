@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
   Paper,
-  MobileStepper
+  MobileStepper,
 } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
@@ -18,14 +18,15 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     // margin: '15% 15%', smallest size
-    margin: '10% 20%',
-    position: '100% 100%'
+    margin: '20% 10%',
+    position: '100% 100%',
+    boxShadow: '0 5px 10px 0 ',
   },
   header: {
     display: 'flex',
     alignItems: 'center',
     height: 50,
-    backgroundColor: '#3f51b5'
+    backgroundColor: '#3f51b5',
   },
   img: {
     postion: 'fixed',
@@ -37,27 +38,27 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     width: '100%',
     padding: '2rem 1rem',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   container: {
     display: 'grid',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   button: {
     width: '70%',
     padding: '.9rem',
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   textArea: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 // START FUNCTIONAL COMPONENT
@@ -105,7 +106,7 @@ const QuestionPage = props => {
 
   function sendToServer(input) {
     socket.emit('chatbox', {
-      test: input
+      test: input,
     });
   }
 
@@ -130,7 +131,7 @@ const QuestionPage = props => {
     const answer = event.target.answer.value;
     socket.emit('questionDone', {
       currentPlayer,
-      answer
+      answer,
     });
     event.target.answer.value = '';
   };
