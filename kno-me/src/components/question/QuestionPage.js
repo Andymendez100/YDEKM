@@ -1,4 +1,5 @@
 import React from 'react';
+import io from 'socket.io-client';
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
@@ -9,7 +10,7 @@ import {
   Button,
   Typography,
   Paper,
-  MobileStepper,
+  MobileStepper
 } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
@@ -18,13 +19,13 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     // margin: '15% 15%', smallest size
     margin: '10% 20%',
-    position: '100% 100%',
+    position: '100% 100%'
   },
   header: {
     display: 'flex',
     alignItems: 'center',
     height: 50,
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#3f51b5'
   },
   img: {
     postion: 'fixed',
@@ -36,27 +37,27 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     width: '100%',
     padding: '2rem 1rem',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   container: {
     display: 'grid',
-    padding: theme.spacing(1),
+    padding: theme.spacing(1)
   },
   button: {
     width: '70%',
     padding: '.9rem',
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   textArea: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
-    marginBottom: theme.spacing(2),
-  },
+    marginBottom: theme.spacing(2)
+  }
 }));
 
 // START FUNCTIONAL COMPONENT
@@ -70,27 +71,17 @@ const QuestionPage = props => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   // NEED TO DO : Get values of input to store in answer array
-  const [values, setValues] = React.useState({
-    answer: [],
-    index: [],
-  });  
+  // const [values, setValues] = React.useState({
+  //   answer: [],
+  //   index: [],
+  // });
 
   // Limit the length of question array elements
   const maxSteps = props.location.state.data.length;
 
   // Handles the next button by setting new active step
-  const handleNext = e => {
+  const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
-    const test = document.getElementById('outlined-name');
-    console.log(test.value);
-
-    test.value = '';
-    test.innerHTML = '';
-    // console.log('test', test.value);
-
-    // // e.preventDefault();
-    // // setValues({ values: '' });
-    // console.log('working');
   };
 
   // Handles the active step
@@ -99,26 +90,61 @@ const QuestionPage = props => {
   };
 
   // NEED TO DO: handles the change in textarea value
-  const handleChange = answer => event => {
-    setValues({ ...values, [answer]: event.target.value });
-    console.log(values);
-  };
-  // OnSubmit
-  // const handleSubmit = e => {
-  //   // e.preventDefault();
-  //   console.log(e)
-  //   // const test = document.getElementById('outlined-name')
-  //   console.log('working: ', e.answer)
-  // }
+  // const handleChange = answer => event => {
+  //   setValues({ ...values, [answer]: event.target.value });
+  //   console.log(values);
+  // };
 
-  // console.log("THIS IS DATA", props.location.state.data);
+  // Socket.io Stuff
+  const socket = io(':3001/chat');
+
+  // Creating variable to save whichever user is logged in
+  let currentPlayer;
+
+  // Send to socket.io
+
+  function sendToServer(input) {
+    socket.emit('chatbox', {
+      test: input
+    });
+  }
+
+  // Get from socket
+
+  socket.on('player', res => {
+    // console.log(res);
+    currentPlayer = res.player.name;
+    console.log(currentPlayer);
+  });
+
+  socket.on('answer', res => {
+    console.log(res);
+
+    console.log(res.host.answer);
+    console.log(res.guest.answer);
+  });
+
+  // On submit for questions
+  const submitAnswer = event => {
+    event.preventDefault();
+    const answer = event.target.answer.value;
+    socket.emit('questionDone', {
+      currentPlayer,
+      answer
+    });
+    event.target.answer.value = '';
+  };
+  const playerInput = e => {
+    // console.log(e.target.value);
+    sendToServer(e.target.value);
+  };
   return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-        enableMouseEvents
+        // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={step}>
@@ -134,50 +160,57 @@ const QuestionPage = props => {
           </div>
         ))}
       </SwipeableViews>
-      {/* <Paper className={classes.paper}> */}
-      <Grid container spacing={1}>
-        <Grid item xs={8} className={classes.container}>
-          {/* Contains the input to store in answer variable */}
-          <form />
-          <TextField
-            id="outlined-name"
-            label="Enter Your Answer"
-            className={classes.textArea}
-            // value={values.answer}
-            onChange={handleChange('answer')}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
+      <form onSubmit={submitAnswer}>
+        {/* <Paper className={classes.paper}> */}
+        <Grid container spacing={1}>
+          <Grid item xs={8} className={classes.container}>
+            {/* Contains the input to store in answer variable */}
+
+            <TextField
+              id="answer"
+              label="Enter Your Answer"
+              className={classes.textArea}
+              // value={values.answer}
+              // onChange={handleChange('answer')}
+              onChange={playerInput}
+              fullWidth
+              name="answer"
+              type="text"
+              margin="normal"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={4}>
+            {/* Handles the next step */}
+            <MobileStepper
+              steps={maxSteps}
+              position="static"
+              variant="text"
+              activeStep={activeStep}
+              // Button to toggle to next step. No need for back button
+              nextButton={
+                <Button
+                  type="submit"
+                  id="sendAnswer"
+                  className={classes.button}
+                  color="primary"
+                  variant="contained"
+                  onClick={handleNext}
+                  disabled={activeStep === maxSteps - 1}
+                >
+                  Next
+                  {/* Right to Left direction of props.location.state.data being displayed
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )} */}
+                </Button>
+              }
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          {/* Handles the next step */}
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            variant="text"
-            activeStep={activeStep}
-            // Button to toggle to next step. No need for back button
-            nextButton={
-              <Button
-                className={classes.button}
-                color="primary"
-                variant="contained"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                Next
-                {/* Right to Left direction of props.location.state.data being displayed */}
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-          />
-        </Grid>
-      </Grid>
+      </form>
       {/* </Paper> */}
     </Paper>
   );
