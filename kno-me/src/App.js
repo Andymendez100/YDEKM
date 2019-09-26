@@ -10,6 +10,9 @@ import LoginSign from './components/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
 import PersistentDrawerLeft from './components/drawer/Drawer';
 import Store from './components/question/Store';
+import QuestionPage from './components/question/QuestionPage';
+import ChooseQuiz from './components/question/ChooseQuiz';
+import GuideLines from './components/guideLines/Guidelines';
 // import Game from './components/question/Game';
 
 class App extends React.Component {
@@ -38,6 +41,9 @@ class App extends React.Component {
           render={() => <LoginSign changeJwt={this.changeJwt} />}
         />
         <Route path="/game" render={() => <Store Jwt={this.state.jwt} />} />
+        <Route path="/question" component={QuestionPage} />
+        <Route path="/quiz" component={ChooseQuiz} />
+        <Route path="/Guidelines" component={GuideLines} />
         <Footer />
       </Router>
     );

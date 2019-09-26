@@ -7,6 +7,10 @@ const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Helmet
+app.use(helmet());
+
 //= === Socket.io =========
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
@@ -83,6 +87,7 @@ io.of('/chat').on('connection', function(socket) {
     console.log(res);
   });
 });
+
 //= === Socket.io end =====
 require('dotenv').config();
 // Define middleware here
@@ -91,8 +96,7 @@ app.use(express.json());
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
-// Helmet
-app.use(helmet());
+
 // Express Session
 app.use(
   session({

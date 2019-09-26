@@ -6,19 +6,9 @@ import { Link } from 'react-router-dom';
 
 // MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-// MUIcore
-import {
-  Drawer,
-  CssBaseline,
-  AppBar,
-  Toolbar,
-  Divider,
-  IconButton,
-  MenuItem,
-  MenuList,
-  Button,
-} from '@material-ui/core';
-// MUIicons
+//MUIcore
+import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList, ClickAwayListener } from '@material-ui/core';
+//MUIicons
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -90,12 +80,13 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
-    setOpen(true);
+  const handleDrawerOpen = () => {
+    setOpen(prev => !prev)
   }
 
-  function handleDrawerClose() {
-    setOpen(false);
+  const handleDrawerClose = () => {
+    setOpen(false)
+
   }
 
   return (
@@ -107,21 +98,23 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* <img src={logo2} alt="logo2" /> */}
-          {/* <Typography variant="h6" noWrap>
+        <ClickAwayListener onClickAway={handleDrawerClose}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* <img src={logo2} alt="logo2" /> */}
+            {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}
-        </Toolbar>
+          </Toolbar>
+        </ClickAwayListener>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -131,6 +124,7 @@ export default function PersistentDrawerLeft() {
         classes={{
           paper: classes.drawerPaper,
         }}
+
       >
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
@@ -138,46 +132,50 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
             ) : (
-              <ChevronRightIcon />
-            )}
+                <ChevronRightIcon />
+              )}
           </IconButton>
         </div>
         {/* Side Item List */}
         <MenuList>
           <Divider variant="middle" />
-
           <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
-            <Button>Home</Button>
+            Home
           </MenuItem>
         </MenuList>
         <MenuList>
           <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
-            <Button>Login</Button>
-          </MenuItem>
-        </MenuList>
-        <MenuList>
-          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
-            <Button>Sign Up</Button>
+            Login
           </MenuItem>
         </MenuList>
         <MenuList>
           <MenuItem component={Link} to="/Lobby" onClick={handleDrawerClose}>
-            <Button>Lobby</Button>
+            Lobby
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
-            <Button>Rules</Button>
+          <MenuItem component={Link} to="/Guidelines" onClick={handleDrawerClose}>
+            Guide Lines
           </MenuItem>
         </MenuList>
         {/* Just for Testing Game js  */}
         <MenuList>
-          <MenuItem>
-            <Button component={Link} to="/game" onClick={handleDrawerClose}>
-              Game
-            </Button>
+          <MenuItem component={Link} to="/game" onClick={handleDrawerClose}>
+            Game
           </MenuItem>
         </MenuList>
+        {/* FOR TESTING PURPOSES ONLY */}
+        <MenuList>
+          <MenuItem component={Link} to="/question" onClick={handleDrawerClose}>
+            Questions
+          </MenuItem>
+        </MenuList>
+        <MenuList>
+          <MenuItem component={Link} to="/quiz" onClick={handleDrawerClose}>
+            Choose
+          </MenuItem>
+        </MenuList>
+        {/* FOR TESTING PURPOSES ONLY END*/}
       </Drawer>
       <main
         className={clsx(classes.content, {

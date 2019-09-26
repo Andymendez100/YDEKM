@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import io from 'socket.io-client';
 
 export default function Store(props) {
-  const [userInput, setUserInput] = useState('');
+  //   const [userInput, setUserInput] = useState('');
   // console.log(props.Jwt);
 
   const socket = io(':3001/chat');
