@@ -14,14 +14,16 @@ import QuestionPage from './components/question/QuestionPage';
 import ChooseQuiz from './components/question/ChooseQuiz';
 import GuideLines from './components/guideLines/Guidelines';
 // import Game from './components/question/Game';
-import Guidelines from './components/guideLines/Guidelines'
+import Guidelines from './components/guideLines/Guidelines';
+import Video from './components/video/video';
+import { GoToRoomInput } from './components/video/goToRoomInput';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jwt: '',
+      jwt: ''
     };
   }
 
@@ -30,22 +32,9 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {/* Home route */}
-        <PersistentDrawerLeft />
-        <Route exact path="/" render={props => <Homepage />} />
-
-        {/* Routes */}
-        <Route path="/createlobby" component={CreateLobbyPage} />
-        <Route path="/join" component={JoinPage} />
-        <Route
-          path="/login"
-          render={() => <LoginSign changeJwt={this.changeJwt} />}
-        />
-        <Route path="/game" render={() => <Store Jwt={this.state.jwt} />} />
-        <Route path="/question" component={QuestionPage} />
-        <Route path="/quiz" component={ChooseQuiz} />
-        <Route path="/guidelines" component={Guidelines} />
-        <Footer />
+        {/* Video with Room */}
+        <Route path="/" exact component={GoToRoomInput} />
+        <Route path="/:roomId" exact component={Video} />
       </Router>
     );
   }

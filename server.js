@@ -12,83 +12,116 @@ const PORT = process.env.PORT || 3001;
 app.use(helmet());
 
 //= === Socket.io =========
-const server = require('http').Server(app);
+const server = require('https').Server(app);
 const io = require('socket.io').listen(server);
 
-let hostAnswer = '';
-// const allowedOrigins = 'http://localhost:3001';
-// io(server, { origins: allowedOrigins });
-io.of('/chat').on('connection', function(socket) {
-  // console.log(socket);
-  // var clients = io.sockets.clients(nick.room); // all users from room
-  // console.log(clients);
-  // console.log(socket.server.engine.clientsCount);
-  const player = {
-    name: '',
-    sign: '',
-  };
-  if (socket.server.engine.clientsCount < 2) {
-    player.name = 'Host';
-    player.sign = 'H';
-    console.log(player);
-  } else if (socket.server.engine.clientsCount === 2) {
-    // if (!socket.handshake.headers.host) {
-    player.name = 'Guest';
-    player.sign = 'G';
-    console.log(player);
-  }
-
-  socket.emit('player', {
-    player,
-  });
-  // }
-  // room.push(socket.id);
-  console.log('A user connected!'); // We'll replace this with our own events
-  socket.on('chatbox', function(res) {
-    console.log('res', res);
-    socket.broadcast.emit('chatbox', {
-      input: res,
+io.on('connection', socket => {
+    socket.on('join', data => {
+        socket.join(data.roomId);
+        socket.room = data.roomId;
+        const sockets = io.of('/').in().adapter.rooms[data.roomId];
+        if(sockets.length === 1) {
+            socket.emit('init');
+        }
+        else {
+            if(sockets.length===2) {
+                io.to(data.roomId).emit('ready');
+            }
+            else {
+                socket.room = null;
+                socket.leave(data.roomId);
+                socket.emit('full');
+            }
+        }
     });
-  });
-  // socket.on('correct', res => {
-  //   socket.broadcast.emit('done', {
-  //     done: res.gainPoint,
-  //   });
-  // });
-  socket.on('test2', res => {
-    console.log(res);
-  });
-
-  socket.on('questionDone', res => {
-    if (res.currentPlayer === 'Host') {
-      hostAnswer = res.answer;
-      console.log(`test${hostAnswer}`);
-    }
-
-    if (res.currentPlayer === 'Guest') {
-      socket.emit('answer', {
-        host: {
-          answer: hostAnswer,
-        },
-        guest: {
-          answer: res.answer,
-        },
-      });
-      socket.broadcast.emit('answer', {
-        host: {
-          answer: hostAnswer,
-        },
-        guest: {
-          answer: res.answer,
-        },
-      });
-    }
-
-    console.log(res);
-  });
+    socket.on('signal', data => {
+        io.to(data.room).emit('desc', data.desc)
+    });
+    socket.on('disconnect', () => {
+        const roomId = Object.keys(socket.adaptor.rooms)[0];
+        if (socket.room) {
+            io.to(socket.room).emit('disconnected');
+        }
+    });
 });
 
+// let hostAnswer = '';
+// // const allowedOrigins = 'http://localhost:3001';
+// // io(server, { origins: allowedOrigins });
+// io.of('/chat').on('connection', function(socket) {
+//   // console.log(socket);
+//   // var clients = io.sockets.clients(nick.room); // all users from room
+//   // console.log(clients);
+//   // console.log(socket.server.engine.clientsCount);
+//   const player = {
+//     name: '',
+//     sign: '',
+//   };
+//   if (socket.server.engine.clientsCount < 2) {
+//     player.name = 'Host';
+//     player.sign = 'H';
+//     console.log(player);
+//   } else if (socket.server.engine.clientsCount === 2) {
+//     // if (!socket.handshake.headers.host) {
+//     player.name = 'Guest';
+//     player.sign = 'G';
+//     console.log(player);
+//   }
+
+//   socket.emit('player', {
+//     player,
+//   });
+//   // }
+//   // room.push(socket.id);
+//   console.log('A user connected!'); // We'll replace this with our own events
+//   socket.on('chatbox', function(res) {
+//     console.log('res', res);
+//     socket.broadcast.emit('chatbox', {
+//       input: res,
+//     });
+//   });
+//   // socket.on('correct', res => {
+//   //   socket.broadcast.emit('done', {
+//   //     done: res.gainPoint,
+//   //   });
+//   // });
+//   socket.on('test2', res => {
+//     console.log(res);
+//   });
+
+//   socket.on('questionDone', res => {
+//     if (res.currentPlayer === 'Host') {
+//       hostAnswer = res.answer;
+//       console.log(`test${hostAnswer}`);
+//     }
+
+//     if (res.currentPlayer === 'Guest') {
+//       socket.emit('answer', {
+//         host: {
+//           answer: hostAnswer,
+//         },
+//         guest: {
+//           answer: res.answer,
+//         },
+//       });
+//       socket.broadcast.emit('answer', {
+//         host: {
+//           answer: hostAnswer,
+//         },
+//         guest: {
+//           answer: res.answer,
+//         },
+//       });
+//     }
+
+//     console.log(res);
+//   });
+// });
+
 //= === Socket.io end =====
+
+
+
 require('dotenv').config();
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
