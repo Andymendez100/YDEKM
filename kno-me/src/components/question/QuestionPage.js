@@ -1,4 +1,5 @@
 import React from 'react';
+import io from 'socket.io-client'
 //MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
@@ -59,6 +60,7 @@ let ar = [];
 const QuestionPage = (props) => {
 
   // //MUI CSS
+  // console.log('Data: ' + props)
   const classes = useStyles();
   const theme = useTheme();
 
@@ -74,8 +76,10 @@ const QuestionPage = (props) => {
     // index: []
   });
 
-  //Limit the length of question array elements
+  // Limit the length of question array elements
+  console.log("PROPS", props);
   const maxSteps = props.location.state.data.length;
+  // console.log(maxSteps)
 
   //Handles the next button by setting new active step
   const handleNext = () => {
@@ -99,16 +103,54 @@ const QuestionPage = (props) => {
     setActiveStep(step);
   };
 
-  //Handles if enter is pressed instead of Next. Call next func
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      handleNext();
-    }
+  // NEED TO DO: handles the change in textarea value
+  // const handleChange = answer => event => {
+  //   setValues({ ...values, [answer]: event.target.value });
+  //   console.log(values);
+  // };
+
+  // Socket.io Stuff
+  const socket = io(':3001/chat');
+  // console.log('text string')
+  // Creating variable to save whichever user is logged in
+  let currentPlayer;
+
+  // Send to socket.io
+
+  function sendToServer(input) {
+    socket.emit('chatbox', {
+      test: input,
+    });
   }
-  //NEED TO DO: handles the change in textarea value
-  const handleChange = answer => event => {
-    setValues({ values, [answer]: event.target.value });
-    // console.log(event.target.value);
+
+  // Get from socket
+
+  socket.on('player', res => {
+    // console.log(res);
+    currentPlayer = res.player.name;
+    console.log(currentPlayer);
+  });
+
+  socket.on('answer', res => {
+    console.log(res);
+
+    console.log('host' + res.host.answer);
+    console.log('guest' + res.guest.answer);
+  });
+
+  // On submit for questions
+  const submitAnswer = event => {
+    event.preventDefault();
+    const answer = event.target.answer.value;
+    socket.emit('questionDone', {
+      currentPlayer,
+      answer,
+    });
+    event.target.answer.value = '';
+  };
+  const playerInput = e => {
+    // console.log(e.target.value);
+    sendToServer(e.target.value);
   };
   //OnSubmit
   // const handleSubmit = e => {
@@ -128,9 +170,10 @@ const QuestionPage = (props) => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
+      // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
-          <div key={step}>
+          <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               //Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
               // <img className={classes.img} src={step.imgPath} alt={step.label} />
