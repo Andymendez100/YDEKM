@@ -4,6 +4,9 @@ import Store from "../question/Store";
 
 export default function CreateLobbyPage() {
   return (
-    <Store />
+    <div style={{ margin: '20%' }}>
+      <Store />
+    </div>
+
   );
 }

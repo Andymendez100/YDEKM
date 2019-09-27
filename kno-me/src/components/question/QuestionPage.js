@@ -64,6 +64,7 @@ const useStyles = makeStyles(theme => ({
 // START FUNCTIONAL COMPONENT
 const QuestionPage = props => {
   // //MUI CSS
+  // console.log('Data: ' + props)
   const classes = useStyles();
   const theme = useTheme();
 
@@ -78,7 +79,9 @@ const QuestionPage = props => {
   // });
 
   // Limit the length of question array elements
+  console.log("PROPS", props);
   const maxSteps = props.location.state.data.length;
+  // console.log(maxSteps)
 
   // Handles the next button by setting new active step
   const handleNext = () => {
@@ -98,7 +101,7 @@ const QuestionPage = props => {
 
   // Socket.io Stuff
   const socket = io(':3001/chat');
-
+  // console.log('text string')
   // Creating variable to save whichever user is logged in
   let currentPlayer;
 
@@ -121,8 +124,8 @@ const QuestionPage = props => {
   socket.on('answer', res => {
     console.log(res);
 
-    console.log(res.host.answer);
-    console.log(res.guest.answer);
+    console.log('host' + res.host.answer);
+    console.log('guest' + res.guest.answer);
   });
 
   // On submit for questions
@@ -148,7 +151,7 @@ const QuestionPage = props => {
       // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
-          <div key={step}>
+          <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
               // <img className={classes.img} src={step.imgPath} alt={step.label} />

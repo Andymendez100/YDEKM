@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Box, Paper } from '@material-ui/core';
 
 // import QuestionList from './QuestionSelector';
-import { data } from './seeds';
+// import { data } from './seeds';
 // import Game from './Game';
 import QuestionSelector from './QuestionSelector';
 
@@ -18,14 +18,19 @@ export default class ChooseQuiz extends Component {
         super(props)
 
         this.state = {
-            quiz: data,
-            index: [0, 1, 2]
+            // quiz: data,
+            index: [0, 1, 2],
+            hi: this.props.quizSelect
         }
+        // console.log(props.quizSelect)
+        // console.log()
     }
+
     render() {
 
-        const { quiz } = this.state
-        // console.log(index);
+        const { hi } = this.state
+        const { quiz, stateQuizSelect } = this.props;
+        console.log('Hi tony', this.props);
         return (
             <div style={container}>
                 <Paper style={paper}>
@@ -35,13 +40,16 @@ export default class ChooseQuiz extends Component {
                         </Box>
                     </div>
                     {quiz.map((q, i) => {
-                        console.log(i)
+                        // console.log(i)
                         return (
 
                             <QuestionSelector
+                                // onClick={() => this.props.quizSelect(i)}
                                 index={i}
                                 key={i}
                                 data={quiz[i]}
+                                stateQuizSelect={stateQuizSelect}
+                                quizSelect={this.props.quizSelect}
                             >
                                 {q.quiz}
                             </QuestionSelector>

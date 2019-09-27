@@ -58,7 +58,7 @@ export default function Store(props) {
                 <input id="text" onChange={handleChange} name="answer" type="text" />
                 <button type="submit" id="sendAnswer">
                     Hello world
-        </button>
+            </button>
             </form>
         </div>
     );

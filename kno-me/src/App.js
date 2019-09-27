@@ -15,6 +15,7 @@ import ChooseQuiz from './components/question/ChooseQuiz';
 import GuideLines from './components/guideLines/Guidelines';
 // import Game from './components/question/Game';
 import Guidelines from './components/guideLines/Guidelines'
+import { data } from './components/question/seeds';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,12 +23,19 @@ class App extends React.Component {
 
     this.state = {
       jwt: '',
+      quizSelect: null
     };
   }
 
+
   changeJwt = jwt => this.setState({ jwt });
+  changeQuiz = quizSelect => {
+    console.log("Called function");
+    this.setState({ quizSelect });
+  }
 
   render() {
+    console.log(this.state.quizSelect)
     return (
       <Router>
         {/* Home route */}
@@ -41,9 +49,10 @@ class App extends React.Component {
           path="/login"
           render={() => <LoginSign changeJwt={this.changeJwt} />}
         />
-        <Route path="/game" render={() => <Store Jwt={this.state.jwt} />} />
+        <Route path="/quiz" render={() => <ChooseQuiz Jwt={this.state.jwt} quizSelect={this.changeQuiz} quiz={data} stateQuizSelect={this.state.quizSelect} />} />
         <Route path="/question" component={QuestionPage} />
-        <Route path="/quiz" component={ChooseQuiz} />
+        {/* render={() => <QuestionPage join={this.state.quizSelect} />} */}
+        {/* <Route path="/quiz" component={ChooseQuiz} /> */}
         <Route path="/guidelines" component={Guidelines} />
         <Footer />
       </Router>
