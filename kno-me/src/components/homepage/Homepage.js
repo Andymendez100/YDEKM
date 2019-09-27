@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core';
 // import QuestionPage from '../question/QuestionPage';
 const buttonStyle = {
     padding: '5px',
-    margin: '10px 100px'
+    margin: '10px 100px',
 }
 
 export default function Homepage() {

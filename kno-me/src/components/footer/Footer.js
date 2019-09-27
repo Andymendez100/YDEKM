@@ -13,6 +13,7 @@ var style = {
 }
 
 export default function Footer({ children }) {
+
     return (
         <div>
             {/* <div style={phantom} /> */}

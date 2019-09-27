@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // MUIstyles
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 //MUIcore
-import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList } from '@material-ui/core';
+import { Drawer, CssBaseline, AppBar, Toolbar, Divider, IconButton, MenuItem, MenuList, ClickAwayListener } from '@material-ui/core';
 //MUIicons
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -80,12 +80,13 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
-    setOpen(true);
+  const handleDrawerOpen = () => {
+    setOpen(prev => !prev)
   }
 
-  function handleDrawerClose() {
-    setOpen(false);
+  const handleDrawerClose = () => {
+    setOpen(false)
+
   }
 
   return (
@@ -97,21 +98,23 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* <img src={logo2} alt="logo2" /> */}
-          {/* <Typography variant="h6" noWrap>
+        <ClickAwayListener onClickAway={handleDrawerClose}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* <img src={logo2} alt="logo2" /> */}
+            {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}
-        </Toolbar>
+          </Toolbar>
+        </ClickAwayListener>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -135,6 +138,8 @@ export default function PersistentDrawerLeft() {
         {/* Side Item List */}
         <MenuList>
           <Divider variant="middle" />
+
+          {/* Links to pages */}
           <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
             Home
           </MenuItem>
@@ -145,33 +150,39 @@ export default function PersistentDrawerLeft() {
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Lobby" onClick={handleDrawerClose}>
+          <MenuItem component={Link} to="/lobby" onClick={handleDrawerClose}>
             Lobby
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/Rules" onClick={handleDrawerClose}>
-            Rules
+          <MenuItem component={Link} to="/guidelines" onClick={handleDrawerClose}>
+            Guidelines
           </MenuItem>
         </MenuList>
+
+        {/************** FOR TESTING PURPOSES ONLY ************/}
         {/* Just for Testing Game js  */}
         <MenuList>
           <MenuItem component={Link} to="/game" onClick={handleDrawerClose}>
             Game
           </MenuItem>
         </MenuList>
-        {/* FOR TESTING PURPOSES ONLY */}
+        {/* Just for Testing QuesitonPage js  */}
         <MenuList>
           <MenuItem component={Link} to="/question" onClick={handleDrawerClose}>
             Questions
           </MenuItem>
         </MenuList>
+        {/* Just for Testing ChooseQuiz js  */}
+
         <MenuList>
           <MenuItem component={Link} to="/quiz" onClick={handleDrawerClose}>
             Choose
           </MenuItem>
         </MenuList>
-        {/* FOR TESTING PURPOSES ONLY END*/}
+        {/************** FOR TESTING PURPOSES ONLY END ********/}
+
+
       </Drawer>
       <main
         className={clsx(classes.content, {

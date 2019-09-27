@@ -41,6 +41,8 @@ export const data = [
             'What Is A Sure-fire Way To Get on Their Nerves?',
             "What is Something They do Constantly That They Aren't Aware Of?",
             'What Would Be Your Spouse’s Ideal Date?',
+            "Which would they choose: the power of flight, or the power of time-travel?",
+            "If they could spend $500 on anything, how would they spend it?"
         ],
     }
 ];

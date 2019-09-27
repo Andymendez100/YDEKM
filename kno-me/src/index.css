@@ -1,7 +1,11 @@
 body {
   background: url(./Images/question.png);
   background-position: fixed;
+<<<<<<< HEAD
   /* background-size: 100vh 100vw;   */
+=======
+  background-repeat: no-repeat;
+>>>>>>> a629239cd83f0d8adbfe6c0c02dc95b488725477
   background-attachment: fixed;
   background-size: cover;
      
