@@ -2,7 +2,6 @@ import React from 'react';
 import io from 'socket.io-client';
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import SwipeableViews from 'react-swipeable-views';
 import {
   TextField,
@@ -13,6 +12,7 @@ import {
   MobileStepper,
 } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
+// import Join from '../join/JoinPage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,6 +63,10 @@ const useStyles = makeStyles(theme => ({
 
 // START FUNCTIONAL COMPONENT
 const QuestionPage = props => {
+
+  //pass this to parameter to emit
+  console.log(props.location)
+
   // //MUI CSS
   const classes = useStyles();
   const theme = useTheme();
@@ -90,32 +94,52 @@ const QuestionPage = props => {
     setActiveStep(step);
   };
 
-  // NEED TO DO: handles the change in textarea value
-  // const handleChange = answer => event => {
-  //   setValues({ ...values, [answer]: event.target.value });
-  //   console.log(values);
-  // };
-
   // Socket.io Stuff
   const socket = io(':3001/chat');
 
   // Creating variable to save whichever user is logged in
   let currentPlayer;
+  //intaniate variables from props
+  let passedData = props.location.state;
+  let stringIndex = JSON.stringify(props.location.state.index)
 
   // Send to socket.io
-
   function sendToServer(input) {
     socket.emit('chatbox', {
       test: input,
     });
   }
 
-  // Get from socket
+  //============ Join ==================
+  //listen: emit what index is selected 
+  socket.emit('quiz', stringIndex)
+  socket.on('Guest', res => {
+    console.log(res);
+    //res = int
+    let newRes = parseInt(res);
+    if (passedData.index === newRes) {
+      return (
+        //need to pass to join 
+        passedData.data
+      )
+    }
+  })
+  //=========== End Join ===============
 
+  // Get from socket
   socket.on('player', res => {
     // console.log(res);
     currentPlayer = res.player.name;
     console.log(currentPlayer);
+    if (currentPlayer === 'Host') {
+      return (
+        console.log('waiting for player two')
+      )
+    } else {
+      return (
+        console.log('Guest')
+      )
+    }
   });
 
   socket.on('answer', res => {
@@ -139,13 +163,14 @@ const QuestionPage = props => {
     // console.log(e.target.value);
     sendToServer(e.target.value);
   };
+
+  //JSX
   return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-      // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={index}>
@@ -200,19 +225,12 @@ const QuestionPage = props => {
                   disabled={activeStep === maxSteps - 1}
                 >
                   Next
-                  {/* Right to Left direction of props.location.state.data being displayed
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )} */}
                 </Button>
               }
             />
           </Grid>
         </Grid>
       </form>
-      {/* </Paper> */}
     </Paper>
   );
 };

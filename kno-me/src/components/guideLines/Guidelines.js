@@ -31,7 +31,7 @@ const guideLines = [
         ]
     }
 ]
-console.log(guideLines[0].list)
+// console.log(guideLines[0].list)
 
 const GuideLines = () => {
     const classes = useStyles();

@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { Box, Paper } from '@material-ui/core';
-
-// import QuestionList from './QuestionSelector';
-// import { data } from './seeds';
-// import Game from './Game';
 import QuestionSelector from './QuestionSelector';
-
-// console.log(data)
 
 //NEED TO DO:
 //onclick function to pass in the question[index] 
@@ -18,19 +12,14 @@ export default class ChooseQuiz extends Component {
         super(props)
 
         this.state = {
-            // quiz: data,
-            index: [0, 1, 2],
-            hi: this.props.quizSelect
+            index: [],
         }
-        // console.log(props.quizSelect)
-        // console.log()
     }
 
     render() {
-
-        const { hi } = this.state
-        const { quiz, stateQuizSelect } = this.props;
-        console.log('Hi tony', this.props);
+        console.log('from App: ' + this.props.quizSelect);
+        const { quiz } = this.props;
+        // console.log('Hi tony', this.props);
         return (
             <div style={container}>
                 <Paper style={paper}>
@@ -42,13 +31,10 @@ export default class ChooseQuiz extends Component {
                     {quiz.map((q, i) => {
                         // console.log(i)
                         return (
-
                             <QuestionSelector
-                                // onClick={() => this.props.quizSelect(i)}
                                 index={i}
                                 key={i}
                                 data={quiz[i]}
-                                stateQuizSelect={stateQuizSelect}
                                 quizSelect={this.props.quizSelect}
                             >
                                 {q.quiz}
@@ -62,7 +48,6 @@ export default class ChooseQuiz extends Component {
 }
 
 const container = {
-    // padding: '20%',
     width: '100%',
     position: 'fixed'
 }
