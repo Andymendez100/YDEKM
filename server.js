@@ -18,7 +18,8 @@ const io = require('socket.io').listen(server);
 let hostAnswer = '';
 
 //Set index to join 
-let quizNum = ['0', '1', '2']
+// let quizNum = ['0', '1', '2']
+let quizid;
 
 // const allowedOrigins = 'http://localhost:3001';
 // io(server, { origins: allowedOrigins });
@@ -57,15 +58,21 @@ io.of('/chat').on('connection', function (socket) {
     });
   });
 
+  socket.emit('testing', {
+    data: 'testing'
+  })
+
   //============ Join ==================
   //create event pass data
   socket.on('quiz', index => {
     console.log(index)
-    if (quizNum.includes(index)) {
-      socket.join(index)
-      io.of('/chat').in(index).emit('Guest', index)
-    }
+    quizid = index
+    // if (quizNum.includes(index)) {
+    //   socket.join(index)
+    //   io.of('/chat').in(index).emit('Guest', index)
+    // }
   })
+  socket.emit('Guest', quizid)
   //=========== End Join ===============
 
   // socket.on('correct', res => {

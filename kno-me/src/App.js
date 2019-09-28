@@ -41,7 +41,7 @@ class App extends React.Component {
       <Router>
         {/* Home route */}
         <PersistentDrawerLeft />
-        <Route exact path="/" render={props => <Homepage />} />
+        <Route exact path="/" render={props => <Homepage data={data} />} />
 
         {/* Routes */}
         <Route path="/createlobby" component={CreateLobbyPage} />
@@ -53,7 +53,7 @@ class App extends React.Component {
         <Route path="/quiz" render={() => <ChooseQuiz Jwt={this.state.jwt} quizSelect={this.changeQuiz} quiz={data} />} />
         <Route path="/question" component={QuestionPage} />
         <Route path="/guidelines" component={Guidelines} />
-        <Route path="/question2" component={Question2} quizSelect={this.state.quizSelect} />
+        <Route path="/question2" component={Question2} quiz={data} />
         <Footer />
       </Router>
     );

@@ -13,7 +13,7 @@ const buttonStyle = {
     margin: '10px 100px',
 }
 
-export default function Homepage() {
+export default function Homepage(props) {
     return (
         <div className="container">
             <div className="logo">
@@ -34,7 +34,13 @@ export default function Homepage() {
             <Button variant="contained"
                 color="primary"
                 style={buttonStyle}
-                component={Link} to="/join"
+                component={Link} to={{
+                    pathname: '/question2',
+                    state: {
+                        data: props.data,
+                        index: 22
+                    }
+                }}
             >
                 Join
             </Button>

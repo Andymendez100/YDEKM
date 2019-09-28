@@ -110,21 +110,25 @@ const QuestionPage = props => {
     });
   }
 
-  //============ Join ==================
-  //listen: emit what index is selected 
+  // //============ Join ==================
+  // //listen: emit what index is selected 
   socket.emit('quiz', stringIndex)
-  socket.on('Guest', res => {
-    console.log(res);
-    //res = int
-    let newRes = parseInt(res);
-    if (passedData.index === newRes) {
-      return (
-        //need to pass to join 
-        passedData.data
-      )
-    }
+  socket.on('testing', data => {
+    console.log(data)
   })
-  //=========== End Join ===============
+
+  // socket.on('Guest', res => {
+  //   console.log(res);
+  //   //res = int
+  //   let newRes = parseInt(res);
+  //   if (passedData.index === newRes) {
+  //     return (
+  //       //need to pass to join 
+  //       console.log(passedData)
+  //     )
+  //   }
+  // })
+  // //=========== End Join ===============
 
   // Get from socket
   socket.on('player', res => {
