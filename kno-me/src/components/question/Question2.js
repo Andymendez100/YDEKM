@@ -18,8 +18,8 @@ export default class Question2 extends React.Component {
         super(props);
         this.state = {
             question: [],
-            activeStep,
-            setActiveStep
+            activeStep: 0,
+            setActiveStep: 0
         }
     }
 
@@ -28,7 +28,7 @@ export default class Question2 extends React.Component {
     //   //intaniate variables from props
     //   let passedData = props.location.state;
     componentDidMount() {
-        let stringIndex = JSON.stringify(props.location.state.index)
+        let stringIndex = JSON.stringify(this.state.question.index)
 
         const socket = io(':3001/chat');
         let currentPlayer;
@@ -80,55 +80,33 @@ export default class Question2 extends React.Component {
             console.log(res.host.answer);
             console.log(res.guest.answer);
         });
+
+
+
+        // On submit for questions
+        const submitAnswer = event => {
+            event.preventDefault();
+            const answer = event.target.answer.value;
+            socket.emit('questionDone', {
+                currentPlayer,
+                answer,
+            });
+            event.target.answer.value = '';
+        };
+        const playerInput = e => {
+            // console.log(e.target.value);
+            sendToServer(e.target.value);
+        };
     }
+    handleNext = () => {
+        this.state.setActiveStep(prevActiveStep => prevActiveStep + 1);
+    };
+    // Handles the active step
+    handleStepChange = step => {
+        this.state.setActiveStep(step);
+    };
 
 
-    useStyles = makeStyles(theme => ({
-        root: {
-            flexGrow: 1,
-            // margin: '15% 15%', smallest size
-            margin: '20% 10%',
-            position: '100% 100%',
-            boxShadow: '0 5px 10px 0 ',
-        },
-        header: {
-            display: 'flex',
-            alignItems: 'center',
-            height: 50,
-            backgroundColor: '#3f51b5',
-        },
-        img: {
-            postion: 'fixed',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            height: 200,
-            display: 'block',
-            maxWidth: '100%',
-            overflow: 'hidden',
-            width: '100%',
-            padding: '2rem 1rem',
-            backgroundColor: 'white',
-        },
-        container: {
-            display: 'grid',
-            padding: theme.spacing(1),
-        },
-        button: {
-            width: '70%',
-            padding: '.9rem',
-            marginTop: theme.spacing(1),
-        },
-        textArea: {
-            margin: theme.spacing(1),
-        },
-        paper: {
-            padding: theme.spacing(1),
-            textAlign: 'center',
-            color: theme.palette.text.primary,
-            whiteSpace: 'nowrap',
-            marginBottom: theme.spacing(2),
-        },
-    }));
 
 
     // //MUI CSS
@@ -149,66 +127,92 @@ export default class Question2 extends React.Component {
     // const maxSteps = props.location.state.data.length;
 
     // Handles the next button by setting new active step
-    handleNext = () => {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
-    };
 
-    // Handles the active step
-    handleStepChange = step => {
-        setActiveStep(step);
-    };
-
-    // On submit for questions
-    submitAnswer = event => {
-        event.preventDefault();
-        const answer = event.target.answer.value;
-        socket.emit('questionDone', {
-            currentPlayer,
-            answer,
-        });
-        event.target.answer.value = '';
-    };
-    playerInput = e => {
-        // console.log(e.target.value);
-        sendToServer(e.target.value);
-    };
     render() {
+        const classes = {
+            root: {
+                flexGrow: 1,
+                // margin: '15% 15%', smallest size
+                margin: '20% 10%',
+                position: '100% 100%',
+                boxShadow: '0 5px 10px 0 ',
+            },
+            header: {
+                display: 'flex',
+                alignItems: 'center',
+                height: 50,
+                backgroundColor: '#3f51b5',
+            },
+            img: {
+                postion: 'fixed',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                height: 200,
+                display: 'block',
+                maxWidth: '100%',
+                overflow: 'hidden',
+                width: '100%',
+                padding: '2rem 1rem',
+                backgroundColor: 'white',
+            },
+            container: {
+                display: 'grid',
+                // padding: theme.spacing(1),
+            },
+            button: {
+                width: '70%',
+                padding: '.9rem',
+                // marginTop: theme.spacing(1),
+            },
+            textArea: {
+                // margin: theme.spacing(1),
+            },
+            paper: {
+                // padding: theme.spacing(1),
+                textAlign: 'center',
+                color: 'blue',
+                whiteSpace: 'nowrap',
+                // marginBottom: theme.spacing(2),
+            },
+        };
         console.log(this.state)
-        const [activeStep, setActiveStep] = React.useState(0);
+        const maxSteps = props.location.state.data.length;
+
+        // const [activeStep, setActiveStep] = React.useState(0);
 
         const { question2 } = this.state.question;
         return (
 
-            <Paper className={classes.root}>
+            <Paper style={classes.root}>
                 <SwipeableViews
                     axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                    index={activeStep}
-                    onChangeIndex={handleStepChange}
+                    index={this.state.activeStep}
+                    onChangeIndex={this.handleStepChange}
                 >
-                    {props.location.state.data.map((step, index) => (
+                    {question2.map((step, index) => (
                         <div key={index}>
-                            {Math.abs(activeStep - index) <= 2 ? (
+                            {Math.abs(this.state.activeStep - index) <= 2 ? (
                                 // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
                                 // <img className={classes.img} src={step.imgPath} alt={step.label} />
 
                                 // Displays props.location.state.data individually. If it reaches the maxstep then null
-                                <Typography className={classes.img}>
-                                    {props.location.state.data[activeStep]}
+                                <Typography style={classes.img}>
+                                    {question2[this.state.activeStep]}
                                 </Typography>
                             ) : null}
                         </div>
                     ))}
                 </SwipeableViews>
-                <form onSubmit={submitAnswer}>
+                <form onSubmit={this.submitAnswer}>
                     {/* <Paper className={classes.paper}> */}
                     <Grid container spacing={1}>
-                        <Grid item xs={8} className={classes.container}>
+                        <Grid item xs={8} style={classes.container}>
                             {/* Contains the input to store in answer variable */}
 
                             <TextField
                                 id="answer"
                                 label="Enter Your Answer"
-                                className={classes.textArea}
+                                style={classes.textArea}
                                 // value={values.answer}
                                 // onChange={handleChange('answer')}
                                 onChange={playerInput}
@@ -225,17 +229,17 @@ export default class Question2 extends React.Component {
                                 steps={maxSteps}
                                 position="static"
                                 variant="text"
-                                activeStep={activeStep}
+                                activeStep={this.state.activeStep}
                                 // Button to toggle to next step. No need for back button
                                 nextButton={
                                     <Button
                                         type="submit"
                                         id="sendAnswer"
-                                        className={classes.button}
+                                        style={classes.button}
                                         color="primary"
                                         variant="contained"
                                         onClick={handleNext}
-                                        disabled={activeStep === maxSteps - 1}
+                                        disabled={this.state.activeStep === maxSteps - 1}
                                     >
                                         Next
                 </Button>
