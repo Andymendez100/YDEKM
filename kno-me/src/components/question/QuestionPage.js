@@ -1,8 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
+import Proptypes from 'prop-types';
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import SwipeableViews from 'react-swipeable-views';
 import {
   TextField,
@@ -12,7 +12,6 @@ import {
   Paper,
   MobileStepper,
 } from '@material-ui/core';
-// import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,12 +70,6 @@ const QuestionPage = props => {
   // NEED TO DO: Set timer for next step
   const [activeStep, setActiveStep] = React.useState(0);
 
-  // NEED TO DO : Get values of input to store in answer array
-  // const [values, setValues] = React.useState({
-  //   answer: [],
-  //   index: [],
-  // });
-
   // Limit the length of question array elements
   const maxSteps = props.location.state.data.length;
 
@@ -89,12 +82,6 @@ const QuestionPage = props => {
   const handleStepChange = step => {
     setActiveStep(step);
   };
-
-  // NEED TO DO: handles the change in textarea value
-  // const handleChange = answer => event => {
-  //   setValues({ ...values, [answer]: event.target.value });
-  //   console.log(values);
-  // };
 
   // Socket.io Stuff
   const socket = io(':3001/chat');
@@ -113,7 +100,6 @@ const QuestionPage = props => {
   // Get from socket
 
   socket.on('player', res => {
-    // console.log(res);
     currentPlayer = res.player.name;
     console.log(currentPlayer);
   });
@@ -136,7 +122,6 @@ const QuestionPage = props => {
     event.target.answer.value = '';
   };
   const playerInput = e => {
-    // console.log(e.target.value);
     sendToServer(e.target.value);
   };
   return (
@@ -145,7 +130,7 @@ const QuestionPage = props => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-      // enableMouseEvents
+        // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={index}>
@@ -162,17 +147,13 @@ const QuestionPage = props => {
         ))}
       </SwipeableViews>
       <form onSubmit={submitAnswer}>
-        {/* <Paper className={classes.paper}> */}
         <Grid container spacing={1}>
           <Grid item xs={8} className={classes.container}>
             {/* Contains the input to store in answer variable */}
-
             <TextField
               id="answer"
               label="Enter Your Answer"
               className={classes.textArea}
-              // value={values.answer}
-              // onChange={handleChange('answer')}
               onChange={playerInput}
               fullWidth
               name="answer"
@@ -200,21 +181,18 @@ const QuestionPage = props => {
                   disabled={activeStep === maxSteps - 1}
                 >
                   Next
-                  {/* Right to Left direction of props.location.state.data being displayed
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )} */}
                 </Button>
               }
             />
           </Grid>
         </Grid>
       </form>
-      {/* </Paper> */}
     </Paper>
   );
+};
+
+QuestionPage.propTypes = {
+  location: Proptypes.array,
 };
 
 export default QuestionPage;

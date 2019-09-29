@@ -13,7 +13,7 @@ export const data = [
       ' Most Likely To Stay In Bed All Day?',
       "Describe Your Spouse’s Appearance On a Day When You’re Just Lounging Around The House: 'Always Ready To Go Out,' 'Keepin’ It Casual,' Or 'Did They Even Brush Their Teeth?!'",
       'I Really Wish My Spouse Would _________ At Home.',
-      "Question Completed!"
+      'Question Completed!',
     ],
   },
   {
@@ -29,7 +29,7 @@ export const data = [
       "Who said 'I love you' first?",
       'When did you start dating?',
       "Who said 'I love you' first?",
-      "Question Completed!"
+      'Question Completed!',
     ],
   },
   {
@@ -43,9 +43,9 @@ export const data = [
       'What Is A Sure-fire Way To Get on Their Nerves?',
       "What is Something They do Constantly That They Aren't Aware Of?",
       'What Would Be Your Spouse’s Ideal Date?',
-      "Which would they choose: the power of flight, or the power of time-travel?",
-      "If they could spend $500 on anything, how would they spend it?",
-      "Question Completed!"
+      'Which would they choose: the power of flight, or the power of time-travel?',
+      'If they could spend $500 on anything, how would they spend it?',
+      'Question Completed!',
     ],
-  }
+  },
 ];

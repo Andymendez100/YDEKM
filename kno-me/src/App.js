@@ -9,10 +9,9 @@ import JoinPage from './components/join/JoinPage';
 import LoginSign from './components/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
 import PersistentDrawerLeft from './components/drawer/Drawer';
-import Store from './components/question/Store';
 import QuestionPage from './components/question/QuestionPage';
 import ChooseQuiz from './components/question/ChooseQuiz';
-import Guidelines from './components/guideLines/Guidelines'
+import Guidelines from './components/guideLines/Guidelines';
 import { data } from './components/question/seeds';
 
 class App extends React.Component {
@@ -21,24 +20,23 @@ class App extends React.Component {
 
     this.state = {
       jwt: '',
-      quizSelect: null
+      quizSelect: null,
     };
   }
 
-
   changeJwt = jwt => this.setState({ jwt });
+
   changeQuiz = quizSelect => {
-    console.log("Called function");
     this.setState({ quizSelect });
-  }
+  };
 
   render() {
-    console.log(this.state.quizSelect)
+    console.log(this.state.quizSelect);
     return (
       <Router>
         {/* Home route */}
         <PersistentDrawerLeft />
-        <Route exact path="/" render={props => <Homepage />} />
+        <Route exact path="/" render={() => <Homepage />} />
 
         {/* Routes */}
         <Route path="/createlobby" component={CreateLobbyPage} />
@@ -47,10 +45,18 @@ class App extends React.Component {
           path="/login"
           render={() => <LoginSign changeJwt={this.changeJwt} />}
         />
-        <Route path="/quiz" render={() => <ChooseQuiz Jwt={this.state.jwt} quizSelect={this.changeQuiz} quiz={data} stateQuizSelect={this.state.quizSelect} />} />
+        <Route
+          path="/quiz"
+          render={() => (
+            <ChooseQuiz
+              Jwt={this.state.jwt}
+              quizSelect={this.changeQuiz}
+              quiz={data}
+              stateQuizSelect={this.state.quizSelect}
+            />
+          )}
+        />
         <Route path="/question" component={QuestionPage} />
-        {/* render={() => <QuestionPage join={this.state.quizSelect} />} */}
-        {/* <Route path="/quiz" component={ChooseQuiz} /> */}
         <Route path="/guidelines" component={Guidelines} />
         <Footer />
       </Router>
