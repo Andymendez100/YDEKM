@@ -129,14 +129,9 @@ const QuestionPage = props => {
     currentPlayer = res.player.name;
     console.log(currentPlayer);
     if (currentPlayer === 'Host') {
-      return (
-        console.log('waiting for player two')
-      )
-    } 
-      return (
-        console.log('Guest')
-      )
-    
+      return console.log('waiting for player two');
+    }
+    return console.log('Guest');
   });
 
   socket.on('answer', res => {

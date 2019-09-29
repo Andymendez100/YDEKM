@@ -13,14 +13,64 @@ import {
 
 let questionData;
 const thrillers = [];
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    // margin: '15% 15%', smallest size
+    margin: '20% 10%',
+    position: '100% 100%',
+    boxShadow: '0 5px 10px 0 ',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: '#3f51b5',
+  },
+  img: {
+    postion: 'fixed',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    height: 200,
+    display: 'block',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    width: '100%',
+    padding: '2rem 1rem',
+    backgroundColor: 'white',
+  },
+  container: {
+    display: 'grid',
+    padding: theme.spacing(1),
+  },
+  button: {
+    width: '70%',
+    padding: '.9rem',
+    marginTop: theme.spacing(1),
+  },
+  textArea: {
+    margin: theme.spacing(1),
+  },
+  paper: {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    whiteSpace: 'nowrap',
+    marginBottom: theme.spacing(2),
+  },
+}));
+
 export default class Question2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       question: [],
-      activeStep,
-      setActiveStep,
+      activeStep: 0,
+      setActiveStep: 0,
     };
+    this.classes = useStyles();
+    this.theme = useTheme();
   }
 
   // Creating variable to save whichever user is logged in
@@ -28,14 +78,14 @@ export default class Question2 extends React.Component {
   //   //intaniate variables from props
   //   let passedData = props.location.state;
   componentDidMount() {
-    const stringIndex = JSON.stringify(props.location.state.index);
+    // const stringIndex = JSON.stringify(props.location.state.index);
 
     const socket = io(':3001/chat');
     let currentPlayer;
 
-    socket.on('testing', data => {
-      console.log(data);
-    });
+    // socket.on('testing', data => {
+    //   console.log(data);
+    // });
 
     socket.on('Guest', res => {
       console.log(res);
@@ -46,17 +96,12 @@ export default class Question2 extends React.Component {
       });
     });
 
-    // Send to socket.io
-    function sendToServer(input) {
-      socket.emit('chatbox', {
-        test: input,
-      });
-    }
-
-    socket.emit('quiz', stringIndex);
-    socket.on('testing', data => {
-      console.log(data);
-    });
+    // // Send to socket.io
+    // function sendToServer(input) {
+    //   socket.emit('chatbox', {
+    //     test: input,
+    //   });a
+    // }
 
     // Get from socket
     socket.on('player', res => {
@@ -68,131 +113,50 @@ export default class Question2 extends React.Component {
       }
       return console.log('Guest');
     });
-    socket.on('answer', res => {
-      console.log(res);
+    // socket.on('answer', res => {
+    //   console.log(res);
 
-      console.log(res.host.answer);
-      console.log(res.guest.answer);
-    });
+    //   console.log(res.host.answer);
+    //   console.log(res.guest.answer);
+    // });
   }
 
-  useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-      // margin: '15% 15%', smallest size
-      margin: '20% 10%',
-      position: '100% 100%',
-      boxShadow: '0 5px 10px 0 ',
-    },
-    header: {
-      display: 'flex',
-      alignItems: 'center',
-      height: 50,
-      backgroundColor: '#3f51b5',
-    },
-    img: {
-      postion: 'fixed',
-      textAlign: 'center',
-      fontWeight: 'bold',
-      height: 200,
-      display: 'block',
-      maxWidth: '100%',
-      overflow: 'hidden',
-      width: '100%',
-      padding: '2rem 1rem',
-      backgroundColor: 'white',
-    },
-    container: {
-      display: 'grid',
-      padding: theme.spacing(1),
-    },
-    button: {
-      width: '70%',
-      padding: '.9rem',
-      marginTop: theme.spacing(1),
-    },
-    textArea: {
-      margin: theme.spacing(1),
-    },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.primary,
-      whiteSpace: 'nowrap',
-      marginBottom: theme.spacing(2),
-    },
-  }));
-
-  // //MUI CSS
-  //   const classes = useStyles();
-  //   const theme = useTheme();
-
-  // Active States for active index of props.location.state.data array
-  // NEED TO DO: Set timer for next step
-  // const [activeStep, setActiveStep] = React.useState(0);
-
-  // NEED TO DO : Get values of input to store in answer array
-  // const [values, setValues] = React.useState({
-  //   answer: [],
-  //   index: [],
-  // });
-
-  // Limit the length of question array elements
-  // const maxSteps = props.location.state.data.length;
-
-  // Handles the next button by setting new active step
   handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    this.state.setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
   // Handles the active step
   handleStepChange = step => {
-    setActiveStep(step);
-  };
-
-  // On submit for questions
-  submitAnswer = event => {
-    event.preventDefault();
-    const answer = event.target.answer.value;
-    socket.emit('questionDone', {
-      currentPlayer,
-      answer,
-    });
-    event.target.answer.value = '';
-  };
-
-  playerInput = e => {
-    // console.log(e.target.value);
-    sendToServer(e.target.value);
+    this.state.setActiveStep(step);
   };
 
   render() {
+    const { classes, theme } = this;
     console.log(this.state);
-    const [activeStep, setActiveStep] = React.useState(0);
+    // const [activeStep, setActiveStep] = React.useState(0);
 
     const { question2 } = this.state.question;
     return (
       <Paper className={classes.root}>
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
+          index={this.state.activeStep}
+          onChangeIndex={this.handleStepChange}
         >
-          {props.location.state.data.map((step, index) => (
+          {question2.map((step, index) => (
             <div key={index}>
-              {Math.abs(activeStep - index) <= 2 ? (
+              {Math.abs(this.state.activeStep - index) <= 2 ? (
                 // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
-                // <img className={classes.img} src={step.imgPath} alt={step.label} />
 
                 // Displays props.location.state.data individually. If it reaches the maxstep then null
                 <Typography className={classes.img}>
-                  {props.location.state.data[activeStep]}
+                  {question2[this.state.activeStep]}
                 </Typography>
               ) : null}
             </div>
           ))}
         </SwipeableViews>
-        <form onSubmit={submitAnswer}>
+        <form>
           {/* <Paper className={classes.paper}> */}
           <Grid container spacing={1}>
             <Grid item xs={8} className={classes.container}>
@@ -204,7 +168,7 @@ export default class Question2 extends React.Component {
                 className={classes.textArea}
                 // value={values.answer}
                 // onChange={handleChange('answer')}
-                onChange={playerInput}
+                // onChange={this.playerInput}
                 fullWidth
                 name="answer"
                 type="text"
@@ -215,10 +179,10 @@ export default class Question2 extends React.Component {
             <Grid item xs={4}>
               {/* Handles the next step */}
               <MobileStepper
-                steps={maxSteps}
+                steps={question2.length}
                 position="static"
                 variant="text"
-                activeStep={activeStep}
+                activeStep={this.state.activeStep}
                 // Button to toggle to next step. No need for back button
                 nextButton={
                   <Button
@@ -227,8 +191,8 @@ export default class Question2 extends React.Component {
                     className={classes.button}
                     color="primary"
                     variant="contained"
-                    onClick={handleNext}
-                    disabled={activeStep === maxSteps - 1}
+                    onClick={this.handleNext}
+                    disabled={this.state.activeStep === question2.length - 1}
                   >
                     Next
                   </Button>

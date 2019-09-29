@@ -40,7 +40,7 @@ class App extends React.Component {
       <Router>
         {/* Home route */}
         <PersistentDrawerLeft />
-        <Route exact path="/" render={props => <Homepage data={data} />} />
+        <Route exact path="/" render={() => <Homepage data={data} />} />
 
         {/* Routes */}
         <Route path="/createlobby" component={CreateLobbyPage} />
