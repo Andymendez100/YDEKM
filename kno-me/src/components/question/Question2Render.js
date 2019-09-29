@@ -1,27 +1,100 @@
 import React from 'react';
 
-export default function Question2Render() {
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import {
+  TextField,
+  Grid,
+  Button,
+  Typography,
+  Paper,
+  MobileStepper,
+} from '@material-ui/core';
+
+export default function Question2Render(props) {
+  const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+      // margin: '15% 15%', smallest size
+      margin: '20% 10%',
+      position: '100% 100%',
+      boxShadow: '0 5px 10px 0 ',
+    },
+    header: {
+      display: 'flex',
+      alignItems: 'center',
+      height: 50,
+      backgroundColor: '#3f51b5',
+    },
+    img: {
+      postion: 'fixed',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      height: 200,
+      display: 'block',
+      maxWidth: '100%',
+      overflow: 'hidden',
+      width: '100%',
+      padding: '2rem 1rem',
+      backgroundColor: 'white',
+    },
+    container: {
+      display: 'grid',
+      padding: theme.spacing(1),
+    },
+    button: {
+      width: '70%',
+      padding: '.9rem',
+      marginTop: theme.spacing(1),
+    },
+    textArea: {
+      margin: theme.spacing(1),
+    },
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: 'center',
+      color: theme.palette.text.primary,
+      whiteSpace: 'nowrap',
+      marginBottom: theme.spacing(2),
+    },
+  }));
+
+  const {
+    activeStep,
+    handleStepChange,
+    handleNext,
+    question,
+    submitAnswer,
+    playerInput,
+  } = props;
+
+  const { question2 } = question;
+  console.log('QUESTION IS HERE', question, 'test');
+
+  const classes = useStyles();
+  const theme = useTheme();
+
   return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={this.state.activeStep}
-        onChangeIndex={this.handleStepChange}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
       >
-        {question2.map((step, index) => (
+        {question.map((step, index) => (
           <div key={index}>
-            {Math.abs(this.state.activeStep - index) <= 2 ? (
+            {Math.abs(activeStep - index) <= 2 ? (
               // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
 
               // Displays props.location.state.data individually. If it reaches the maxstep then null
               <Typography className={classes.img}>
-                {question2[this.state.activeStep]}
+                {question[activeStep]}
               </Typography>
             ) : null}
           </div>
         ))}
       </SwipeableViews>
-      <form>
+      <form onSubmit={submitAnswer}>
         {/* <Paper className={classes.paper}> */}
         <Grid container spacing={1}>
           <Grid item xs={8} className={classes.container}>
@@ -33,7 +106,7 @@ export default function Question2Render() {
               className={classes.textArea}
               // value={values.answer}
               // onChange={handleChange('answer')}
-              // onChange={this.playerInput}
+              onChange={playerInput}
               fullWidth
               name="answer"
               type="text"
@@ -44,10 +117,10 @@ export default function Question2Render() {
           <Grid item xs={4}>
             {/* Handles the next step */}
             <MobileStepper
-              steps={question2.length}
+              steps={question.length}
               position="static"
               variant="text"
-              activeStep={this.state.activeStep}
+              activeStep={activeStep}
               // Button to toggle to next step. No need for back button
               nextButton={
                 <Button
@@ -56,8 +129,8 @@ export default function Question2Render() {
                   className={classes.button}
                   color="primary"
                   variant="contained"
-                  onClick={this.handleNext}
-                  disabled={this.state.activeStep === question2.length - 1}
+                  onClick={handleNext}
+                  disabled={activeStep === question.length - 1}
                 >
                   Next
                 </Button>
