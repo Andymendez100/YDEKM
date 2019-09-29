@@ -12,6 +12,8 @@ import {
   Paper,
   MobileStepper,
 } from '@material-ui/core';
+// import { Link } from 'react-router-dom';
+// import Join from '../join/JoinPage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,6 +64,9 @@ const useStyles = makeStyles(theme => ({
 
 // START FUNCTIONAL COMPONENT
 const QuestionPage = props => {
+  // pass this to parameter to emit
+  console.log(props.location);
+
   // //MUI CSS
   const classes = useStyles();
   const theme = useTheme();
@@ -88,20 +93,50 @@ const QuestionPage = props => {
 
   // Creating variable to save whichever user is logged in
   let currentPlayer;
+  // intaniate variables from props
+  const passedData = props.location.state;
+  const stringIndex = JSON.stringify(props.location.state.index);
 
   // Send to socket.io
-
   function sendToServer(input) {
     socket.emit('chatbox', {
       test: input,
     });
   }
 
-  // Get from socket
+  // //============ Join ==================
+  // //listen: emit what index is selected
+  socket.emit('quiz', stringIndex);
+  socket.on('testing', data => {
+    console.log(data);
+  });
 
+  // socket.on('Guest', res => {
+  //   console.log(res);
+  //   //res = int
+  //   let newRes = parseInt(res);
+  //   if (passedData.index === newRes) {
+  //     return (
+  //       //need to pass to join
+  //       console.log(passedData)
+  //     )
+  //   }
+  // })
+  // //=========== End Join ===============
+
+  // Get from socket
   socket.on('player', res => {
     currentPlayer = res.player.name;
     console.log(currentPlayer);
+    if (currentPlayer === 'Host') {
+      return (
+        console.log('waiting for player two')
+      )
+    } 
+      return (
+        console.log('Guest')
+      )
+    
   });
 
   socket.on('answer', res => {
@@ -124,13 +159,14 @@ const QuestionPage = props => {
   const playerInput = e => {
     sendToServer(e.target.value);
   };
+
+  // JSX
   return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-        // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
           <div key={index}>
