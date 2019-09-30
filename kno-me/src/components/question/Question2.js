@@ -38,6 +38,7 @@ export default class Question2 extends React.Component {
 
     // Send to socket.io
     function sendToServer(input) {
+      console.log('QUESTION2 INPUT', socket);
       socket.emit('chatbox', {
         test: input,
       });
@@ -53,12 +54,12 @@ export default class Question2 extends React.Component {
       }
       return console.log('Guest');
     });
-    // socket.on('answer', res => {
-    //   console.log(res);
+    socket.on('answer', res => {
+      console.log(res);
 
-    //   console.log(res.host.answer);
-    //   console.log(res.guest.answer);
-    // });\
+      console.log(res.host.answer);
+      console.log(res.guest.answer);
+    });
 
     // const submitAnswer = event => {
     //   event.preventDefault();
@@ -83,6 +84,10 @@ export default class Question2 extends React.Component {
       playerInput: e => {
         sendToServer(e.target.value);
       },
+    });
+
+    socket.on('chatbox', res => {
+      console.log(res, 'para tony');
     });
 
     // const playerInput = e => {
