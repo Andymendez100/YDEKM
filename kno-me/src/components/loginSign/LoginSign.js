@@ -1,10 +1,53 @@
 import React from 'react';
-import { Button, Form, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import image from '../../Images/KnowMe.png';
-import './LoginSign.css';
+// import image from '../../Images/KnowMe.png';
+// import './LoginSign.css';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function Login(props) {
+import { Paper, Grid, Avatar, Button, Typography, TextField } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    // margin: '15% 15%', smallest size
+    margin: '20% 10%',
+    position: '100% 100%',
+    boxShadow: '0 5px 10px 0 ',
+  },
+  labelText: {
+    color: '#3f51b5',
+  },
+  label: {
+    marginLeft: '25%'
+  },
+  paper: {
+    marginTop: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    marginLeft: '25%',
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(0),
+    paddingLeft: '15px'
+  },
+  submit: {
+    margin: theme.spacing(2, 0, 2, 2),
+    paddingLeft: '15px'
+  },
+}));
+
+export default function LoginSign(props) {
+  const classes = useStyles();
+
+  //JWT
   const signUp = e => {
     e.preventDefault();
 
@@ -67,99 +110,199 @@ export default function Login(props) {
   };
 
   return (
-    <div className="container d-flex justify-content-center mt-5">
-      <div className="card card-default" id="cardUI">
-        <div className="card-header d-flex justify-content-center" id="header">
-          <img src={image} alt="logo.png" id="logo" />
-        </div>
-        <div className="card-body" id="body">
-          <div className="row">
-            <div className="col-lg-6" id="signIn">
-              <h5>Sign In</h5>
-              <form onSubmit={signIn}>
-                <Form.Group controlId="loginUsername">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="text" placeholder="enter your username" />
-                  <Form.Text className="text-muted"></Form.Text>
-                </Form.Group>
+    <Paper className={classes.root}>
+      {/* Sign In */}
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid>
+          <Grid>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography className={classes.label}>
+              Sign In
+          </Typography>
+          </Grid>
+          <form onSubmit={signIn}>
+            <Grid item sm={12}>
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+              >
+                <Typography className={classes.labelText}>
+                  Username
+               </Typography>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  id="loginUsername"
+                  type="text"
+                  label="enter your username"
+                />
+              </Grid>
+            </Grid>
+            <Grid item sm={12}>
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+              >
+                <Typography className={classes.labelText}>
+                  Password
+              </Typography>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  id="loginPassword"
+                  type="password"
+                  label="enter your password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              // className={classes.submit}
+              color="primary"
+              variant="contained"
+              type="submit"
+              id="loginButton"
+              className={classes.submit}
+            >
+              Login
+          </Button>
+          </form>
+        </Grid>
 
-                <Form.Group controlId="loginPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="password" />
-                </Form.Group>
 
-                <Button variant="primary" type="submit" id="loginButton">
-                  Submit
-                </Button>
-              </form>
-            </div>
 
-            <div className="col-6-lg ml-3" id="signUp">
-              <h5>Sign Up</h5>
-              <form onSubmit={signUp}>
-                <Form.Row>
-                  <Form.Group as={Col} controlId="signUpName">
-                    <Form.Label> Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="enter your name"
-                      name="name"
-                    />
-                  </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
-                  <Form.Group as={Col} controlId="signUpEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="enter your email"
-                      name="email"
-                    />
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} controlId="signUpUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="enter your username"
-                      name="username"
-                    />
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} controlId="signUpPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="enter a password"
-                      name="password"
-                    />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="signUpPassword2">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="confirm your password"
-                      name="password2"
-                    />
-                  </Form.Group>
-                </Form.Row>
-
-                <Button variant="primary" type="submit" id="signUpButton">
-                  Submit
-                </Button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        {/* Sign Up */}
+        <Grid>
+          <Grid>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography className={classes.label}>
+              Sign Up
+          </Typography>
+          </Grid>
+          <Grid>
+            <form onSubmit={signUp}>
+              <Grid item sm={12}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Typography className={classes.labelText}>
+                    Name
+                  </Typography>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    id="signUpName"
+                    type="text"
+                    label="enter your name"
+                    name="name"
+                  />
+                </Grid>
+              </Grid>
+              <Grid item sm={12}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Typography className={classes.labelText}>
+                    Email
+              </Typography>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    id="signUpEmail"
+                    type="email"
+                    label="enter your email"
+                    name="email"
+                  />
+                </Grid>
+              </Grid>
+              <Grid item sm={12}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Typography className={classes.labelText}>
+                    Username
+              </Typography>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    id="signUpUsername"
+                    type="text"
+                    label="enter your username"
+                    name="username"
+                  />
+                </Grid>
+              </Grid>
+              <Grid item sm={12}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Typography className={classes.labelText}>
+                    Password
+              </Typography>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    id="signUpPassword"
+                    type="password"
+                    label="enter a password"
+                    name="password"
+                  />
+                </Grid>
+              </Grid>
+              <Grid item sm={12}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Typography className={classes.labelText}>
+                    Confirm Password
+              </Typography>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    id="signUpPassword2"
+                    type="password"
+                    label="confirm your password"
+                    name="password2"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                id="signUpButton"
+                className={classes.submit}
+              >
+                Sign Up
+            </Button>
+            </form>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
 
-Login.propTypes = {
+LoginSign.propTypes = {
   changeJwt: PropTypes.func,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import Proptypes from 'prop-types';
+// import Proptypes from 'prop-types';
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
@@ -94,7 +94,7 @@ const QuestionPage = props => {
   // Creating variable to save whichever user is logged in
   let currentPlayer;
   // intaniate variables from props
-  const passedData = props.location.state;
+  // const passedData = props.location.state;
   const stringIndex = JSON.stringify(props.location.state.index);
 
   // Send to socket.io
@@ -222,8 +222,8 @@ const QuestionPage = props => {
   );
 };
 
-QuestionPage.propTypes = {
-  location: Proptypes.array,
-};
+// QuestionPage.propTypes = {
+//   location: Proptypes.array,
+// };
 
 export default QuestionPage;

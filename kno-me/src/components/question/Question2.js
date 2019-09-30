@@ -29,7 +29,7 @@ export default class Question2 extends React.Component {
 
             questionData = parseInt(res);
 
-            console.log('PROPS', this.props);
+            // console.log('PROPS', this.props);
 
             this.setState({
                 question: this.props.location.state.data[questionData].questions,
@@ -53,12 +53,12 @@ export default class Question2 extends React.Component {
             }
             return console.log('Guest');
         });
-        // socket.on('answer', res => {
-        //   console.log(res);
+        socket.on('answer', res => {
+            console.log(res);
 
-        //   console.log(res.host.answer);
-        //   console.log(res.guest.answer);
-        // });\
+            console.log(res.host.answer);
+            console.log(res.guest.answer);
+        });
 
         // const submitAnswer = event => {
         //   event.preventDefault();

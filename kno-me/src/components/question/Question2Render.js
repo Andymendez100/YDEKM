@@ -68,7 +68,7 @@ export default function Question2Render(props) {
     playerInput,
   } = props;
 
-  const { question2 } = question;
+  // const { question2 } = question;
   console.log('QUESTION IS HERE', question, 'test');
 
   const classes = useStyles();
