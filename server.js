@@ -23,7 +23,7 @@ let quizid;
 
 // const allowedOrigins = 'http://localhost:3001';
 // io(server, { origins: allowedOrigins });
-io.of('/chat').on('connection', function(socket) {
+io.of('/chat').on('connection', function (socket) {
   // console.log(socket);
   // var clients = io.sockets.clients(nick.room); // all users from room
   // console.log(clients);
@@ -51,7 +51,7 @@ io.of('/chat').on('connection', function(socket) {
   // room.push(socket.id);
   console.log('A user connected!'); // We'll replace this with our own events
 
-  socket.on('chatbox', function(res) {
+  socket.on('chatbox', function (res) {
     console.log('res', res);
     socket.broadcast.emit('chatbox', {
       input: res,
@@ -81,7 +81,7 @@ io.of('/chat').on('connection', function(socket) {
   //   });
   // });
   socket.on('test2', res => {
-    console.log(`TESR${  res}`);
+    console.log(`TESR${res}`);
   });
 
   socket.on('questionDone', res => {
@@ -142,6 +142,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
   useCreateIndex: true,
 });
 // Start the API server
-server.listen(PORT, function() {
+server.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
