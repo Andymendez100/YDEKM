@@ -11,8 +11,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     // margin: '15% 15%', smallest size
-    margin: '10% 20%',
+    margin: '6% 10%',
     boxShadow: '0 5px 10px 0 ',
+    overflow: 'hidden'
   },
   labelText: {
     color: '#3f51b5',
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     marginLeft: '50%',
-    backgroundColor: theme.palette.secondary.main,
+    background: 'radial-gradient(circle, rgba(219,171,46,1) 26%, rgba(241,201,64,1) 46%)',
   },
   form: {
     width: '100%', // Fix IE 11 issue.

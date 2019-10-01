@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // import components
 import Homepage from './components/homepage/Homepage';
-import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
+// import CreateLobbyPage from './components/createLobby/CreateLobbyPage';
 import JoinPage from './components/join/JoinPage';
 import LoginSign from './components/loginSign/LoginSign';
 import Footer from './components/footer/Footer';
@@ -43,7 +43,6 @@ class App extends React.Component {
         <Route exact path="/" render={() => <Homepage data={data} />} />
 
         {/* Routes */}
-        <Route path="/createlobby" component={CreateLobbyPage} />
         <Route path="/join" component={JoinPage} quizSelect={this.changeQuiz} />
         <Route
           path="/login"

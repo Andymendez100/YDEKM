@@ -51,7 +51,7 @@ export default class Question2 extends React.Component {
       host = host.replace(/\s+/g, '');
       guest = guest.replace(/\s+/g, '');
       // If the answer matches both score go up
-      if (host == guest) {
+      if (host === guest) {
         score += 1;
       }
       console.log(score);

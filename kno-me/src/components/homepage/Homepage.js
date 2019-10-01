@@ -32,9 +32,9 @@ export default function Homepage(props) {
         color="primary"
         style={buttonStyle}
         component={Link}
-        to="/createlobby"
+        to="/quiz"
       >
-        Create Lobby
+        New Game
       </Button>
       <Button
         variant="contained"

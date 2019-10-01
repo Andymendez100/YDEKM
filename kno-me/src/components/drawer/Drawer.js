@@ -14,7 +14,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 // Images
 import logo1 from '../../Images/KnowMeResize.png';
-// import logo2 from '../../Images/QuestionMark.png';
 
 const drawerWidth = 240;
 
@@ -38,6 +37,12 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  menuText: {
+    marginTop: '30px', 
+    marginLeft: '20px', 
+    fontSize: '1rem', 
+    fontWeight: 'bold'
   },
   hide: {
     display: 'none',
@@ -128,11 +133,7 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader}>
           <img src={logo1} alt="logo1" />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-                <ChevronRightIcon />
-              )}
+            {theme.direction === 'ltr' ? (<ChevronLeftIcon />) : (<ChevronRightIcon />)}
           </IconButton>
         </div>
         {/* Side Item List */}
@@ -140,49 +141,20 @@ export default function PersistentDrawerLeft() {
           <Divider variant="middle" />
 
           {/* Links to pages */}
-          <MenuItem component={Link} to="/" onClick={handleDrawerClose}>
+          <MenuItem component={Link} to="/" onClick={handleDrawerClose} className={classes.menuText}>
             Home
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/login" onClick={handleDrawerClose}>
+          <MenuItem component={Link} to="/login" onClick={handleDrawerClose} className={classes.menuText}>
             Login
           </MenuItem>
         </MenuList>
         <MenuList>
-          <MenuItem component={Link} to="/lobby" onClick={handleDrawerClose}>
-            Lobby
-          </MenuItem>
-        </MenuList>
-        <MenuList>
-          <MenuItem component={Link} to="/guidelines" onClick={handleDrawerClose}>
+          <MenuItem component={Link} to="/guidelines" onClick={handleDrawerClose} className={classes.menuText}>
             Guidelines
           </MenuItem>
         </MenuList>
-
-        {/************** FOR TESTING PURPOSES ONLY ************/}
-        {/* Just for Testing Game js  */}
-        <MenuList>
-          <MenuItem component={Link} to="/game" onClick={handleDrawerClose}>
-            Game
-          </MenuItem>
-        </MenuList>
-        {/* Just for Testing QuesitonPage js  */}
-        <MenuList>
-          <MenuItem component={Link} to="/question" onClick={handleDrawerClose}>
-            Questions
-          </MenuItem>
-        </MenuList>
-        {/* Just for Testing ChooseQuiz js  */}
-
-        <MenuList>
-          <MenuItem component={Link} to="/quiz" onClick={handleDrawerClose}>
-            Choose
-          </MenuItem>
-        </MenuList>
-        {/************** FOR TESTING PURPOSES ONLY END ********/}
-
-
       </Drawer>
       <main
         className={clsx(classes.content, {
