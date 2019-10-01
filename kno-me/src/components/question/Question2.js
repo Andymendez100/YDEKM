@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
+import Proptypes from 'prop-types';
 
 import Question2Render from './Question2Render';
 
@@ -17,8 +18,11 @@ export default class Question2 extends React.Component {
   }
 
   componentDidMount() {
-    const socket = io(':3001/chat');
+    const socket = io(':3001');
     let currentPlayer;
+    const hostAnswer = [];
+    const guestAnswer = [];
+    let score = 0;
 
     socket.on('Guest', res => {
       questionData = parseInt(res);
@@ -41,8 +45,19 @@ export default class Question2 extends React.Component {
       console.log(currentPlayer);
     });
     socket.on('answer', res => {
-      console.log(res.host.answer);
-      console.log(res.guest.answer);
+      // Taking out the spaces and capitals
+      let host = res.host.answer.toLowerCase();
+      let guest = res.guest.answer.toLowerCase();
+      host = host.replace(/\s+/g, '');
+      guest = guest.replace(/\s+/g, '');
+      // If the answer matches both score go up
+      if (host == guest) {
+        score += 1;
+      }
+      console.log(score);
+      // Saving each answer into an array
+      hostAnswer.push(res.host.answer);
+      guestAnswer.push(res.guest.answer);
     });
 
     this.setState({
@@ -91,3 +106,7 @@ export default class Question2 extends React.Component {
     );
   }
 }
+
+Question2.propTypes = {
+  location: Proptypes.object,
+};

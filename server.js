@@ -18,7 +18,7 @@ const io = require('socket.io').listen(server);
 let hostAnswer = '';
 let quizid;
 
-io.of('/chat').on('connection', function(socket) {
+io.on('connection', function(socket) {
   const player = {
     name: '',
     sign: '',
@@ -91,9 +91,11 @@ io.of('/chat').on('connection', function(socket) {
     }
   });
 
-  socket.on('disconnect', () => {
-    console.log(`${player.name} has left`);
-  });
+  // socket.on('disconnect', () => {
+  //   socket.server.engine.clientsCount = 1;
+  //   console.log(`${player.name} has left`);
+  //   console.log(socket.server.engine.clientsCount);
+  // });
 });
 
 //= === Socket.io end =====
