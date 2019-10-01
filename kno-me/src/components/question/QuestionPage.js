@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import Proptypes from 'prop-types';
+
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { KeyboardArrowRight, KeyboardArrowLeft } from '@material-ui/icons';
 import SwipeableViews from 'react-swipeable-views';
 import {
   TextField,
@@ -13,6 +14,7 @@ import {
   MobileStepper,
 } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
+// import Join from '../join/JoinPage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,6 +65,9 @@ const useStyles = makeStyles(theme => ({
 
 // START FUNCTIONAL COMPONENT
 const QuestionPage = props => {
+  // pass this to parameter to emit
+  console.log(props.location);
+
   // //MUI CSS
   const classes = useStyles();
   const theme = useTheme();
@@ -70,12 +75,6 @@ const QuestionPage = props => {
   // Active States for active index of props.location.state.data array
   // NEED TO DO: Set timer for next step
   const [activeStep, setActiveStep] = React.useState(0);
-
-  // NEED TO DO : Get values of input to store in answer array
-  // const [values, setValues] = React.useState({
-  //   answer: [],
-  //   index: [],
-  // });
 
   // Limit the length of question array elements
   const maxSteps = props.location.state.data.length;
@@ -90,65 +89,101 @@ const QuestionPage = props => {
     setActiveStep(step);
   };
 
-  // NEED TO DO: handles the change in textarea value
-  // const handleChange = answer => event => {
-  //   setValues({ ...values, [answer]: event.target.value });
-  //   console.log(values);
-  // };
+  const [socket, setSocket] = useState();
+  const [player, setPlayer] = useState();
 
-  // Socket.io Stuff
-  const socket = io(':3001/chat');
+  // useEffect(() => {
+  //   api call for other apis
+  // })
 
-  // Creating variable to save whichever user is logged in
-  let currentPlayer;
+  useEffect(() => {
+    const socket = io(':3001/chat');
+
+    setSocket(socket);
+
+    // Creating variable to save whichever user is logged in
+    let currentPlayer;
+    // intaniate variables from props
+    const passedData = props.location.state;
+    const stringIndex = JSON.stringify(props.location.state.index);
+
+    // //============ Join ==================
+    // //listen: emit what index is selected
+    socket.emit('quiz', stringIndex);
+    socket.on('testing', data => {
+      console.log(data);
+    });
+
+    // socket.on('Guest', res => {
+    //   console.log(res);
+    //   //res = int
+    //   let newRes = parseInt(res);
+    //   if (passedData.index === newRes) {
+    //     return (
+    //       //need to pass to join
+    //       console.log(passedData)
+    //     )
+    //   }
+    // })
+    // //=========== End Join ===============
+
+    // Get from socket
+    socket.on('player', res => {
+      currentPlayer = res.player.name;
+      setPlayer(currentPlayer);
+      console.log(currentPlayer);
+      if (currentPlayer === 'Host') {
+        return console.log('waiting for player two');
+      }
+      return console.log('Guest');
+    });
+
+    socket.on('answer', res => {
+      console.log(res);
+
+      console.log(res.host.answer);
+      console.log(res.guest.answer);
+    });
+
+    socket.on('chatbox', res => {
+      console.log(res, 'para Greg');
+    });
+  }, [props.location.state]);
 
   // Send to socket.io
-
   function sendToServer(input) {
+    console.log('THIS IS INPUT', input);
     socket.emit('chatbox', {
       test: input,
     });
   }
 
-  // Get from socket
-
-  socket.on('player', res => {
-    // console.log(res);
-    currentPlayer = res.player.name;
-    console.log(currentPlayer);
-  });
-
-  socket.on('answer', res => {
-    console.log(res);
-
-    console.log(res.host.answer);
-    console.log(res.guest.answer);
-  });
-
   // On submit for questions
   const submitAnswer = event => {
     event.preventDefault();
     const answer = event.target.answer.value;
+    console.log(player);
+
     socket.emit('questionDone', {
-      currentPlayer,
+      player,
       answer,
     });
     event.target.answer.value = '';
   };
   const playerInput = e => {
-    // console.log(e.target.value);
     sendToServer(e.target.value);
   };
+
+  // JSX
   return (
     <Paper className={classes.root}>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
-      // enableMouseEvents
       >
         {props.location.state.data.map((step, index) => (
-          <div key={step}>
+          <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               // Image background: NEED TO FIND IMAGES AND STORE IN SEEDS DATA
               // <img className={classes.img} src={step.imgPath} alt={step.label} />
@@ -162,17 +197,13 @@ const QuestionPage = props => {
         ))}
       </SwipeableViews>
       <form onSubmit={submitAnswer}>
-        {/* <Paper className={classes.paper}> */}
         <Grid container spacing={1}>
           <Grid item xs={8} className={classes.container}>
             {/* Contains the input to store in answer variable */}
-
             <TextField
               id="answer"
               label="Enter Your Answer"
               className={classes.textArea}
-              // value={values.answer}
-              // onChange={handleChange('answer')}
               onChange={playerInput}
               fullWidth
               name="answer"
@@ -200,21 +231,18 @@ const QuestionPage = props => {
                   disabled={activeStep === maxSteps - 1}
                 >
                   Next
-                  {/* Right to Left direction of props.location.state.data being displayed
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )} */}
                 </Button>
               }
             />
           </Grid>
         </Grid>
       </form>
-      {/* </Paper> */}
     </Paper>
   );
+};
+
+QuestionPage.propTypes = {
+  location: Proptypes.object,
 };
 
 export default QuestionPage;

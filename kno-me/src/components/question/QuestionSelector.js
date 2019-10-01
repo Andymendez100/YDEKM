@@ -2,40 +2,44 @@ import React from 'react';
 //MUI
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+// import Join from '../join/JoinPage';
 
 
 //START FUNCTIONAL COMPONENT
 const QuestionSelector = (props) => {
-
+    console.log(props.data.questions);
+    console.log(props.index)
     const button = {
         position: '100% 100%',
         padding: '1rem',
         width: '100%',
         margin: '2% 0'
     }
-
     const handleClick = () => {
-        console.log('clcik ', props.data.questions);
-        console.log('Click ', props.data)
+        props.quizSelect(props.index);
     }
+
     return (
-        <Link style={{ textDecoration: 'none' }}
-            to={{
-                pathname: '/question',
-                state: {
-                    data: props.data.questions
-                }
-            }}
-        >
-            <Button
-                variant="contained"
-                color="primary"
-                style={button}
-                onClick={handleClick}
+        <div>
+            <Link style={{ textDecoration: 'none' }}
+                to={{
+                    pathname: '/question',
+                    state: {
+                        data: props.data.questions,
+                        index: props.index
+                    }
+                }}
             >
-                {props.children}
-            </Button>
-        </Link>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={button}
+                    onClick={handleClick}
+                >
+                    {props.children}
+                </Button>
+            </Link>
+        </div>
     );
 }
 

@@ -16,9 +16,16 @@ const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
 
 let hostAnswer = '';
+
+// Set index to join
+// let quizNum = ['0', '1', '2']
+let quizid;
+
 // const allowedOrigins = 'http://localhost:3001';
 // io(server, { origins: allowedOrigins });
-io.of('/chat').on('connection', function(socket) {
+io.of('/chat').on('connection', function (socket) {
+  // console.log(socket.client.server);
+
   // console.log(socket);
   // var clients = io.sockets.clients(nick.room); // all users from room
   // console.log(clients);
@@ -26,10 +33,12 @@ io.of('/chat').on('connection', function(socket) {
   const player = {
     name: '',
     sign: '',
+    // id: '',
   };
   if (socket.server.engine.clientsCount < 2) {
     player.name = 'Host';
     player.sign = 'H';
+    // player.id = socket.client.id;
     console.log(player);
   } else if (socket.server.engine.clientsCount === 2) {
     // if (!socket.handshake.headers.host) {
@@ -41,26 +50,50 @@ io.of('/chat').on('connection', function(socket) {
   socket.emit('player', {
     player,
   });
+
   // }
   // room.push(socket.id);
   console.log('A user connected!'); // We'll replace this with our own events
-  socket.on('chatbox', function(res) {
+
+  socket.on('chatbox', function (res) {
     console.log('res', res);
     socket.broadcast.emit('chatbox', {
       input: res,
     });
   });
+
+  // socket.emit('testing', {
+  //   data: 'testing',
+  // });
+
+  //= =========== Join ==================
+  // create event pass data
+  socket.on('quiz', index => {
+    console.log(index);
+    quizid = index;
+    // if (quizNum.includes(index)) {
+    //   socket.join(index)
+    //   io.of('/chat').in(index).emit('Guest', index)
+    // }
+  });
+  socket.emit('Guest', quizid);
+  //= ========== End Join ===============
+
   // socket.on('correct', res => {
   //   socket.broadcast.emit('done', {
   //     done: res.gainPoint,
   //   });
   // });
   socket.on('test2', res => {
-    console.log(res);
+    console.log(`TESR${res}`);
   });
 
   socket.on('questionDone', res => {
-    if (res.currentPlayer === 'Host') {
+    console.log(res, 'awdaw');
+
+    if (res.player === 'Host') {
+      console.log('i am host');
+
       hostAnswer = res.answer;
       console.log(`test${hostAnswer}`);
     }
@@ -117,6 +150,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
   useCreateIndex: true,
 });
 // Start the API server
-server.listen(PORT, function() {
+server.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
