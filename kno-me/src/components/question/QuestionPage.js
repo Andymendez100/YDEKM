@@ -13,8 +13,6 @@ import {
   Paper,
   MobileStepper,
 } from '@material-ui/core';
-// import { Link } from 'react-router-dom';
-// import Join from '../join/JoinPage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,10 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 // START FUNCTIONAL COMPONENT
 const QuestionPage = props => {
-  // pass this to parameter to emit
-  console.log(props.location);
-
-  // //MUI CSS
+  // MUI CSS
   const classes = useStyles();
   const theme = useTheme();
 
@@ -89,71 +84,61 @@ const QuestionPage = props => {
     setActiveStep(step);
   };
 
-  const [socket, setSocket] = useState();
+  const [sockets, setSocket] = useState();
   const [player, setPlayer] = useState();
-
-  // useEffect(() => {
-  //   api call for other apis
-  // })
+  // const [hostAnswer, setHost] = useState();
 
   useEffect(() => {
-    const socket = io(':3001/chat');
+    const socket = io(':3001');
+
+    const hostAnswer = [];
+    const guestAnswer = [];
+    let score = 0;
 
     setSocket(socket);
 
     // Creating variable to save whichever user is logged in
     let currentPlayer;
+
     // intaniate variables from props
-    const passedData = props.location.state;
     const stringIndex = JSON.stringify(props.location.state.index);
 
-    // //============ Join ==================
-    // //listen: emit what index is selected
+    // Sending what quiz the Host picked
     socket.emit('quiz', stringIndex);
-    socket.on('testing', data => {
-      console.log(data);
-    });
 
-    // socket.on('Guest', res => {
-    //   console.log(res);
-    //   //res = int
-    //   let newRes = parseInt(res);
-    //   if (passedData.index === newRes) {
-    //     return (
-    //       //need to pass to join
-    //       console.log(passedData)
-    //     )
-    //   }
-    // })
-    // //=========== End Join ===============
-
-    // Get from socket
+    // Getting the host
     socket.on('player', res => {
       currentPlayer = res.player.name;
       setPlayer(currentPlayer);
       console.log(currentPlayer);
-      if (currentPlayer === 'Host') {
-        return console.log('waiting for player two');
-      }
-      return console.log('Guest');
     });
 
+    // Getting the answer from the guest and host
     socket.on('answer', res => {
-      console.log(res);
-
-      console.log(res.host.answer);
-      console.log(res.guest.answer);
+      // Taking out the spaces and capitals
+      let host = res.host.answer.toLowerCase();
+      let guest = res.guest.answer.toLowerCase();
+      host = host.replace(/\s+/g, '');
+      guest = guest.replace(/\s+/g, '');
+      // If the answer matches both score go up
+      if (host == guest) {
+        score += 1;
+      }
+      console.log(score);
+      // Saving each answer into an array
+      hostAnswer.push(res.host.answer);
+      guestAnswer.push(res.guest.answer);
     });
 
     socket.on('chatbox', res => {
-      console.log(res, 'para Greg');
+      console.log(res.input.test);
+      // document.getElementById('answer').value = res.input.test;
     });
   }, [props.location.state]);
 
   // Send to socket.io
   function sendToServer(input) {
-    console.log('THIS IS INPUT', input);
-    socket.emit('chatbox', {
+    sockets.emit('chatbox', {
       test: input,
     });
   }
@@ -164,12 +149,15 @@ const QuestionPage = props => {
     const answer = event.target.answer.value;
     console.log(player);
 
-    socket.emit('questionDone', {
+    // Sending the answer as well as who's answer it is
+    sockets.emit('questionDone', {
       player,
       answer,
     });
     event.target.answer.value = '';
   };
+
+  // Function to send whatever the user types to the sever
   const playerInput = e => {
     sendToServer(e.target.value);
   };
@@ -202,7 +190,8 @@ const QuestionPage = props => {
             {/* Contains the input to store in answer variable */}
             <TextField
               id="answer"
-              label="Enter Your Answer"
+              // label="Enter Your Answer"
+              placeholder="Enter Your Answer"
               className={classes.textArea}
               onChange={playerInput}
               fullWidth

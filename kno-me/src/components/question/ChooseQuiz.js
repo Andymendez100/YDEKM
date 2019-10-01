@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Box, Paper } from '@material-ui/core';
+import Proptypes from 'prop-types';
 import QuestionSelector from './QuestionSelector';
 
-// NEED TO DO:
-// onclick function to pass in the question[index]
-// need to pass down questionlist quiz to go to createlobby
-// Switch statement and pass in index in data ex. data[index].quesitons
-// Display Quizzes
+const container = {
+  width: '100%',
+  position: 'fixed',
+};
+const paper = {
+  flexGrow: 1,
+  margin: '20% 10%',
+  position: '100% 100%',
+  boxShadow: '0 5px 10px 0',
+  textAlign: 'center',
+  fontWeight: 'bold',
+  fontSize: '1.2rem',
+  padding: '2% 5%',
+};
 export default class ChooseQuiz extends Component {
   constructor(props) {
     super(props);
@@ -17,9 +27,8 @@ export default class ChooseQuiz extends Component {
   }
 
   render() {
-    console.log(`from App: ${this.props.quizSelect}`);
     const { quiz } = this.props;
-    // console.log('Hi tony', this.props);
+
     return (
       <div style={container}>
         <Paper style={paper}>
@@ -44,18 +53,7 @@ export default class ChooseQuiz extends Component {
     );
   }
 }
-
-const container = {
-  width: '100%',
-  position: 'fixed',
-};
-const paper = {
-  flexGrow: 1,
-  margin: '20% 10%',
-  position: '100% 100%',
-  boxShadow: '0 5px 10px 0',
-  textAlign: 'center',
-  fontWeight: 'bold',
-  fontSize: '1.2rem',
-  padding: '2% 5%',
+ChooseQuiz.propTypes = {
+  quiz: Proptypes.array,
+  quizSelect: Proptypes.func,
 };
