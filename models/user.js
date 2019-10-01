@@ -47,9 +47,10 @@ UserSchema.pre('save', function save(next) {
   });
 });
 
-//mongoose.models = {};
-let User = mongoose.model('User', UserSchema);
+// BUG needs fixing Tony
+mongoose.models = {};
 
+let User = mongoose.model('User', UserSchema);
 module.exports = User;
 
 // module.exports.User = User;
