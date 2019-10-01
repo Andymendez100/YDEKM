@@ -85,6 +85,60 @@ export default class Question2 extends React.Component {
             },
         });
 
+        // Send to socket.io
+        function sendToServer(input) {
+            console.log('QUESTION2 INPUT', socket);
+            socket.emit('chatbox', {
+                test: input,
+            });
+        }
+
+        // Get from socket
+        socket.on('player', res => {
+            // console.log(res);
+            currentPlayer = res.player.name;
+            console.log(currentPlayer);
+            if (currentPlayer === 'Host') {
+                return console.log('waiting for player two');
+            }
+            return console.log('Guest');
+        });
+        socket.on('answer', res => {
+            console.log(res);
+
+            console.log(res.host.answer);
+            console.log(res.guest.answer);
+        });
+
+        // const submitAnswer = event => {
+        //   event.preventDefault();
+        //   const answer = event.target.answer.value;
+        //   socket.emit('questionDone', {
+        //     currentPlayer,
+        //     answer,
+        //   });
+        //   event.target.answer.value = '';
+        // };
+
+        this.setState({
+            submitAnswer: event => {
+                event.preventDefault();
+                const answer = event.target.answer.value;
+                socket.emit('questionDone', {
+                    currentPlayer,
+                    answer,
+                });
+                event.target.answer.value = '';
+            },
+            playerInput: e => {
+                sendToServer(e.target.value);
+            },
+        });
+
+        socket.on('chatbox', res => {
+            console.log(res, 'para tony');
+        });
+
         // const playerInput = e => {
         //   sendToServer(e.target.value);
         // };

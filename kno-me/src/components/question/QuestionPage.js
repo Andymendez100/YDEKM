@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-// import Proptypes from 'prop-types';
+import Proptypes from 'prop-types';
+
 // MUI
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
@@ -88,65 +89,83 @@ const QuestionPage = props => {
     setActiveStep(step);
   };
 
-  // Socket.io Stuff
-  const socket = io(':3001/chat');
+  const [socket, setSocket] = useState();
+  const [player, setPlayer] = useState();
 
-  // Creating variable to save whichever user is logged in
-  let currentPlayer;
-  // intaniate variables from props
-  // const passedData = props.location.state;
-  const stringIndex = JSON.stringify(props.location.state.index);
+  // useEffect(() => {
+  //   api call for other apis
+  // })
+
+  useEffect(() => {
+    const socket = io(':3001/chat');
+
+    setSocket(socket);
+
+    // Creating variable to save whichever user is logged in
+    let currentPlayer;
+    // intaniate variables from props
+    const passedData = props.location.state;
+    const stringIndex = JSON.stringify(props.location.state.index);
+
+    // //============ Join ==================
+    // //listen: emit what index is selected
+    socket.emit('quiz', stringIndex);
+    socket.on('testing', data => {
+      console.log(data);
+    });
+
+    // socket.on('Guest', res => {
+    //   console.log(res);
+    //   //res = int
+    //   let newRes = parseInt(res);
+    //   if (passedData.index === newRes) {
+    //     return (
+    //       //need to pass to join
+    //       console.log(passedData)
+    //     )
+    //   }
+    // })
+    // //=========== End Join ===============
+
+    // Get from socket
+    socket.on('player', res => {
+      currentPlayer = res.player.name;
+      setPlayer(currentPlayer);
+      console.log(currentPlayer);
+      if (currentPlayer === 'Host') {
+        return console.log('waiting for player two');
+      }
+      return console.log('Guest');
+    });
+
+    socket.on('answer', res => {
+      console.log(res);
+
+      console.log(res.host.answer);
+      console.log(res.guest.answer);
+    });
+
+    socket.on('chatbox', res => {
+      console.log(res, 'para Greg');
+    });
+  }, [props.location.state]);
 
   // Send to socket.io
   function sendToServer(input) {
+    console.log('THIS IS INPUT', input);
     socket.emit('chatbox', {
       test: input,
     });
   }
 
-  // //============ Join ==================
-  // //listen: emit what index is selected
-  socket.emit('quiz', stringIndex);
-  socket.on('testing', data => {
-    console.log(data);
-  });
-
-  // socket.on('Guest', res => {
-  //   console.log(res);
-  //   //res = int
-  //   let newRes = parseInt(res);
-  //   if (passedData.index === newRes) {
-  //     return (
-  //       //need to pass to join
-  //       console.log(passedData)
-  //     )
-  //   }
-  // })
-  // //=========== End Join ===============
-
-  // Get from socket
-  socket.on('player', res => {
-    currentPlayer = res.player.name;
-    console.log(currentPlayer);
-    if (currentPlayer === 'Host') {
-      return console.log('waiting for player two');
-    }
-    return console.log('Guest');
-  });
-
-  socket.on('answer', res => {
-    console.log(res);
-
-    console.log(res.host.answer);
-    console.log(res.guest.answer);
-  });
-
   // On submit for questions
   const submitAnswer = event => {
     event.preventDefault();
     const answer = event.target.answer.value;
+    console.log(player);
+
     socket.emit('questionDone', {
-      currentPlayer,
+      player,
       answer,
     });
     event.target.answer.value = '';
@@ -222,8 +241,8 @@ const QuestionPage = props => {
   );
 };
 
-// QuestionPage.propTypes = {
-//   location: Proptypes.array,
-// };
+QuestionPage.propTypes = {
+  location: Proptypes.object,
+};
 
 export default QuestionPage;
