@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 
 // const JwtStrategy = require('passport-jwt').Strategy;
@@ -7,13 +8,13 @@ const bcrypt = require('bcryptjs');
 // const keys = require('../config/keys');
 
 // User Schema
-const UserSchema = mongoose.Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
     trim: true,
     index: true,
-    unqiue: true
+    unique: true
   },
   password: {
     type: String,
@@ -46,7 +47,8 @@ UserSchema.pre('save', function save(next) {
   });
 });
 
-const User = mongoose.model('User', UserSchema);
+//mongoose.models = {};
+let User = mongoose.model('User', UserSchema);
 
 module.exports = User;
 
