@@ -6,99 +6,71 @@ const session = require('express-session');
 const helmet = require('helmet');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
-
 // Helmet
 app.use(helmet());
+
+const PORT = process.env.PORT || 3001;
 
 //= === Socket.io =========
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
 
 let hostAnswer = '';
-
-// Set index to join
-// let quizNum = ['0', '1', '2']
 let quizid;
 
-// const allowedOrigins = 'http://localhost:3001';
-// io(server, { origins: allowedOrigins });
 io.of('/chat').on('connection', function(socket) {
-  // console.log(socket.client.server);
-
-  // console.log(socket);
-  // var clients = io.sockets.clients(nick.room); // all users from room
-  // console.log(clients);
-  // console.log(socket.server.engine.clientsCount);
   const player = {
     name: '',
     sign: '',
-    // id: '',
   };
+
+  // Deciding who is host and who is the guest of the game
   if (socket.server.engine.clientsCount < 2) {
     player.name = 'Host';
     player.sign = 'H';
-    // player.id = socket.client.id;
     console.log(player);
   } else if (socket.server.engine.clientsCount === 2) {
-    // if (!socket.handshake.headers.host) {
     player.name = 'Guest';
     player.sign = 'G';
     console.log(player);
   }
-
+  // Disconnecting the user if there are more than 2 users
+  if (socket.server.engine.clientsCount > 2) {
+    console.log('Lobby full');
+    socket.disconnect();
+  }
+  // Sending the player who they are
   socket.emit('player', {
     player,
   });
 
-  // }
-  // room.push(socket.id);
-  console.log('A user connected!'); // We'll replace this with our own events
+  console.log(`The ${player.name} joined`);
 
   socket.on('chatbox', function(res) {
-    console.log('res', res);
     socket.broadcast.emit('chatbox', {
       input: res,
     });
   });
 
-  // socket.emit('testing', {
-  //   data: 'testing',
-  // });
-
-  //= =========== Join ==================
-  // create event pass data
+  // getting the index of the quiz that the host picked
   socket.on('quiz', index => {
-    console.log(index);
     quizid = index;
-    // if (quizNum.includes(index)) {
-    //   socket.join(index)
-    //   io.of('/chat').in(index).emit('Guest', index)
-    // }
   });
+  // Sending the index of the quiz that the host picked
   socket.emit('Guest', quizid);
-  //= ========== End Join ===============
 
-  // socket.on('correct', res => {
-  //   socket.broadcast.emit('done', {
-  //     done: res.gainPoint,
-  //   });
-  // });
   socket.on('test2', res => {
     console.log(`TESR${res}`);
   });
 
   socket.on('questionDone', res => {
-    console.log(res, 'awdaw');
-
+    // Saving the host's answer on the server until the guest sends the answer
     if (res.player === 'Host') {
-      console.log('i am host');
-
       hostAnswer = res.answer;
-      console.log(`test${hostAnswer}`);
     }
 
     if (res.currentPlayer === 'Guest') {
+      // We then send both answers to both user
       socket.emit('answer', {
         host: {
           answer: hostAnswer,
@@ -115,13 +87,17 @@ io.of('/chat').on('connection', function(socket) {
           answer: res.answer,
         },
       });
+      console.log(`answer's sent`);
     }
+  });
 
-    console.log(res);
+  socket.on('disconnect', () => {
+    console.log(`${player.name} has left`);
   });
 });
 
 //= === Socket.io end =====
+
 require('dotenv').config();
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

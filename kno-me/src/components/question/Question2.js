@@ -16,20 +16,12 @@ export default class Question2 extends React.Component {
     };
   }
 
-  // Creating variable to save whichever user is logged in
-  //   let currentPlayer;
-  //   //intaniate variables from props
-  //   let passedData = props.location.state;
   componentDidMount() {
     const socket = io(':3001/chat');
     let currentPlayer;
 
     socket.on('Guest', res => {
-      console.log(res);
-
       questionData = parseInt(res);
-
-      console.log('PROPS', this.props);
 
       this.setState({
         question: this.props.location.state.data[questionData].questions,
@@ -38,7 +30,6 @@ export default class Question2 extends React.Component {
 
     // Send to socket.io
     function sendToServer(input) {
-      console.log('QUESTION2 INPUT', socket);
       socket.emit('chatbox', {
         test: input,
       });
@@ -46,30 +37,13 @@ export default class Question2 extends React.Component {
 
     // Get from socket
     socket.on('player', res => {
-      // console.log(res);
       currentPlayer = res.player.name;
       console.log(currentPlayer);
-      if (currentPlayer === 'Host') {
-        return console.log('waiting for player two');
-      }
-      return console.log('Guest');
     });
     socket.on('answer', res => {
-      console.log(res);
-
       console.log(res.host.answer);
       console.log(res.guest.answer);
     });
-
-    // const submitAnswer = event => {
-    //   event.preventDefault();
-    //   const answer = event.target.answer.value;
-    //   socket.emit('questionDone', {
-    //     currentPlayer,
-    //     answer,
-    //   });
-    //   event.target.answer.value = '';
-    // };
 
     this.setState({
       submitAnswer: event => {
@@ -89,10 +63,6 @@ export default class Question2 extends React.Component {
     socket.on('chatbox', res => {
       console.log(res, 'para tony');
     });
-
-    // const playerInput = e => {
-    //   sendToServer(e.target.value);
-    // };
   }
 
   handleNext = () => {

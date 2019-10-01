@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import {
@@ -67,9 +67,6 @@ export default function Question2Render(props) {
     submitAnswer,
     playerInput,
   } = props;
-
-  const { question2 } = question;
-  console.log('QUESTION IS HERE', question, 'test');
 
   const classes = useStyles();
   const theme = useTheme();
@@ -142,3 +139,12 @@ export default function Question2Render(props) {
     </Paper>
   );
 }
+
+Question2Render.propTypes = {
+  activeStep: PropTypes.number,
+  handleStepChange: PropTypes.func,
+  handleNext: PropTypes.func,
+  question: PropTypes.array,
+  submitAnswer: PropTypes.func,
+  playerInput: PropTypes.func,
+};
