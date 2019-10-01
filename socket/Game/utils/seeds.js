@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-expressions
-export default data = [
+// Let's rename this to quizzes, questions or something. Seeds feels wrong and makes it hard for me to take it seriously right now, like its initial filler data. I guess in a way it can be considered seed questions but there's a subtle difference. These aren't filler questions they're actually the quizzes or in our case quiz questions. This isn't data used to prepopluate something they're something used to get a response from the user. This makes sense to me now. -David
+module.exports = [
   {
     quiz: 'home life',
     questions: [
@@ -12,8 +13,8 @@ export default data = [
       'Most Likely To Lose Their House Keys?',
       ' Most Likely To Stay In Bed All Day?',
       "Describe Your Spouse’s Appearance On a Day When You’re Just Lounging Around The House: 'Always Ready To Go Out,' 'Keepin’ It Casual,' Or 'Did They Even Brush Their Teeth?!'",
-      'I Really Wish My Spouse Would _________ At Home.',
-    ],
+      'I Really Wish My Spouse Would _________ At Home.'
+    ]
   },
   {
     quiz: 'Your Relationship History',
@@ -27,8 +28,8 @@ export default data = [
       'What was the first trip you two took together?',
       "Who said 'I love you' first?",
       'When did you start dating?',
-      "Who said 'I love you' first?",
-    ],
+      "Who said 'I love you' first?"
+    ]
   },
   {
     quiz: 'How Well Do You Really Know Them?',
@@ -41,8 +42,8 @@ export default data = [
       'What Is A Sure-fire Way To Get on Their Nerves?',
       "What is Something They do Constantly That They Aren't Aware Of?",
       'What Would Be Your Spouse’s Ideal Date?',
-      "Which would they choose: the power of flight, or the power of time-travel?",
-      "If they could spend $500 on anything, how would they spend it?"
-    ],
+      'Which would they choose: the power of flight, or the power of time-travel?',
+      'If they could spend $500 on anything, how would they spend it?'
+    ]
   }
 ];
