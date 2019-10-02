@@ -18,11 +18,13 @@ const io = require('socket.io').listen(server);
 let hostAnswer = '';
 let quizid;
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
   const player = {
     name: '',
     sign: '',
   };
+
+  socket.on('disconnect', () => { console.log(`${player.name} disconnected`) })
 
   // Deciding who is host and who is the guest of the game
   if (socket.server.engine.clientsCount < 2) {
@@ -46,12 +48,14 @@ io.on('connection', function(socket) {
 
   console.log(`The ${player.name} joined`);
 
-  socket.on('chatbox', function(res) {
+  socket.on('chatbox', function (res) {
     socket.broadcast.emit('chatbox', {
       input: res,
     });
   });
-
+  // socket.emit('disconnect', () => {
+  //   socket.broadcast.emit('disconnect', console.log(`${player.name} disconnected`))
+  // })
   // getting the index of the quiz that the host picked
   socket.on('quiz', index => {
     quizid = index;
@@ -128,6 +132,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/knowme', {
   useCreateIndex: true,
 });
 // Start the API server
-server.listen(PORT, function() {
+server.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

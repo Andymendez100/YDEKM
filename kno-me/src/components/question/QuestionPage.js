@@ -113,6 +113,10 @@ const QuestionPage = props => {
       console.log(currentPlayer);
     });
 
+    // socket.on('disconnect', res => {
+    //   console.log('disconnect', res)
+    // })
+
     // Getting the answer from the guest and host
     socket.on('answer', res => {
       // Taking out the spaces and capitals
