@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 // import './LoginSign.css';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Paper, Grid, Avatar, Button, Typography, TextField } from '@material-ui/core';
+import { Paper, Grid, Avatar, Button, Typography, TextField, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +46,15 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function LoginSign(props) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //JWT
   const signUp = e => {
@@ -231,9 +241,29 @@ export default function LoginSign(props) {
                   type="submit"
                   id="signUpButton"
                   className={classes.submit}
+                  onClick={handleClickOpen}
                 >
                   Sign Up
                    </Button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">{"Successfully Signed Up!"}</DialogTitle>
+                  <DialogActions>
+                    <Link style={{ textDecoration: 'none' }}
+                      to={{
+                        pathname: '/'
+                      }}
+                    >
+                      <Button onClick={handleClose} color="primary" autoFocus variant="contained">
+                        OK
+                    </Button>
+                    </Link>
+                  </DialogActions>
+                </Dialog>
               </form>
             </Grid>
           </Paper>
