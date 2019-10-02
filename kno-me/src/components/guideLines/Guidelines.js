@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,7 +35,7 @@ const guideLines = [
         ]
     }
 ]
-console.log(guideLines[0].list)
+// console.log(guideLines[0].list)
 
 const GuideLines = () => {
     const classes = useStyles();

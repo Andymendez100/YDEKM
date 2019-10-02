@@ -1,8 +1,6 @@
-
 <h1 align="center"> 
   KNOW ME
 </h1>
-
 
 <p align="center">
   KNOW ME is a web application game based off the game show The Newlywed Game.
@@ -34,5 +32,3 @@ Once you have finished it is now time to see how well you know the other player.
 For each answer you have answered correctly you will get a point and whoever has the most points WINS.
 
 Lastly have fun and dont stress out. If you didnt know the answer to a question before now you know.
-
- 

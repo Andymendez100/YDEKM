@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import io from 'socket.io-client';
 
-export default function Store(props) {
+export default function Store() {
   //   const [userInput, setUserInput] = useState('');
   // console.log(props.Jwt);
 
