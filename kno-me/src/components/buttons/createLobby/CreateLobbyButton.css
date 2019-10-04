@@ -5,3 +5,9 @@
 /* .button:hover {
     
 } */
+@media (max-width: 425px) {
+
+.MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary {
+    margin: 10px;
+}
+}

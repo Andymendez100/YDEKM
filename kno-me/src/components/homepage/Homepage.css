@@ -1,6 +1,11 @@
 /* import font */
 /* @import url(https://fonts.googleapis.com/css?family=Crimson+Pro); */
 
+.buttonClass {
+    padding: 5px !important;
+    margin: 10px 100px !important;
+}
+
 .container {
     top: 1rem;
     position: fixed;
@@ -96,3 +101,40 @@
 
 } */
 
+
+@media (max-width: 425px) and (min-width: 400px ) {
+
+    .buttonClass {
+        margin: 10px !important;
+    }
+    .container {
+        top: 40%
+    }
+}
+
+@media (max-width: 399px) and (min-width: 340px ) {
+
+    .buttonClass {
+        margin: 10px !important;
+    }
+    .container {
+        top: 50%
+    }
+}
+
+@media (max-width: 339px) {
+
+    .buttonClass {
+        margin: 10px !important;
+    }
+    .container {
+        top: 55%
+    }
+}
+
+@media (max-width: 768px ) and (min-width: 426px ) {
+
+    .container {
+        top: 20%
+    }
+}

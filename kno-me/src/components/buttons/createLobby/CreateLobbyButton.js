@@ -1,6 +1,6 @@
 import React from 'react';
-import './CreateLobbyButton.css';
 import { Link } from 'react-router-dom';
+import './CreateLobbyButton.css';
 //This component links to CreateLobbyPage
 export default function CreateLobbyButton() {
     return (
