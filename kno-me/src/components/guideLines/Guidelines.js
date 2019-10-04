@@ -23,14 +23,14 @@ const useStyles = makeStyles(theme => ({
 const guideLines = [
     {
         list: [
-            "The purpose of the game KnowMe is to see how well the players know each other.",
-            "This is a 2 player game so one of the players will first have to create a lobby by choosing which quiz they would like to play.",
-            "Once a quiz has been selected PLAYER 2 will then navigate to the join lobby page and join PLAYER 1's lobby",
-            "Now both players will answer the questions given to them.",
-            "To make the game easier for the other player please try to keep the answer to a single word that comes to mind.",
-            "After both players have answered their questions they will then have to answer what the other player would answer for that question.",
-            "Once you have finished it is now time to see how well you know the other player.",
-            "For each answer you have answered correctly you will get a point and whoever has the most points WINS.",
+            "The purpose of the game KnowMe is to see how well you know your trivia.",
+            "This is a multiplayer player game so every player will have to sign up to play.",
+            "Once signed up and logged in the players must press START GAME.",
+            "Once START GAME has been pressed you will need to FIND GAME.",
+            "Once in the the lobby of the game you will need to wait for other players to join.",
+            "After the minimum amount of players(2) have joined the lobby the host will have to start game.",
+            "Once the game started you will be required to select an answer for the multiple choice question within the allotted time.",
+            "For each question you have answered correctly you will get a point and whoever has the most points WINS.",
             "Lastly have fun and dont stress out. If you didnt know the answer to a question before now you know.",
         ]
     }

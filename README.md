@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  KNOW ME is a web application game based off the game show The Newlywed Game.
+  KNOW ME is a web application game based on trivia games.
 </p>
 
 ## **For those that would like to Build upon the game.**
@@ -12,23 +12,24 @@ Firstly make a seprerate branch for yourself off the master branch. Then you wil
 
 ## **Objective of the game**
 
-The objective of the game is to see if you know the other player as well as you think you do.
+The objective of the game is to see if your Trivia knowledge is better than others.
 
 ## **Guide for the game**
 
-The purpose of the game KnowMe is to see how well the players know each other.
+The purpose of the game KnowMe is to see how well you know your trivia.
 
-This is a 2 player game so one of the players will first have to create a lobby by choosing which quiz they would like to play.
+This is a multiplayer player game so every player will have to sign up to play.
 
-Once a quiz has been selected PLAYER 2 will then navigate to the join lobby page and join PLAYER 1's lobby
-Now both players will answer the questions given to them.
+Once signed up and logged in the players must press START GAME.
 
-To make the game easier for the other player please try to keep the answer to a single word that comes to mind.
+Once START GAME has been pressed you will need to FIND GAME.
 
-After both players have answered their questions they will then have to answer what the other player would answer for that question.
+Once in the the lobby of the game you will need to wait for other players to join.
 
-Once you have finished it is now time to see how well you know the other player.
+After the minimum amount of players(2) have joined the lobby the host will have to start game.
 
-For each answer you have answered correctly you will get a point and whoever has the most points WINS.
+Once the game started you will be required to select an answer for the multiple choice question within the allotted time.
+
+For each question you have answered correctly you will get a point and whoever has the most points WINS.
 
 Lastly have fun and dont stress out. If you didnt know the answer to a question before now you know.
